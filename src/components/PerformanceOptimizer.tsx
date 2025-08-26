@@ -38,7 +38,7 @@ import {
   Error,
   Info,
   Tune,
-  Optimization
+  Speed
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import usePerformanceOptimization from '../hooks/usePerformanceOptimization';
@@ -158,7 +158,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Optimization sx={{ mr: 1, color: 'primary.main' }} />
+          <Speed sx={{ mr: 1, color: 'primary.main' }} />
           Optimizador de Rendimiento
         </Box>
         <Box>
