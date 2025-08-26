@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -26,6 +26,17 @@ import {
   ListItemText,
   ListItemAvatar,
   Divider,
+  Paper,
+  InputAdornment,
+  Slider,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Badge,
+  Switch,
+  FormControlLabel,
+  Alert,
+  Snackbar
 } from '@mui/material';
 import {
   Add as AddIcon,
@@ -35,120 +46,93 @@ import {
   School as SchoolIcon,
   FitnessCenter as DanceIcon,
   CalendarToday as CalendarIcon,
-  FitnessCenter,
-  CalendarToday,
+  Search as SearchIcon,
+  FilterList as FilterIcon,
+  CloudUpload as UploadIcon,
+  Download as DownloadIcon,
+  ExpandMore,
+  Phone,
+  Email,
+  LocationOn,
+  Group,
+  TrendingUp,
+  Visibility,
+  VisibilityOff,
+  Star,
+  StarBorder
 } from '@mui/icons-material';
-
-interface Student {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  age: number;
-  category: string;
-  level: string;
-  classes: string[];
-  coach: string;
-  joinDate: Date;
-  status: 'active' | 'inactive' | 'graduated';
-}
+import { motion, AnimatePresence } from 'framer-motion';
+import { Student, StudentFormData, StudentFilters, DanceGroup } from '../types/Student';
+import studentService from '../services/StudentService';
+import FileImporter from '../components/FileImporter';
 
 const Students: React.FC = () => {
-  const [students, setStudents] = useState<Student[]>([
-    {
-      id: '1',
-      name: 'Ana García',
-      email: 'ana.garcia@email.com',
-      phone: '+34 600 123 456',
-      age: 16,
-      category: 'Teens',
-      level: 'Intermedio',
-      classes: ['Hip Hop Teens', 'Contemporáneo Teens'],
-      coach: 'María González',
-      joinDate: new Date('2023-01-15'),
-      status: 'active',
-    },
-    {
-      id: '2',
-      name: 'Carlos Rodríguez',
-      email: 'carlos.rodriguez@email.com',
-      phone: '+34 600 234 567',
-      age: 14,
-      category: 'Teens',
-      level: 'Principiante',
-      classes: ['Hip Hop Teens'],
-      coach: 'María González',
-      joinDate: new Date('2023-03-20'),
-      status: 'active',
-    },
-    {
-      id: '3',
-      name: 'Laura Martínez',
-      email: 'laura.martinez@email.com',
-      phone: '+34 600 345 678',
-      age: 25,
-      category: 'Adultos',
-      level: 'Avanzado',
-      classes: ['Contemporáneo Adultos', 'Jazz Adultos'],
-      coach: 'Carlos Ruiz',
-      joinDate: new Date('2022-09-10'),
-      status: 'active',
-    },
-    {
-      id: '4',
-      name: 'Miguel López',
-      email: 'miguel.lopez@email.com',
-      phone: '+34 600 456 789',
-      age: 8,
-      category: 'Mini',
-      level: 'Principiante',
-      classes: ['Ragga Mini'],
-      coach: 'Ana Martínez',
-      joinDate: new Date('2023-02-05'),
-      status: 'active',
-    },
-  ]);
-
+  const [students, setStudents] = useState<Student[]>([]);
+  const [danceGroups, setDanceGroups] = useState<DanceGroup[]>([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [editingStudent, setEditingStudent] = useState<Student | null>(null);
-  const [selectedTab, setSelectedTab] = useState(0);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    age: 0,
-    category: '',
+  const [activeTab, setActiveTab] = useState(0);
+  const [filters, setFilters] = useState<StudentFilters>({
+    search: '',
     level: '',
-    coach: '',
+    status: '',
+    danceGroups: [],
+    ageRange: [0, 100],
+    isActive: true
+  });
+  const [showFilters, setShowFilters] = useState(false);
+  const [showImportDialog, setShowImportDialog] = useState(false);
+  const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' | 'info' }>({
+    open: false,
+    message: '',
+    severity: 'info'
   });
 
-  const categories = ['Mini', 'Teens', 'Adultos', 'High Level'];
-  const levels = ['Principiante', 'Intermedio', 'Avanzado', 'Experto'];
-  const coaches = ['María González', 'Carlos Ruiz', 'Ana Martínez', 'Luis Pérez'];
+  // Cargar datos iniciales
+  useEffect(() => {
+    loadStudents();
+    loadDanceGroups();
+  }, []);
+
+  const loadStudents = () => {
+    const allStudents = studentService.getAllStudents();
+    setStudents(allStudents);
+  };
+
+  const loadDanceGroups = () => {
+    const allGroups = studentService.getAllDanceGroups();
+    setDanceGroups(allGroups);
+  };
 
   const handleOpenDialog = (student?: Student) => {
     if (student) {
       setEditingStudent(student);
+      // Convertir estudiante a formato de formulario
       setFormData({
-        name: student.name,
-        email: student.email,
-        phone: student.phone,
-        age: student.age,
-        category: student.category,
+        firstName: student.firstName,
+        lastName: student.lastName,
+        dateOfBirth: student.dateOfBirth.toISOString().split('T')[0],
+        gender: student.gender,
+        email: student.email || '',
+        phone: student.phone || '',
+        address: student.address,
+        guardians: student.guardians.map(g => ({
+          name: g.name,
+          relationship: g.relationship,
+          phone: g.phone,
+          email: g.email,
+          emergencyContact: g.emergencyContact,
+          canPickUp: g.canPickUp
+        })),
+        danceGroups: student.danceGroups,
         level: student.level,
-        coach: student.coach,
+        medicalInfo: student.medicalInfo || '',
+        allergies: student.allergies || [],
+        notes: student.notes || ''
       });
     } else {
       setEditingStudent(null);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        age: 0,
-        category: '',
-        level: '',
-        coach: '',
-      });
+      setFormData(initialFormData);
     }
     setOpenDialog(true);
   };
@@ -156,328 +140,821 @@ const Students: React.FC = () => {
   const handleCloseDialog = () => {
     setOpenDialog(false);
     setEditingStudent(null);
+    setFormData(initialFormData);
   };
 
+  const initialFormData: StudentFormData = {
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    gender: 'Femenino',
+    email: '',
+    phone: '',
+    address: {
+      street: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      country: 'Chile'
+    },
+    guardians: [{
+      name: '',
+      relationship: 'Padre',
+      phone: '',
+      email: '',
+      emergencyContact: true,
+      canPickUp: true
+    }],
+    danceGroups: [],
+    level: 'Principiante',
+    medicalInfo: '',
+    allergies: [],
+    notes: ''
+  };
+
+  const [formData, setFormData] = useState<StudentFormData>(initialFormData);
+
   const handleSave = () => {
-    if (editingStudent) {
-      setStudents(students.map(s => 
-        s.id === editingStudent.id 
-          ? { ...s, ...formData }
-          : s
-      ));
-    } else {
-      const newStudent: Student = {
-        id: Date.now().toString(),
-        ...formData,
-        classes: [],
-        joinDate: new Date(),
-        status: 'active',
-      };
-      setStudents([...students, newStudent]);
+    if (!formData.firstName || !formData.lastName) {
+      setSnackbar({
+        open: true,
+        message: 'Nombre y apellido son obligatorios',
+        severity: 'error'
+      });
+      return;
     }
+
+    if (editingStudent) {
+      // Actualizar estudiante existente
+      const updated = studentService.updateStudent(editingStudent.id, {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        fullName: `${formData.firstName} ${formData.lastName}`,
+        dateOfBirth: new Date(formData.dateOfBirth),
+        age: studentService['calculateAge'](new Date(formData.dateOfBirth)),
+        gender: formData.gender as any,
+        email: formData.email,
+        phone: formData.phone,
+        address: formData.address,
+        guardians: formData.guardians.map((guardian, index) => ({
+          ...guardian,
+          id: editingStudent.guardians[index]?.id || `guardian-${Date.now()}-${index}`
+        })),
+        danceGroups: formData.danceGroups,
+        level: formData.level as any,
+        medicalInfo: formData.medicalInfo,
+        allergies: formData.allergies,
+        notes: formData.notes
+      });
+
+      if (updated) {
+        setSnackbar({
+          open: true,
+          message: 'Estudiante actualizado exitosamente',
+          severity: 'success'
+        });
+      }
+    } else {
+      // Crear nuevo estudiante
+      const newStudent = studentService.createStudent(formData);
+      setSnackbar({
+        open: true,
+        message: 'Estudiante creado exitosamente',
+        severity: 'success'
+      });
+    }
+
+    loadStudents();
     handleCloseDialog();
   };
 
-  const handleDelete = (id: string) => {
-    setStudents(students.filter(s => s.id !== id));
+  const handleDelete = (studentId: string) => {
+    if (window.confirm('¿Estás seguro de que quieres eliminar este estudiante?')) {
+      const deleted = studentService.deleteStudent(studentId);
+      if (deleted) {
+        setSnackbar({
+          open: true,
+          message: 'Estudiante eliminado exitosamente',
+          severity: 'success'
+        });
+        loadStudents();
+      }
+    }
   };
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setSelectedTab(newValue);
+  const handleImportComplete = (data: any[]) => {
+    // Procesar los datos importados usando el servicio
+    const result = studentService.importStudentsFromFile(data);
+    
+    console.log('Resultado de importación:', result);
+    
+    if (result.success > 0) {
+      setSnackbar({
+        open: true,
+        message: `${result.success} estudiantes importados exitosamente${result.errors.length > 0 ? `, ${result.errors.length} errores` : ''}`,
+        severity: result.errors.length > 0 ? 'info' : 'success'
+      });
+      
+      // Recargar la lista de estudiantes
+      loadStudents();
+    } else {
+      setSnackbar({
+        open: true,
+        message: `No se pudieron importar estudiantes. Errores: ${result.errors.join(', ')}`,
+        severity: 'error'
+      });
+    }
+    
+    setShowImportDialog(false);
   };
 
-  const getStatusColor = (status: string) => {
-    const colors: { [key: string]: string } = {
-      'active': 'success',
-      'inactive': 'warning',
-      'graduated': 'info',
-    };
-    return colors[status] || 'default';
+  const filteredStudents = studentService.filterStudents(filters);
+
+  const getStudentStats = () => {
+    return studentService.getStudentStats();
   };
 
-  const getCategoryColor = (category: string) => {
-    const colors: { [key: string]: string } = {
-      'Mini': '#ff9800',
-      'Teens': '#2196f3',
-      'Adultos': '#4caf50',
-      'High Level': '#9c27b0',
-    };
-    return colors[category] || '#757575';
-  };
-
-  const filteredStudents = students.filter(student => {
-    if (selectedTab === 0) return true;
-    if (selectedTab === 1) return student.category === 'Mini';
-    if (selectedTab === 2) return student.category === 'Teens';
-    if (selectedTab === 3) return student.category === 'Adultos';
-    if (selectedTab === 4) return student.category === 'High Level';
-    return true;
-  });
+  const stats = getStudentStats();
 
   return (
-    <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-        <Typography variant="h4" component="h1">
-          Estudiantes
-        </Typography>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => handleOpenDialog()}
-        >
-          Nuevo Estudiante
-        </Button>
-      </Box>
+    <Box sx={{ p: 3 }}>
+      <Typography variant="h4" sx={{ mb: 3, fontWeight: 'bold', color: 'primary.main' }}>
+        👥 Gestión de Estudiantes
+      </Typography>
 
       {/* Estadísticas */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" color="primary.main" sx={{ fontWeight: 'bold' }}>
-                {students.length}
+          <Card sx={{ 
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            color: 'white'
+          }}>
+            <CardContent>
+              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                {stats.totalStudents}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Total Estudiantes
-              </Typography>
+              <Typography variant="body2">Total Estudiantes</Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" color="success.main" sx={{ fontWeight: 'bold' }}>
-                {students.filter(s => s.status === 'active').length}
+          <Card sx={{ 
+            background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+            color: 'white'
+          }}>
+            <CardContent>
+              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                {stats.activeStudents}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Activos
-              </Typography>
+              <Typography variant="body2">Estudiantes Activos</Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" color="warning.main" sx={{ fontWeight: 'bold' }}>
-                {students.filter(s => s.category === 'Teens').length}
+          <Card sx={{ 
+            background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+            color: 'white'
+          }}>
+            <CardContent>
+              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                {stats.averageAge}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Teens
-              </Typography>
+              <Typography variant="body2">Edad Promedio</Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" color="info.main" sx={{ fontWeight: 'bold' }}>
-                {students.filter(s => s.category === 'Adultos').length}
+          <Card sx={{ 
+            background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+            color: 'white'
+          }}>
+            <CardContent>
+              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                {Math.round(stats.attendanceRate * 100)}%
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Adultos
-              </Typography>
+              <Typography variant="body2">Asistencia Promedio</Typography>
             </CardContent>
           </Card>
         </Grid>
       </Grid>
 
-      {/* Tabs por categoría */}
-      <Card sx={{ mb: 3 }}>
-        <Tabs value={selectedTab} onChange={handleTabChange} sx={{ px: 2 }}>
-          <Tab label="Todos" />
-          <Tab label="Mini" />
-          <Tab label="Teens" />
-          <Tab label="Adultos" />
-          <Tab label="High Level" />
-        </Tabs>
-      </Card>
+      {/* Barra de herramientas */}
+      <Paper sx={{ p: 2, mb: 3 }}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              placeholder="Buscar estudiantes..."
+              value={filters.search}
+              onChange={(e) => setFilters({ ...filters, search: e.target.value })}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end' }}>
+              <Button
+                startIcon={<FilterIcon />}
+                onClick={() => setShowFilters(!showFilters)}
+                variant={showFilters ? 'contained' : 'outlined'}
+              >
+                Filtros
+              </Button>
+              <Button
+                startIcon={<UploadIcon />}
+                onClick={() => setShowImportDialog(true)}
+                variant="outlined"
+                color="secondary"
+              >
+                Importar
+              </Button>
+              <Button
+                startIcon={<DownloadIcon />}
+                onClick={() => {
+                  const csv = studentService.exportStudentsToCSV();
+                  const blob = new Blob([csv], { type: 'text/csv' });
+                  const url = window.URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = 'estudiantes.csv';
+                  a.click();
+                  window.URL.revokeObjectURL(url);
+                }}
+                variant="outlined"
+              >
+                Exportar
+              </Button>
+              <Button
+                startIcon={<AddIcon />}
+                onClick={() => handleOpenDialog()}
+                variant="contained"
+                sx={{ 
+                  background: 'linear-gradient(45deg, #FF6B9D, #4ECDC4)',
+                  '&:hover': {
+                    background: 'linear-gradient(45deg, #FF5A8E, #3DB8B0)'
+                  }
+                }}
+              >
+                Nuevo Estudiante
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
+
+        {/* Filtros expandibles */}
+        {showFilters && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Box sx={{ mt: 2, pt: 2, borderTop: '1px solid', borderColor: 'divider' }}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6} md={3}>
+                  <FormControl fullWidth>
+                    <InputLabel>Nivel</InputLabel>
+                    <Select
+                      value={filters.level}
+                      onChange={(e) => setFilters({ ...filters, level: e.target.value })}
+                      label="Nivel"
+                    >
+                      <MenuItem value="">Todos</MenuItem>
+                      <MenuItem value="Principiante">Principiante</MenuItem>
+                      <MenuItem value="Intermedio">Intermedio</MenuItem>
+                      <MenuItem value="Avanzado">Avanzado</MenuItem>
+                      <MenuItem value="Experto">Experto</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <FormControl fullWidth>
+                    <InputLabel>Estado</InputLabel>
+                    <Select
+                      value={filters.status}
+                      onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+                      label="Estado"
+                    >
+                      <MenuItem value="">Todos</MenuItem>
+                      <MenuItem value="Activo">Activo</MenuItem>
+                      <MenuItem value="Inactivo">Inactivo</MenuItem>
+                      <MenuItem value="Suspendido">Suspendido</MenuItem>
+                      <MenuItem value="Graduado">Graduado</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <FormControl fullWidth>
+                    <InputLabel>Grupos</InputLabel>
+                    <Select
+                      multiple
+                      value={filters.danceGroups}
+                      onChange={(e) => setFilters({ ...filters, danceGroups: e.target.value as string[] })}
+                      label="Grupos"
+                    >
+                      {danceGroups.map((group) => (
+                        <MenuItem key={group.id} value={group.id}>
+                          {group.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <Box>
+                    <Typography variant="body2" gutterBottom>
+                      Rango de Edad: {filters.ageRange[0]} - {filters.ageRange[1]} años
+                    </Typography>
+                    <Slider
+                      value={filters.ageRange}
+                      onChange={(_, value) => setFilters({ ...filters, ageRange: value as [number, number] })}
+                      valueLabelDisplay="auto"
+                      min={0}
+                      max={100}
+                    />
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          </motion.div>
+        )}
+      </Paper>
 
       {/* Lista de estudiantes */}
       <Grid container spacing={3}>
-        {filteredStudents.map((student) => (
-          <Grid item xs={12} md={6} lg={4} key={student.id}>
-            <Card sx={{ height: '100%' }}>
-              <CardContent>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Avatar sx={{ mr: 2, bgcolor: 'primary.main' }}>
-                      {student.name.charAt(0)}
-                    </Avatar>
-                    <Box>
-                      <Typography variant="h6" component="h2" sx={{ fontWeight: 'bold' }}>
-                        {student.name}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {student.email}
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box>
-                    <Tooltip title="Editar">
-                      <IconButton size="small" onClick={() => handleOpenDialog(student)}>
-                        <EditIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Eliminar">
-                      <IconButton size="small" color="error" onClick={() => handleDelete(student.id)}>
-                        <DeleteIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </Box>
-                </Box>
-
-                <Box sx={{ mb: 2 }}>
-                  <Chip
-                    label={student.category}
-                    size="small"
-                    sx={{ 
-                      mr: 1, 
-                      backgroundColor: getCategoryColor(student.category), 
-                      color: 'white' 
-                    }}
-                  />
-                  <Chip
-                    label={student.level}
-                    size="small"
-                    variant="outlined"
-                    sx={{ mr: 1 }}
-                  />
-                  <Chip
-                    label={student.status}
-                    size="small"
-                    color={getStatusColor(student.status) as any}
-                  />
-                </Box>
-
-                <Box sx={{ mb: 2 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                    <SchoolIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
-                    <Typography variant="body2" color="text.secondary">
-                      {student.age} años
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                    <FitnessCenter sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
-                    <Typography variant="body2" color="text.secondary">
-                      Coach: {student.coach}
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                    <CalendarToday sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
-                    <Typography variant="body2" color="text.secondary">
-                      Inscrito: {student.joinDate.toLocaleDateString('es-ES')}
-                    </Typography>
-                  </Box>
-                </Box>
-
-                {student.classes.length > 0 && (
-                  <Box>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                      Clases inscritas:
-                    </Typography>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                      {student.classes.map((className, index) => (
+        <AnimatePresence>
+          {filteredStudents.map((student, index) => (
+            <Grid item xs={12} sm={6} md={4} key={student.id}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+              >
+                <Card sx={{ 
+                  height: '100%',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: 8
+                  }
+                }}>
+                  <CardContent>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                      <Avatar
+                        sx={{ 
+                          width: 56, 
+                          height: 56, 
+                          mr: 2,
+                          background: 'linear-gradient(45deg, #FF6B9D, #4ECDC4)'
+                        }}
+                      >
+                        {student.firstName.charAt(0)}{student.lastName.charAt(0)}
+                      </Avatar>
+                      <Box sx={{ flex: 1 }}>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                          {student.fullName}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          {student.age} años • {student.gender}
+                        </Typography>
+                      </Box>
+                      <Box>
                         <Chip
-                          key={index}
-                          label={className}
+                          label={student.level}
                           size="small"
-                          variant="outlined"
+                          color={
+                            student.level === 'Principiante' ? 'default' :
+                            student.level === 'Intermedio' ? 'primary' :
+                            student.level === 'Avanzado' ? 'secondary' : 'success'
+                          }
                         />
-                      ))}
+                      </Box>
                     </Box>
-                  </Box>
-                )}
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
+
+                    <Box sx={{ mb: 2 }}>
+                      {student.danceGroups.map((groupId) => {
+                        const group = danceGroups.find(g => g.id === groupId);
+                        return group ? (
+                          <Chip
+                            key={groupId}
+                            label={group.name}
+                            size="small"
+                            variant="outlined"
+                            sx={{ mr: 1, mb: 1 }}
+                          />
+                        ) : null;
+                      })}
+                    </Box>
+
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                      <Email sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
+                      <Typography variant="body2" color="text.secondary">
+                        {student.email || 'Sin email'}
+                      </Typography>
+                    </Box>
+
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                      <Phone sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
+                      <Typography variant="body2" color="text.secondary">
+                        {student.phone || 'Sin teléfono'}
+                      </Typography>
+                    </Box>
+
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                      <LocationOn sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
+                      <Typography variant="body2" color="text.secondary">
+                        {student.address.city}, {student.address.state}
+                      </Typography>
+                    </Box>
+
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                      <Group sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
+                      <Typography variant="body2" color="text.secondary">
+                        {student.danceGroups.length} grupo(s)
+                      </Typography>
+                    </Box>
+
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                      <TrendingUp sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
+                      <Typography variant="body2" color="text.secondary">
+                        {Math.round(student.attendanceRate * 100)}% asistencia
+                      </Typography>
+                    </Box>
+
+                    <Divider sx={{ my: 2 }} />
+
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Typography variant="caption" color="text.secondary">
+                        Inscrito: {student.joinDate.toLocaleDateString('es-ES')}
+                      </Typography>
+                      <Box>
+                        <IconButton
+                          size="small"
+                          onClick={() => handleOpenDialog(student)}
+                          color="primary"
+                        >
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton
+                          size="small"
+                          onClick={() => handleDelete(student.id)}
+                          color="error"
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Box>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </Grid>
+          ))}
+        </AnimatePresence>
       </Grid>
 
-      {/* Dialog para crear/editar estudiante */}
-      <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
+      {/* Diálogo de estudiante */}
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        maxWidth="md"
+        fullWidth
+        disablePortal
+      >
         <DialogTitle>
           {editingStudent ? 'Editar Estudiante' : 'Nuevo Estudiante'}
         </DialogTitle>
         <DialogContent>
-          <Grid container spacing={2} sx={{ mt: 1 }}>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Nombre Completo"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              />
+          <Tabs value={activeTab} onChange={(_, value) => setActiveTab(value)} sx={{ mb: 3 }}>
+            <Tab label="Información Personal" />
+            <Tab label="Contacto y Dirección" />
+            <Tab label="Apoderados" />
+            <Tab label="Información Académica" />
+            <Tab label="Información Médica" />
+          </Tabs>
+
+          {activeTab === 0 && (
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Nombre"
+                  value={formData.firstName}
+                  onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                  required
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Apellido"
+                  value={formData.lastName}
+                  onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                  required
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Fecha de Nacimiento"
+                  type="date"
+                  value={formData.dateOfBirth}
+                  onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
+                  InputLabelProps={{ shrink: true }}
+                  required
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel>Género</InputLabel>
+                  <Select
+                    value={formData.gender}
+                    onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+                    label="Género"
+                  >
+                    <MenuItem value="Femenino">Femenino</MenuItem>
+                    <MenuItem value="Masculino">Masculino</MenuItem>
+                    <MenuItem value="No binario">No binario</MenuItem>
+                    <MenuItem value="Prefiero no decir">Prefiero no decir</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              />
+          )}
+
+          {activeTab === 1 && (
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Teléfono"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Calle y Número"
+                  value={formData.address.street}
+                  onChange={(e) => setFormData({
+                    ...formData,
+                    address: { ...formData.address, street: e.target.value }
+                  })}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Ciudad"
+                  value={formData.address.city}
+                  onChange={(e) => setFormData({
+                    ...formData,
+                    address: { ...formData.address, city: e.target.value }
+                  })}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Región"
+                  value={formData.address.state}
+                  onChange={(e) => setFormData({
+                    ...formData,
+                    address: { ...formData.address, state: e.target.value }
+                  })}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Código Postal"
+                  value={formData.address.zipCode}
+                  onChange={(e) => setFormData({
+                    ...formData,
+                    address: { ...formData.address, zipCode: e.target.value }
+                  })}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="País"
+                  value={formData.address.country}
+                  onChange={(e) => setFormData({
+                    ...formData,
+                    address: { ...formData.address, country: e.target.value }
+                  })}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Teléfono"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              />
+          )}
+
+          {activeTab === 2 && (
+            <Box>
+              {formData.guardians.map((guardian, index) => (
+                <Paper key={index} sx={{ p: 2, mb: 2 }}>
+                  <Typography variant="h6" sx={{ mb: 2 }}>
+                    Apoderado {index + 1}
+                  </Typography>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        fullWidth
+                        label="Nombre Completo"
+                        value={guardian.name}
+                        onChange={(e) => {
+                          const newGuardians = [...formData.guardians];
+                          newGuardians[index].name = e.target.value;
+                          setFormData({ ...formData, guardians: newGuardians });
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <FormControl fullWidth>
+                        <InputLabel>Relación</InputLabel>
+                        <Select
+                          value={guardian.relationship}
+                          onChange={(e) => {
+                            const newGuardians = [...formData.guardians];
+                            newGuardians[index].relationship = e.target.value as any;
+                            setFormData({ ...formData, guardians: newGuardians });
+                          }}
+                          label="Relación"
+                        >
+                          <MenuItem value="Padre">Padre</MenuItem>
+                          <MenuItem value="Madre">Madre</MenuItem>
+                          <MenuItem value="Tutor">Tutor</MenuItem>
+                          <MenuItem value="Apoderado">Apoderado</MenuItem>
+                          <MenuItem value="Otro">Otro</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        fullWidth
+                        label="Teléfono"
+                        value={guardian.phone}
+                        onChange={(e) => {
+                          const newGuardians = [...formData.guardians];
+                          newGuardians[index].phone = e.target.value;
+                          setFormData({ ...formData, guardians: newGuardians });
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        fullWidth
+                        label="Email"
+                        type="email"
+                        value={guardian.email}
+                        onChange={(e) => {
+                          const newGuardians = [...formData.guardians];
+                          newGuardians[index].email = e.target.value;
+                          setFormData({ ...formData, guardians: newGuardians });
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={guardian.emergencyContact}
+                            onChange={(e) => {
+                              const newGuardians = [...formData.guardians];
+                              newGuardians[index].emergencyContact = e.target.checked;
+                              setFormData({ ...formData, guardians: newGuardians });
+                            }}
+                          />
+                        }
+                        label="Contacto de Emergencia"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={guardian.canPickUp}
+                            onChange={(e) => {
+                              const newGuardians = [...formData.guardians];
+                              newGuardians[index].canPickUp = e.target.checked;
+                              setFormData({ ...formData, guardians: newGuardians });
+                            }}
+                          />
+                        }
+                        label="Puede Recoger al Estudiante"
+                      />
+                    </Grid>
+                  </Grid>
+                </Paper>
+              ))}
+              <Button
+                startIcon={<AddIcon />}
+                onClick={() => setFormData({
+                  ...formData,
+                  guardians: [...formData.guardians, {
+                    name: '',
+                    relationship: 'Padre',
+                    phone: '',
+                    email: '',
+                    emergencyContact: false,
+                    canPickUp: false
+                  }]
+                })}
+                variant="outlined"
+              >
+                Agregar Apoderado
+              </Button>
+            </Box>
+          )}
+
+          {activeTab === 3 && (
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel>Nivel</InputLabel>
+                  <Select
+                    value={formData.level}
+                    onChange={(e) => setFormData({ ...formData, level: e.target.value })}
+                    label="Nivel"
+                  >
+                    <MenuItem value="Principiante">Principiante</MenuItem>
+                    <MenuItem value="Intermedio">Intermedio</MenuItem>
+                    <MenuItem value="Avanzado">Avanzado</MenuItem>
+                    <MenuItem value="Experto">Experto</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel>Grupos de Danza</InputLabel>
+                  <Select
+                    multiple
+                    value={formData.danceGroups}
+                    onChange={(e) => setFormData({ ...formData, danceGroups: e.target.value as string[] })}
+                    label="Grupos de Danza"
+                  >
+                    {danceGroups.map((group) => (
+                      <MenuItem key={group.id} value={group.id}>
+                        {group.name} - {group.style}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Notas"
+                  multiline
+                  rows={3}
+                  value={formData.notes}
+                  onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                  placeholder="Información adicional sobre el estudiante..."
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={6}>
-              <TextField
-                fullWidth
-                label="Edad"
-                type="number"
-                value={formData.age}
-                onChange={(e) => setFormData({ ...formData, age: parseInt(e.target.value) })}
-                InputProps={{ inputProps: { min: 1, max: 100 } }}
-              />
+          )}
+
+          {activeTab === 4 && (
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Información Médica"
+                  multiline
+                  rows={3}
+                  value={formData.medicalInfo}
+                  onChange={(e) => setFormData({ ...formData, medicalInfo: e.target.value })}
+                  placeholder="Condiciones médicas, alergias, medicamentos..."
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Alergias"
+                  value={formData.allergies.join(', ')}
+                  onChange={(e) => setFormData({
+                    ...formData,
+                    allergies: e.target.value.split(',').map(a => a.trim()).filter(a => a)
+                  })}
+                  placeholder="Separar múltiples alergias con comas"
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <InputLabel>Categoría</InputLabel>
-                <Select
-                  value={formData.category}
-                  label="Categoría"
-                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                >
-                  {categories.map((category) => (
-                    <MenuItem key={category} value={category}>{category}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <InputLabel>Nivel</InputLabel>
-                <Select
-                  value={formData.level}
-                  label="Nivel"
-                  onChange={(e) => setFormData({ ...formData, level: e.target.value })}
-                >
-                  {levels.map((level) => (
-                    <MenuItem key={level} value={level}>{level}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <InputLabel>Coach</InputLabel>
-                <Select
-                  value={formData.coach}
-                  label="Coach"
-                  onChange={(e) => setFormData({ ...formData, coach: e.target.value })}
-                >
-                  {coaches.map((coach) => (
-                    <MenuItem key={coach} value={coach}>{coach}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancelar</Button>
@@ -486,6 +963,42 @@ const Students: React.FC = () => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Diálogo de importación */}
+      <Dialog
+        open={showImportDialog}
+        onClose={() => setShowImportDialog(false)}
+        maxWidth="md"
+        fullWidth
+        disablePortal
+      >
+        <DialogTitle>Importar Estudiantes</DialogTitle>
+        <DialogContent>
+          <FileImporter
+            onImportComplete={handleImportComplete}
+            acceptedFormats={['.csv', '.json']}
+            maxFileSize={10}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowImportDialog(false)}>Cerrar</Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Snackbar para notificaciones */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+      >
+        <Alert
+          onClose={() => setSnackbar({ ...snackbar, open: false })}
+          severity={snackbar.severity}
+          sx={{ width: '100%' }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

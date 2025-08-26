@@ -56,6 +56,11 @@ import CollaborationPanel from '../components/CollaborationPanel';
 import MusicTimeline from '../components/MusicTimeline';
 import VideoAnalysis from '../components/VideoAnalysis';
 import TutorialGuide from '../components/TutorialGuide';
+import Formation3DPlayer from '../components/Formation3DPlayer';
+import studentService from '../services/StudentService';
+import videoService from '../services/VideoService';
+import musicService from '../services/MusicService';
+import { Student } from '../types/Student';
 
 interface Dancer {
   id: string;
@@ -171,6 +176,7 @@ const Choreography: React.FC = () => {
     description?: string;
   }>>([]);
   const [activeTab, setActiveTab] = useState(0);
+  const [currentFormationFrame, setCurrentFormationFrame] = useState<any>(null);
   const [selectedDancer, setSelectedDancer] = useState<string | undefined>(undefined);
   const [showTutorial, setShowTutorial] = useState(false);
   const [formData, setFormData] = useState({
@@ -180,11 +186,17 @@ const Choreography: React.FC = () => {
     musicFile: '',
     videoFile: ''
   });
+  const [selectedVideoId, setSelectedVideoId] = useState<string>('');
+  const [selectedMusicId, setSelectedMusicId] = useState<string>('');
 
   const canvasRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>();
 
-  const students = ['Ana García', 'Carlos Rodríguez', 'Laura Martínez', 'Miguel López', 'Sofía López', 'Diego Ruiz', 'Carmen Vega', 'Elena Morales'];
+  // Obtener estudiantes reales del servicio y deduplicar por nombre completo
+  const allStudents = studentService.getAllStudents();
+  const students = allStudents.filter((student, index, self) => 
+    index === self.findIndex(s => s.fullName === student.fullName)
+  );
   const categories = ['Mini', 'Teens', 'Adultos', 'High Level'];
   const difficulties = ['Principiante', 'Intermedio', 'Avanzado', 'Experto'];
   const coaches = ['María González', 'Carlos Ruiz', 'Ana Martínez', 'Luis Pérez'];
@@ -247,6 +259,8 @@ const Choreography: React.FC = () => {
     setOpenDialog(false);
     setEditingChoreography(null);
     setSelectedStudents([]);
+    setSelectedVideoId('');
+    setSelectedMusicId('');
     setFormData({
       name: '',
       category: '',
@@ -324,11 +338,11 @@ const Choreography: React.FC = () => {
     setCurrentTime(newValue as number);
   };
 
-  const handleStudentToggle = (student: string) => {
+  const handleStudentToggle = (studentName: string) => {
     setSelectedStudents(prev => 
-      prev.includes(student) 
-        ? prev.filter(s => s !== student)
-        : [...prev, student]
+      prev.includes(studentName) 
+        ? prev.filter(s => s !== studentName)
+        : [...prev, studentName]
     );
   };
 
@@ -521,6 +535,7 @@ const Choreography: React.FC = () => {
             }}
           >
                              <Tab label="🎭 Escenario 3D" />
+                 <Tab label="🎬 Reproductor 3D" />
                  <Tab label="🎵 Timeline Musical" />
                  <Tab label="💬 Colaboración" />
                  <Tab label="🎥 Análisis de Video" />
@@ -554,6 +569,28 @@ const Choreography: React.FC = () => {
         )}
 
         {activeTab === 1 && (
+          // Tab: Reproductor 3D
+          <Formation3DPlayer 
+            onFormationUpdate={(frame) => {
+              setCurrentFormationFrame(frame);
+              // Actualizar el escenario 3D con la formación actual
+              if (frame && frame.dancers) {
+                const updatedDancers = frame.dancers.map(dancer => ({
+                  id: dancer.id,
+                  name: dancer.name,
+                  x: dancer.x,
+                  y: dancer.y,
+                  z: dancer.z,
+                  color: dancer.color,
+                  isVisible: dancer.isVisible
+                }));
+                // setDancers(updatedDancers); // TODO: Implementar actualización de bailarines
+              }
+            }}
+          />
+        )}
+
+        {activeTab === 2 && (
           // Tab: Timeline Musical
           <Box>
             <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', textAlign: 'center' }}>
@@ -610,6 +647,28 @@ const Choreography: React.FC = () => {
          )}
 
          {activeTab === 3 && (
+           // Tab: Colaboración
+           <Box>
+             <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', textAlign: 'center' }}>
+               💬 Colaboración en Tiempo Real
+             </Typography>
+             {selectedChoreography ? (
+               <CollaborationPanel
+                 choreographyId={selectedChoreography.id}
+                 currentTime={currentTime}
+                 onPositionComment={(comment) => console.log('Comentario de posición:', comment)}
+               />
+             ) : (
+               <Paper sx={{ p: 4, textAlign: 'center' }}>
+                 <Typography variant="h6" color="text.secondary">
+                   Selecciona una coreografía para acceder a la colaboración
+                 </Typography>
+               </Paper>
+             )}
+           </Box>
+         )}
+
+         {activeTab === 4 && (
            // Tab: Análisis de Video
            <Box>
              <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', textAlign: 'center' }}>
@@ -632,7 +691,7 @@ const Choreography: React.FC = () => {
            </Box>
          )}
 
-                 {activeTab === 4 && (
+                 {activeTab === 5 && (
            // Tab: Lista de Coreografías
           <Grid container spacing={3}>
             <Grid item xs={12} md={4}>
@@ -961,82 +1020,96 @@ const Choreography: React.FC = () => {
                 />
               </Grid>
 
-              {/* Subida de Música */}
+              {/* Selección de Música Simulada */}
               <Grid item xs={12} sm={6}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  <Typography variant="subtitle2">🎵 Archivo de Música</Typography>
-                  <input
-                    accept="audio/*"
-                    style={{ display: 'none' }}
-                    id="music-upload"
-                    type="file"
+                  <Typography variant="subtitle2">🎵 Música de Coreografía</Typography>
+                  <TextField
+                    fullWidth
+                    select
+                    value={selectedMusicId}
                     onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        setFormData({ ...formData, musicFile: file.name });
-                        console.log('🎵 Archivo de música seleccionado:', file);
-                        // TODO: Implementar subida real del archivo
+                      setSelectedMusicId(e.target.value);
+                      const selectedMusic = musicService.getMusicTracks().find(m => m.id === e.target.value);
+                      if (selectedMusic) {
+                        setFormData({ ...formData, musicFile: selectedMusic.title });
+                        console.log('🎵 Música seleccionada:', selectedMusic);
                       }
                     }}
-                  />
-                  <label htmlFor="music-upload">
-                    <Button
-                      variant="outlined"
-                      component="span"
-                      startIcon={<MusicIcon />}
-                      fullWidth
-                      sx={{ 
-                        justifyContent: 'flex-start', 
-                        textTransform: 'none',
+                    variant="outlined"
+                    placeholder="Seleccionar música..."
+                    sx={{ 
+                      '& .MuiOutlinedInput-root': {
                         borderStyle: 'dashed',
                         '&:hover': { backgroundColor: 'rgba(255, 107, 157, 0.04)' }
-                      }}
-                    >
-                      {formData.musicFile || 'Seleccionar música...'}
-                    </Button>
-                  </label>
+                      }
+                    }}
+                  >
+                    <MenuItem value="">
+                      <em>Seleccionar música...</em>
+                    </MenuItem>
+                    {musicService.getMusicTracks().map((music) => (
+                      <MenuItem key={music.id} value={music.id}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                          <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                            {music.title}
+                          </Typography>
+                          <Typography variant="caption" color="text.secondary">
+                            {music.duration}s • {music.genre} • {music.tempo} BPM
+                          </Typography>
+                        </Box>
+                      </MenuItem>
+                    ))}
+                  </TextField>
                   <Typography variant="caption" color="text.secondary">
-                    📁 MP3, WAV, AAC, OGG (máx. 50MB)
+                    🎶 16 pistas de música simulada con diferentes géneros y tempos
                   </Typography>
                 </Box>
               </Grid>
 
-              {/* Subida de Video */}
+              {/* Selección de Video Simulado */}
               <Grid item xs={12} sm={6}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  <Typography variant="subtitle2">🎥 Video de Referencia (Opcional)</Typography>
-                  <input
-                    accept="video/*"
-                    style={{ display: 'none' }}
-                    id="video-upload"
-                    type="file"
+                  <Typography variant="subtitle2">🎥 Video de Formación 3D (Opcional)</Typography>
+                  <TextField
+                    fullWidth
+                    select
+                    value={selectedVideoId}
                     onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        setFormData({ ...formData, videoFile: file.name });
-                        console.log('🎥 Archivo de video seleccionado:', file);
-                        // TODO: Implementar subida real del archivo
+                      setSelectedVideoId(e.target.value);
+                      const selectedVideo = videoService.getVideoTracks().find(v => v.id === e.target.value);
+                      if (selectedVideo) {
+                        setFormData({ ...formData, videoFile: selectedVideo.title });
+                        console.log('🎥 Video seleccionado:', selectedVideo);
                       }
                     }}
-                  />
-                  <label htmlFor="video-upload">
-                    <Button
-                      variant="outlined"
-                      component="span"
-                      startIcon={<AddIcon />}
-                      fullWidth
-                      sx={{ 
-                        justifyContent: 'flex-start', 
-                        textTransform: 'none',
+                    variant="outlined"
+                    placeholder="Seleccionar video de formación..."
+                    sx={{ 
+                      '& .MuiOutlinedInput-root': {
                         borderStyle: 'dashed',
                         '&:hover': { backgroundColor: 'rgba(78, 205, 196, 0.04)' }
-                      }}
-                    >
-                      {(formData as any).videoFile || 'Seleccionar video...'}
-                    </Button>
-                  </label>
+                      }
+                    }}
+                  >
+                    <MenuItem value="">
+                      <em>Seleccionar video de formación...</em>
+                    </MenuItem>
+                    {videoService.getVideoTracks().map((video) => (
+                      <MenuItem key={video.id} value={video.id}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                          <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                            {video.title}
+                          </Typography>
+                          <Typography variant="caption" color="text.secondary">
+                            {video.duration}s • {video.type} • {video.resolution}
+                          </Typography>
+                        </Box>
+                      </MenuItem>
+                    ))}
+                  </TextField>
                   <Typography variant="caption" color="text.secondary">
-                    📁 MP4, MOV, AVI, MKV (máx. 500MB)
+                    🎬 Videos simulados con formaciones 3D generadas automáticamente
                   </Typography>
                 </Box>
               </Grid>
@@ -1048,11 +1121,11 @@ const Choreography: React.FC = () => {
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, maxHeight: 200, overflow: 'auto' }}>
                   {students.map((student) => (
                     <Chip
-                      key={student}
-                      label={student}
-                      onClick={() => handleStudentToggle(student)}
-                      color={selectedStudents.includes(student) ? 'primary' : 'default'}
-                      variant={selectedStudents.includes(student) ? 'filled' : 'outlined'}
+                      key={student.id}
+                      label={student.fullName}
+                      onClick={() => handleStudentToggle(student.fullName)}
+                      color={selectedStudents.includes(student.fullName) ? 'primary' : 'default'}
+                      variant={selectedStudents.includes(student.fullName) ? 'filled' : 'outlined'}
                       sx={{ 
                         cursor: 'pointer',
                         '&:hover': { transform: 'scale(1.05)' },
