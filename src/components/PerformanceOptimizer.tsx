@@ -37,8 +37,7 @@ import {
   Warning,
   Error,
   Info,
-  Tune,
-  Speed
+  Tune
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import usePerformanceOptimization from '../hooks/usePerformanceOptimization';
