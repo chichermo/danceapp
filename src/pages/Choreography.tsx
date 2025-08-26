@@ -45,7 +45,7 @@ import {
   Group,
   People
 } from '@mui/icons-material';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import Stage3D from '../components/Stage3D';
 import CollaborationPanel from '../components/CollaborationPanel';
 import MusicTimeline from '../components/MusicTimeline';
@@ -65,13 +65,7 @@ import studentService from '../services/StudentService';
 import videoService from '../services/VideoService';
 import musicService from '../services/MusicService';
 import persistenceService from '../services/PersistenceService';
-import metricsService from '../services/MetricsService';
-import aiService from '../services/AIService';
-import socialService from '../services/SocialService';
-import analyticsService from '../services/AnalyticsService';
 import authService from '../services/AuthService';
-import realtimeService from '../services/RealtimeService';
-import { Student } from '../types/Student';
 
 interface Dancer {
   id: string;
@@ -503,34 +497,54 @@ const Choreography: React.FC = () => {
 
   return (
     <Box sx={{ 
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      minHeight: '100vh',
-      p: 3
+      width: '100%',
+      maxWidth: '100%',
+      overflow: 'hidden',
     }}>
       <Box sx={{ 
         background: 'rgba(255, 255, 255, 0.95)',
-        borderRadius: 4,
-        p: 4,
+        borderRadius: { xs: 2, sm: 4 },
+        p: { xs: 2, sm: 3, md: 4 },
         backdropFilter: 'blur(10px)',
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+        width: '100%',
+        maxWidth: '100%',
+        overflow: 'hidden',
       }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-          <Box>
+        <Box sx={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: { xs: 'flex-start', sm: 'center' },
+          mb: 4,
+          flexDirection: { xs: 'column', sm: 'row' },
+          gap: { xs: 2, sm: 0 },
+        }}>
+          <Box sx={{ flex: 1, minWidth: 0 }}>
             <Typography variant="h3" component="h1" sx={{ 
               fontWeight: 'bold',
               background: 'linear-gradient(45deg, #667eea, #764ba2)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
-              mb: 1
+              mb: 1,
+              fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
             }}>
               🎭 Coreografías
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.secondary" sx={{
+              fontSize: { xs: '0.875rem', sm: '1rem' },
+            }}>
               Crea, edita y sincroniza tus coreografías con música
             </Typography>
           </Box>
-          <Box sx={{ display: 'flex', gap: 2 }}>
+          <Box sx={{ 
+            display: 'flex', 
+            gap: { xs: 1, sm: 2 },
+            flexWrap: 'wrap',
+            justifyContent: { xs: 'flex-start', sm: 'flex-end' },
+            width: { xs: '100%', sm: 'auto' },
+            overflow: 'auto',
+          }}>
             <Button
               variant="outlined"
               startIcon={<GroupIcon />}
@@ -539,10 +553,11 @@ const Choreography: React.FC = () => {
                 borderColor: '#667eea',
                 color: '#667eea',
                 borderRadius: 3,
-                px: 3,
+                px: { xs: 2, sm: 3 },
                 py: 1.5,
-                fontSize: '1rem',
+                fontSize: { xs: '0.875rem', sm: '1rem' },
                 fontWeight: 'bold',
+                minWidth: { xs: 'auto', sm: '120px' },
                 '&:hover': {
                   backgroundColor: 'rgba(102, 126, 234, 0.1)',
                   borderColor: '#5a6fd8',
@@ -617,11 +632,12 @@ const Choreography: React.FC = () => {
               sx={{
                 background: 'linear-gradient(45deg, #667eea, #764ba2)',
                 borderRadius: 3,
-                px: 4,
+                px: { xs: 2, sm: 3, md: 4 },
                 py: 1.5,
-                fontSize: '1.1rem',
+                fontSize: { xs: '0.875rem', sm: '1rem', md: '1.1rem' },
                 fontWeight: 'bold',
                 boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)',
+                minWidth: { xs: 'auto', sm: '140px' },
                 '&:hover': {
                   boxShadow: '0 6px 20px rgba(102, 126, 234, 0.6)',
                 }
@@ -637,10 +653,11 @@ const Choreography: React.FC = () => {
                 borderColor: '#667eea',
                 color: '#667eea',
                 borderRadius: 3,
-                px: 4,
+                px: { xs: 2, sm: 3, md: 4 },
                 py: 1.5,
-                fontSize: '1.1rem',
+                fontSize: { xs: '0.875rem', sm: '1rem', md: '1.1rem' },
                 fontWeight: 'bold',
+                minWidth: { xs: 'auto', sm: '120px' },
                 '&:hover': {
                   borderColor: '#5a6fd8',
                   backgroundColor: 'rgba(102, 126, 234, 0.04)',
@@ -773,17 +790,25 @@ const Choreography: React.FC = () => {
         </Box>
 
         {/* Tabs de Navegación */}
-        <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
+        <Box sx={{ 
+          borderBottom: 1, 
+          borderColor: 'divider', 
+          mb: 3,
+          overflow: 'auto',
+        }}>
           <Tabs 
             value={activeTab} 
             onChange={(e, newValue) => setActiveTab(newValue)}
+            variant="scrollable"
+            scrollButtons="auto"
             sx={{ 
               '& .MuiTab-root': { 
                 minWidth: 'auto', 
-                px: 3,
+                px: { xs: 1.5, sm: 2, md: 3 },
                 textTransform: 'none',
                 fontWeight: 'bold',
-                fontSize: '1rem'
+                fontSize: { xs: '0.875rem', sm: '1rem' },
+                whiteSpace: 'nowrap',
               }
             }}
           >

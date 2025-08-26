@@ -78,7 +78,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return currentItem ? currentItem.label : 'Heliopsis Dance Academy';
   };
 
-  const drawerWidth = 280;
+  const drawerWidth = 220;
 
   const drawer = (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -86,7 +86,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <Box sx={{
         background: 'linear-gradient(135deg, #FF6B9D 0%, #4ECDC4 100%)',
         color: 'white',
-        p: 3,
+        p: 2,
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden',
@@ -94,47 +94,47 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         {/* Elementos decorativos */}
         <Box sx={{
           position: 'absolute',
-          top: -20,
-          right: -20,
-          width: 80,
-          height: 80,
+          top: -15,
+          right: -15,
+          width: 60,
+          height: 60,
           borderRadius: '50%',
           background: 'rgba(255,255,255,0.1)',
         }} />
         <Box sx={{
           position: 'absolute',
-          bottom: -30,
-          left: -30,
-          width: 100,
-          height: 100,
+          bottom: -20,
+          left: -20,
+          width: 80,
+          height: 80,
           borderRadius: '50%',
           background: 'rgba(255,255,255,0.08)',
         }} />
         
         <Avatar
           sx={{
-            width: 80,
-            height: 80,
+            width: 60,
+            height: 60,
             mx: 'auto',
-            mb: 2,
+            mb: 1.5,
             background: 'rgba(255,255,255,0.2)',
-            border: '3px solid rgba(255,255,255,0.3)',
-            fontSize: '2rem',
+            border: '2px solid rgba(255,255,255,0.3)',
+            fontSize: '1.5rem',
             fontWeight: 'bold',
           }}
         >
           🎭
         </Avatar>
-        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
+        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 0.5, fontSize: '1.1rem' }}>
           Heliopsis
         </Typography>
-        <Typography variant="body2" sx={{ opacity: 0.9 }}>
+        <Typography variant="body2" sx={{ opacity: 0.9, fontSize: '0.8rem' }}>
           Dance Academy
         </Typography>
       </Box>
 
       {/* Navegación */}
-      <Box sx={{ flex: 1, p: 2 }}>
+      <Box sx={{ flex: 1, p: 1.5, overflow: 'auto' }}>
         <List>
           {navigationItems.map((item) => {
             const isActive = location.pathname === item.path;
@@ -144,19 +144,23 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 button
                 onClick={() => handleNavigation(item.path)}
                 sx={{
-                  borderRadius: 3,
-                  mb: 1,
-                  background: isActive ? 'rgba(255, 107, 157, 0.1)' : 'transparent',
-                  border: isActive ? '2px solid #FF6B9D' : 'none',
+                  borderRadius: 2,
+                  mb: 0.5,
+                  py: 1,
+                  px: 1.5,
+                  background: isActive ? 'rgba(255, 107, 157, 0.2)' : 'transparent',
+                  border: isActive ? '2px solid #FF6B9D' : '1px solid rgba(255,255,255,0.1)',
                   '&:hover': {
-                    background: isActive ? 'rgba(255, 107, 157, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+                    background: isActive ? 'rgba(255, 107, 157, 0.25)' : 'rgba(255, 255, 255, 0.1)',
+                    border: '1px solid rgba(255,255,255,0.2)',
                   },
                   transition: 'all 0.3s ease',
+                  cursor: 'pointer',
                 }}
               >
                 <ListItemIcon sx={{ 
-                  color: isActive ? '#FF6B9D' : 'rgba(255,255,255,0.7)',
-                  minWidth: 40,
+                  color: isActive ? '#FF6B9D' : 'rgba(255,255,255,0.8)',
+                  minWidth: 35,
                 }}>
                   {item.icon}
                 </ListItemIcon>
@@ -164,8 +168,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                   primary={item.label}
                   sx={{
                     '& .MuiTypography-root': {
-                      fontWeight: isActive ? 600 : 400,
-                      color: isActive ? '#FF6B9D' : 'rgba(255,255,255,0.9)',
+                      fontWeight: isActive ? 600 : 500,
+                      color: isActive ? '#FF6B9D' : 'white',
+                      fontSize: '0.9rem',
                     }
                   }}
                 />
@@ -178,6 +183,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                         background: '#FF6B9D',
                         color: 'white',
                         fontWeight: 'bold',
+                        fontSize: '0.75rem',
                       }
                     }}
                   />
@@ -189,14 +195,33 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </Box>
 
       {/* Footer del drawer */}
-      <Box sx={{ p: 2, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-        <ListItem button onClick={handleAccountMenuOpen}>
-          <ListItemIcon sx={{ color: 'rgba(255,255,255,0.7)' }}>
+      <Box sx={{ p: 1.5, borderTop: '1px solid rgba(255,255,255,0.2)' }}>
+        <ListItem 
+          button 
+          onClick={handleAccountMenuOpen}
+          sx={{
+            borderRadius: 2,
+            py: 1,
+            px: 1.5,
+            '&:hover': {
+              background: 'rgba(255, 255, 255, 0.1)',
+            },
+            transition: 'all 0.3s ease',
+            cursor: 'pointer',
+          }}
+        >
+          <ListItemIcon sx={{ color: 'rgba(255,255,255,0.8)', minWidth: 35 }}>
             <AccountIcon />
           </ListItemIcon>
           <ListItemText 
             primary="Mi Cuenta"
-            sx={{ '& .MuiTypography-root': { color: 'rgba(255,255,255,0.9)' } }}
+            sx={{ 
+              '& .MuiTypography-root': { 
+                color: 'white',
+                fontWeight: 500,
+                fontSize: '0.9rem',
+              } 
+            }}
           />
         </ListItem>
       </Box>
@@ -213,10 +238,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           ml: { md: `${drawerWidth}px` },
           background: 'linear-gradient(135deg, #FF6B9D 0%, #4ECDC4 100%)',
           boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+          zIndex: theme.zIndex.drawer + 1,
         }}
       >
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Toolbar sx={{ justifyContent: 'space-between', minHeight: '64px !important' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 0, flex: 1 }}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -226,21 +252,35 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             >
               <MenuIcon />
             </IconButton>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <HomeIcon sx={{ mr: 1, fontSize: 28 }} />
-              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
+              <HomeIcon sx={{ mr: 1, fontSize: { xs: 24, sm: 28 }, flexShrink: 0 }} />
+              <Typography 
+                variant="h6" 
+                sx={{ 
+                  fontWeight: 'bold',
+                  fontSize: { xs: '1rem', sm: '1.25rem' },
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
                 {getPageTitle()}
               </Typography>
             </Box>
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: { xs: 0.5, sm: 1 },
+            flexShrink: 0,
+          }}>
             <IconButton color="inherit" sx={{ position: 'relative' }}>
               <Badge badgeContent={4} color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton color="inherit">
+            <IconButton color="inherit" sx={{ display: { xs: 'none', sm: 'flex' } }}>
               <SettingsIcon />
             </IconButton>
             <IconButton
@@ -272,6 +312,10 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               boxSizing: 'border-box',
               width: drawerWidth,
               border: 'none',
+              background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+              color: 'white',
+              zIndex: theme.zIndex.drawer,
+              overflow: 'hidden',
             },
           }}
         >
@@ -288,9 +332,17 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           mt: '64px',
           background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
           minHeight: 'calc(100vh - 64px)',
+          overflow: 'auto',
+          position: 'relative',
         }}
       >
-        {children}
+        <Box sx={{ 
+          p: { xs: 1, sm: 2, md: 3 },
+          maxWidth: '100%',
+          overflow: 'hidden',
+        }}>
+          {children}
+        </Box>
       </Box>
 
       {/* Menú de cuenta */}

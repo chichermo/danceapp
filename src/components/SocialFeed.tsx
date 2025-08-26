@@ -369,7 +369,7 @@ const SocialFeed: React.FC<SocialFeedProps> = ({ open, onClose }) => {
                             <Button
                               startIcon={post.likes > 0 ? <Favorite /> : <FavoriteBorder />}
                               onClick={() => handleLike(post.id)}
-                              color={post.likes > 0 ? 'error' : 'default'}
+                              color={post.likes > 0 ? 'error' : 'inherit'}
                             >
                               {post.likes}
                             </Button>

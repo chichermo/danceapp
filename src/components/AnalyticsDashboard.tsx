@@ -491,7 +491,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                             />
                             <LinearProgress
                               variant="determinate"
-                              value={Math.min(100, (usage / Math.max(...Object.values(analyticsData.summary.featureUsage))) * 100)}
+                              value={Math.min(100, (usage / Math.max(...Object.values(analyticsData.summary.featureUsage).map(v => Number(v) || 0))) * 100)}
                               sx={{ width: 100 }}
                             />
                           </ListItem>

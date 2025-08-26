@@ -1,6 +1,6 @@
 export interface RealtimeEvent {
   id: string;
-  type: 'formation_update' | 'dancer_move' | 'comment' | 'user_join' | 'user_leave' | 'sync_request';
+  type: 'formation_update' | 'dancer_move' | 'comment' | 'user_join' | 'user_leave' | 'sync_request' | 'connection' | 'heartbeat' | 'conflict_resolved';
   data: any;
   timestamp: Date;
   userId: string;
@@ -74,6 +74,7 @@ class RealtimeService {
       this.syncState.lastSyncTime = new Date();
       this.startHeartbeat();
       this.notifyListeners('connection', {
+        id: `connection-${Date.now()}`,
         type: 'connection',
         data: { status: 'connected' },
         timestamp: new Date(),

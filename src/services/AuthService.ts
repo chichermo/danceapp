@@ -206,7 +206,7 @@ class AuthService {
         this.currentUser = response.user;
 
         // Guardar en localStorage si se seleccionó "recordarme"
-        if (credentials.rememberMe) {
+        if (credentials.rememberMe && this.token) {
           localStorage.setItem('auth_token', this.token);
           localStorage.setItem('auth_user', JSON.stringify(this.currentUser));
         }
@@ -300,7 +300,9 @@ class AuthService {
         this.refreshToken = response.refreshToken;
         
         // Actualizar token en localStorage
-        localStorage.setItem('auth_token', this.token);
+        if (this.token) {
+          localStorage.setItem('auth_token', this.token);
+        }
         
         return true;
       } else {
@@ -413,7 +415,7 @@ class AuthService {
   }
 
   // Restablecer contraseña
-  async resetPassword(email: string): Promise<{ success: boolean; error?: string }> {
+  async resetPassword(email: string): Promise<{ success: boolean; error?: string; message?: string }> {
     try {
       // Simular envío de email de restablecimiento
       await new Promise(resolve => setTimeout(resolve, 1000));

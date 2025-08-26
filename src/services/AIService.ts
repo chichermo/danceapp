@@ -177,7 +177,12 @@ class AIService {
     description: string;
     suggestion: string;
   }> {
-    const issues = [];
+    const issues: Array<{
+      type: 'alignment' | 'balance' | 'timing' | 'spacing';
+      severity: 'low' | 'medium' | 'high';
+      description: string;
+      suggestion: string;
+    }> = [];
 
     // Análisis de alineación
     const alignmentScore = this.analyzeAlignment(dancer);
@@ -285,12 +290,17 @@ class AIService {
   }
 
   // Calcular puntuación general
-  private calculateOverallScore(issues: any[]): number {
+  private calculateOverallScore(issues: Array<{
+    type: 'alignment' | 'balance' | 'timing' | 'spacing';
+    severity: 'low' | 'medium' | 'high';
+    description: string;
+    suggestion: string;
+  }>): number {
     if (issues.length === 0) return 100;
     
-    const severityWeights = { low: 0.1, medium: 0.3, high: 0.6 };
+    const severityWeights: { [key: string]: number } = { low: 0.1, medium: 0.3, high: 0.6 };
     const totalPenalty = issues.reduce((sum, issue) => {
-      return sum + severityWeights[issue.severity];
+      return sum + (severityWeights[issue.severity] || 0);
     }, 0);
     
     return Math.max(0, 100 - (totalPenalty * 100));
@@ -302,7 +312,12 @@ class AIService {
     musicTempo: number;
     style: string;
   }): ChoreographyOptimization {
-    const suggestions = [];
+    const suggestions: Array<{
+      type: 'timing' | 'spacing' | 'formation' | 'flow';
+      description: string;
+      impact: 'low' | 'medium' | 'high';
+      implementation: string;
+    }> = [];
     let overallImprovement = 0;
 
     // Analizar formaciones
@@ -373,7 +388,7 @@ class AIService {
 
   // Analizar timing de coreografía (simulado)
   private analyzeChoreographyTiming(choreography: any): { score: number; issues: string[] } {
-    const issues = [];
+    const issues: string[] = [];
     let score = 0.9;
 
     // Simular análisis de timing
@@ -387,7 +402,7 @@ class AIService {
 
   // Analizar espaciado de coreografía (simulado)
   private analyzeChoreographySpacing(formations: any[]): { score: number; issues: string[] } {
-    const issues = [];
+    const issues: string[] = [];
     let score = 0.85;
 
     // Simular análisis de espaciado

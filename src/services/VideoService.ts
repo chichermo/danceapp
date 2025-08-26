@@ -326,7 +326,8 @@ class VideoService {
 
   // Generar URL de thumbnail simulada
   private generateThumbnailUrl(type: string, style: string): string {
-    return `https://via.placeholder.com/320x180/4ECDC4/FFFFFF?text=${encodeURIComponent(`${type} ${style}`)}`;
+    const text = encodeURIComponent(`${type} ${style}`);
+    return `data:image/svg+xml;base64,${btoa(`<svg width="320" height="180" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#4ECDC4"/><text x="50%" y="50%" font-family="Arial" font-size="14" fill="white" text-anchor="middle" dy=".3em">${text}</text></svg>`)}`;
   }
 
   // Obtener todos los videos

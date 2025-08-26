@@ -64,9 +64,9 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
 
   const {
     collectPerformanceMetrics,
-    useMemoryOptimization,
-    useDebounce,
-    useThrottle
+    cleanupMemory,
+    debounce,
+    throttle
   } = usePerformanceOptimization(settings);
 
   // Simular optimización de rendimiento

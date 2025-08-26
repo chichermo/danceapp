@@ -24,7 +24,7 @@ import {
   LightMode,
   DarkMode,
   MusicNote,
-  Dance,
+  DirectionsRun,
   ColorLens,
   Gradient
 } from '@mui/icons-material';
@@ -117,7 +117,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ open, onClose }) => {
           <Card sx={{ mb: 3 }}>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-                <Dance sx={{ mr: 1 }} />
+                <DirectionsRun sx={{ mr: 1 }} />
                 Estilo de Danza
               </Typography>
               

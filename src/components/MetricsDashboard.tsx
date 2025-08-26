@@ -328,24 +328,22 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
                           <ListItemText
                             primary={student.studentName}
                             secondary={
-                              <Box>
-                                <Typography variant="body2">
-                                  {formatTime(student.totalPracticeTime)} • {student.choreographiesCompleted} coreografías
-                                </Typography>
-                                <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
-                                  <LinearProgress
-                                    variant="determinate"
-                                    value={student.averageAccuracy}
-                                    sx={{ width: '100%', mr: 1 }}
-                                  />
-                                  <Typography variant="body2" sx={{ minWidth: 40 }}>
-                                    {student.averageAccuracy}%
-                                  </Typography>
-                                  {getTrendIcon(student.improvementTrend)}
-                                </Box>
-                              </Box>
+                              <span style={{ fontSize: '0.875rem', color: 'rgba(0, 0, 0, 0.6)' }}>
+                                {formatTime(student.totalPracticeTime)} • {student.choreographiesCompleted} coreografías
+                              </span>
                             }
                           />
+                          <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, ml: 7 }}>
+                            <LinearProgress
+                              variant="determinate"
+                              value={student.averageAccuracy}
+                              sx={{ width: '100%', mr: 1 }}
+                            />
+                            <span style={{ minWidth: 40, fontSize: '0.875rem' }}>
+                              {student.averageAccuracy}%
+                            </span>
+                            {getTrendIcon(student.improvementTrend)}
+                          </Box>
                         </ListItem>
                       </motion.div>
                     ))}
@@ -374,28 +372,28 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
                           <ListItemText
                             primary={choreography.choreographyName}
                             secondary={
-                              <Box>
-                                <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
-                                  <Chip
-                                    label={`${choreography.totalPracticeSessions} sesiones`}
-                                    size="small"
-                                    color="primary"
-                                  />
-                                  <Chip
-                                    label={`${choreography.studentEngagement} estudiantes`}
-                                    size="small"
-                                    color="secondary"
-                                  />
-                                </Box>
-                                <Typography variant="body2" color="text.secondary">
-                                  Tiempo promedio: {formatTime(choreography.averageCompletionTime)}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                  Última práctica: {choreography.lastPracticed.toLocaleDateString()}
-                                </Typography>
-                              </Box>
+                              <span style={{ fontSize: '0.875rem', color: 'rgba(0, 0, 0, 0.6)' }}>
+                                Tiempo promedio: {formatTime(choreography.averageCompletionTime)}
+                              </span>
                             }
                           />
+                          <Box sx={{ display: 'flex', gap: 1, mb: 1, ml: 7 }}>
+                            <Chip
+                              label={`${choreography.totalPracticeSessions} sesiones`}
+                              size="small"
+                              color="primary"
+                            />
+                            <Chip
+                              label={`${choreography.studentEngagement} estudiantes`}
+                              size="small"
+                              color="secondary"
+                            />
+                          </Box>
+                          <Box sx={{ ml: 7, mb: 1 }}>
+                            <span style={{ fontSize: '0.875rem', color: 'rgba(0, 0, 0, 0.6)' }}>
+                              Última práctica: {choreography.lastPracticed.toLocaleDateString()}
+                            </span>
+                          </Box>
                         </ListItem>
                       </motion.div>
                     ))}

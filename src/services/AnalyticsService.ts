@@ -48,6 +48,8 @@ class AnalyticsService {
   private events: UserBehavior[] = [];
   private performanceMetrics: PerformanceMetrics[] = [];
   private sessionStartTime: Date = new Date();
+  private lastEventTime: number = 0;
+  private eventThrottleMs: number = 100; // Throttle events to max 10 per second
   private currentSessionId: string = this.generateSessionId();
 
   constructor() {
@@ -113,7 +115,7 @@ class AnalyticsService {
       new PerformanceObserver((list) => {
         const entries = list.getEntries();
         entries.forEach((entry) => {
-          this.trackPerformance('fid', entry.processingStart - entry.startTime);
+          this.trackPerformance('fid', (entry as any).processingStart - entry.startTime);
         });
       }).observe({ entryTypes: ['first-input'] });
 
@@ -190,6 +192,15 @@ class AnalyticsService {
 
   // Trackear evento
   trackEvent(action: string, component: string, metadata: any = {}): void {
+    const now = Date.now();
+    
+    // Throttle events to prevent spam
+    if (now - this.lastEventTime < this.eventThrottleMs) {
+      return;
+    }
+    
+    this.lastEventTime = now;
+    
     const event: UserBehavior = {
       userId: 'current-user', // En una app real, esto vendría del sistema de autenticación
       sessionId: this.currentSessionId,
@@ -206,7 +217,10 @@ class AnalyticsService {
       this.events = this.events.slice(-1000);
     }
 
-    console.log('📊 Event tracked:', event);
+    // Solo log en desarrollo y para eventos importantes
+    if (process.env.NODE_ENV === 'development' && (action === 'click' || action === 'error')) {
+      console.log('📊 Event tracked:', event);
+    }
   }
 
   // Trackear rendimiento
