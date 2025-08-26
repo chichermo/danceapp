@@ -11,27 +11,18 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
   MenuItem,
   Chip,
   IconButton,
-  Tooltip,
   Tabs,
   Tab,
   Slider,
   Paper,
-  Divider,
   List,
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
   Switch,
-  FormControlLabel,
-  Alert,
-  Fab,
-  Zoom,
 } from '@mui/material';
 import {
   Add as AddIcon,
@@ -43,12 +34,16 @@ import {
   MusicNote as MusicIcon,
   Group as GroupIcon,
   Timeline as TimelineIcon,
-  Save as SaveIcon,
-  Close as CloseIcon,
-  DragIndicator as DragIcon,
-  Settings as SettingsIcon,
-  Visibility as ViewIcon,
-  VisibilityOff as HideIcon,
+  Psychology,
+  Analytics,
+  Speed,
+  Person,
+  Login,
+  Logout,
+  Palette,
+  Assessment,
+  Group,
+  People
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
 import Stage3D from '../components/Stage3D';
@@ -57,9 +52,25 @@ import MusicTimeline from '../components/MusicTimeline';
 import VideoAnalysis from '../components/VideoAnalysis';
 import TutorialGuide from '../components/TutorialGuide';
 import Formation3DPlayer from '../components/Formation3DPlayer';
+import MetricsDashboard from '../components/MetricsDashboard';
+import AIAssistant from '../components/AIAssistant';
+import SocialFeed from '../components/SocialFeed';
+import AnalyticsDashboard from '../components/AnalyticsDashboard';
+import PerformanceOptimizer from '../components/PerformanceOptimizer';
+import AuthDialog from '../components/AuthDialog';
+import UserProfile from '../components/UserProfile';
+import RealtimeCollaboration from '../components/RealtimeCollaboration';
+import ThemeSelector from '../components/ThemeSelector';
 import studentService from '../services/StudentService';
 import videoService from '../services/VideoService';
 import musicService from '../services/MusicService';
+import persistenceService from '../services/PersistenceService';
+import metricsService from '../services/MetricsService';
+import aiService from '../services/AIService';
+import socialService from '../services/SocialService';
+import analyticsService from '../services/AnalyticsService';
+import authService from '../services/AuthService';
+import realtimeService from '../services/RealtimeService';
 import { Student } from '../types/Student';
 
 interface Dancer {
@@ -95,7 +106,15 @@ interface Choreography {
 }
 
 const Choreography: React.FC = () => {
-  const [choreographies, setChoreographies] = useState<Choreography[]>([
+  const [choreographies, setChoreographies] = useState<Choreography[]>(() => {
+    // Cargar coreografías desde localStorage al inicializar
+    const savedChoreographies = persistenceService.loadChoreographies();
+    if (savedChoreographies.length > 0) {
+      return savedChoreographies;
+    }
+    
+    // Datos de ejemplo si no hay datos guardados
+    return [
     {
       id: '1',
       name: 'Hip Hop Fusion',
@@ -153,8 +172,9 @@ const Choreography: React.FC = () => {
       category: 'Adultos',
       difficulty: 'Avanzado',
       createdAt: new Date('2024-01-10'),
-    },
-  ]);
+    }
+    ];
+  });
 
   const [selectedChoreography, setSelectedChoreography] = useState<Choreography | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
@@ -176,9 +196,20 @@ const Choreography: React.FC = () => {
     description?: string;
   }>>([]);
   const [activeTab, setActiveTab] = useState(0);
+  const [dancers, setDancers] = useState<Dancer[]>([]);
   const [currentFormationFrame, setCurrentFormationFrame] = useState<any>(null);
   const [selectedDancer, setSelectedDancer] = useState<string | undefined>(undefined);
   const [showTutorial, setShowTutorial] = useState(false);
+  const [showMetrics, setShowMetrics] = useState(false);
+  const [showAI, setShowAI] = useState(false);
+  const [showSocial, setShowSocial] = useState(false);
+  const [showAnalytics, setShowAnalytics] = useState(false);
+  const [showPerformance, setShowPerformance] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const [showRealtime, setShowRealtime] = useState(false);
+  const [showTheme, setShowTheme] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     category: '',
@@ -244,6 +275,29 @@ const Choreography: React.FC = () => {
     }
   }, [currentTime, selectedChoreography]);
 
+  // Guardar automáticamente cuando cambien las coreografías
+  useEffect(() => {
+    if (choreographies.length > 0) {
+      persistenceService.saveChoreographies(choreographies);
+    }
+  }, [choreographies]);
+
+  // Verificar autenticación
+  useEffect(() => {
+    const checkAuth = () => {
+      setIsAuthenticated(authService.isAuthenticated());
+    };
+    
+    checkAuth();
+    
+    // Suscribirse a cambios de autenticación
+    const unsubscribe = authService.subscribe((authState) => {
+      setIsAuthenticated(authState.isAuthenticated);
+    });
+    
+    return unsubscribe;
+  }, []);
+
   const handleOpenDialog = (choreography?: Choreography) => {
     if (choreography) {
       setEditingChoreography(choreography);
@@ -276,8 +330,8 @@ const Choreography: React.FC = () => {
       return;
     }
 
-    if (!formData.musicFile) {
-      alert('Por favor selecciona un archivo de música');
+    if (!selectedMusicId) {
+      alert('Por favor selecciona una pista de música');
       return;
     }
 
@@ -294,7 +348,7 @@ const Choreography: React.FC = () => {
               name: formData.name,
               description: formData.description,
               category: formData.category,
-              musicFile: formData.musicFile,
+              musicFile: selectedMusicId,
               students: selectedStudents 
             }
           : c
@@ -304,7 +358,7 @@ const Choreography: React.FC = () => {
         id: Date.now().toString(),
         name: formData.name,
         description: formData.description || 'Nueva coreografía',
-        musicFile: formData.musicFile,
+        musicFile: selectedMusicId,
         duration: 180, // Duración por defecto
         formations: [],
         students: selectedStudents,
@@ -497,6 +551,65 @@ const Choreography: React.FC = () => {
             >
               📚 Tutorial
             </Button>
+            {isAuthenticated ? (
+              <>
+                <Button
+                  variant="outlined"
+                  startIcon={<Person />}
+                  onClick={() => setShowProfile(true)}
+                  sx={{
+                    borderColor: '#667eea',
+                    color: '#667eea',
+                    borderRadius: 3,
+                    px: 3,
+                    py: 1.5,
+                    fontSize: '1rem',
+                    fontWeight: 'bold',
+                    '&:hover': {
+                      backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                      borderColor: '#5a6fd8',
+                    }
+                  }}
+                >
+                  {authService.getCurrentUser()?.name || 'Perfil'}
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  startIcon={<Logout />}
+                  onClick={() => authService.logout()}
+                  sx={{
+                    borderRadius: 3,
+                    px: 3,
+                    py: 1.5,
+                    fontSize: '1rem',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  Salir
+                </Button>
+              </>
+            ) : (
+              <Button
+                variant="contained"
+                startIcon={<Login />}
+                onClick={() => setShowAuth(true)}
+                sx={{
+                  background: 'linear-gradient(45deg, #667eea, #764ba2)',
+                  borderRadius: 3,
+                  px: 3,
+                  py: 1.5,
+                  fontSize: '1rem',
+                  fontWeight: 'bold',
+                  boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)',
+                  '&:hover': {
+                    boxShadow: '0 6px 20px rgba(102, 126, 234, 0.6)',
+                  }
+                }}
+              >
+                Iniciar Sesión
+              </Button>
+            )}
             <Button
               variant="contained"
               startIcon={<AddIcon />}
@@ -515,6 +628,146 @@ const Choreography: React.FC = () => {
               }}
             >
               Nueva Coreografía
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<Assessment />}
+              onClick={() => setShowMetrics(true)}
+              sx={{
+                borderColor: '#667eea',
+                color: '#667eea',
+                borderRadius: 3,
+                px: 4,
+                py: 1.5,
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                '&:hover': {
+                  borderColor: '#5a6fd8',
+                  backgroundColor: 'rgba(102, 126, 234, 0.04)',
+                }
+              }}
+            >
+              📊 Métricas
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<Psychology />}
+              onClick={() => setShowAI(true)}
+              sx={{
+                borderColor: '#9c27b0',
+                color: '#9c27b0',
+                borderRadius: 3,
+                px: 4,
+                py: 1.5,
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                '&:hover': {
+                  borderColor: '#7b1fa2',
+                  backgroundColor: 'rgba(156, 39, 176, 0.04)',
+                }
+              }}
+            >
+              🤖 IA Assistant
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<Group />}
+              onClick={() => setShowSocial(true)}
+              sx={{
+                borderColor: '#4caf50',
+                color: '#4caf50',
+                borderRadius: 3,
+                px: 4,
+                py: 1.5,
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                '&:hover': {
+                  borderColor: '#388e3c',
+                  backgroundColor: 'rgba(76, 175, 80, 0.04)',
+                }
+              }}
+            >
+              🌟 Comunidad
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<Analytics />}
+              onClick={() => setShowAnalytics(true)}
+              sx={{
+                borderColor: '#ff9800',
+                color: '#ff9800',
+                borderRadius: 3,
+                px: 4,
+                py: 1.5,
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                '&:hover': {
+                  borderColor: '#f57c00',
+                  backgroundColor: 'rgba(255, 152, 0, 0.04)',
+                }
+              }}
+            >
+              📈 Analytics
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<Speed />}
+              onClick={() => setShowPerformance(true)}
+              sx={{
+                borderColor: '#673ab7',
+                color: '#673ab7',
+                borderRadius: 3,
+                px: 4,
+                py: 1.5,
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                '&:hover': {
+                  borderColor: '#512da8',
+                  backgroundColor: 'rgba(103, 58, 183, 0.04)',
+                }
+              }}
+            >
+              ⚡ Rendimiento
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<People />}
+              onClick={() => setShowRealtime(true)}
+              sx={{
+                borderColor: '#e91e63',
+                color: '#e91e63',
+                borderRadius: 3,
+                px: 4,
+                py: 1.5,
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                '&:hover': {
+                  borderColor: '#c2185b',
+                  backgroundColor: 'rgba(233, 30, 99, 0.04)',
+                }
+              }}
+            >
+              🔄 Tiempo Real
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<Palette />}
+              onClick={() => setShowTheme(true)}
+              sx={{
+                borderColor: '#9c27b0',
+                color: '#9c27b0',
+                borderRadius: 3,
+                px: 4,
+                py: 1.5,
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                '&:hover': {
+                  borderColor: '#7b1fa2',
+                  backgroundColor: 'rgba(156, 39, 176, 0.04)',
+                }
+              }}
+            >
+              🎨 Tema
             </Button>
           </Box>
         </Box>
@@ -584,7 +837,8 @@ const Choreography: React.FC = () => {
                   color: dancer.color,
                   isVisible: dancer.isVisible
                 }));
-                // setDancers(updatedDancers); // TODO: Implementar actualización de bailarines
+                // Actualizar bailarines en el estado local
+                setDancers(updatedDancers);
               }
             }}
           />
@@ -1284,6 +1538,76 @@ const Choreography: React.FC = () => {
         <TutorialGuide 
           open={showTutorial} 
           onClose={() => setShowTutorial(false)} 
+        />
+        
+        <MetricsDashboard 
+          open={showMetrics} 
+          onClose={() => setShowMetrics(false)} 
+        />
+        
+        <AIAssistant 
+          open={showAI} 
+          onClose={() => setShowAI(false)}
+          currentFormation={currentFormation}
+          dancers={currentFormation?.dancers || []}
+          musicTempo={120}
+          musicStyle="contemporary"
+          choreography={selectedChoreography}
+        />
+        
+        <SocialFeed 
+          open={showSocial} 
+          onClose={() => setShowSocial(false)} 
+        />
+        
+        <AnalyticsDashboard 
+          open={showAnalytics} 
+          onClose={() => setShowAnalytics(false)} 
+        />
+        
+        <PerformanceOptimizer 
+          open={showPerformance} 
+          onClose={() => setShowPerformance(false)} 
+        />
+        
+        <AuthDialog 
+          open={showAuth} 
+          onClose={() => setShowAuth(false)}
+          onLoginSuccess={() => {
+            setIsAuthenticated(true);
+            setShowAuth(false);
+          }}
+        />
+        
+        <UserProfile 
+          open={showProfile} 
+          onClose={() => setShowProfile(false)}
+          onLogout={() => {
+            setIsAuthenticated(false);
+            setShowProfile(false);
+          }}
+        />
+        
+        <RealtimeCollaboration 
+          open={showRealtime} 
+          onClose={() => setShowRealtime(false)}
+          onFormationUpdate={(data) => {
+            // Manejar actualización de formación desde tiempo real
+            console.log('Formación actualizada desde tiempo real:', data);
+          }}
+          onDancerMove={(dancerId, position) => {
+            // Manejar movimiento de bailarín desde tiempo real
+            console.log('Bailarín movido desde tiempo real:', dancerId, position);
+          }}
+          onComment={(comment) => {
+            // Manejar comentario desde tiempo real
+            console.log('Comentario recibido desde tiempo real:', comment);
+          }}
+        />
+        
+        <ThemeSelector 
+          open={showTheme} 
+          onClose={() => setShowTheme(false)} 
         />
       </Box>
     </Box>

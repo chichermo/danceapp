@@ -11,6 +11,7 @@ import {
   VisibilityOff
 } from '@mui/icons-material';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
+import useTouchGestures from '../hooks/useTouchGestures';
 
 interface Stage3DProps {
   dancers: Array<{
@@ -49,6 +50,26 @@ const Stage3D: React.FC<Stage3DProps> = ({
   const rotateX = useTransform(mouseY, [-300, 300], [15, -15]);
   const rotateY = useTransform(mouseX, [-300, 300], [-15, 15]);
 
+  // Configurar gestos táctiles
+  const touchGestures = useTouchGestures({
+    onPinch: (scale) => {
+      setZoom(prev => Math.max(0.5, Math.min(3, prev * scale)));
+    },
+    onPan: (deltaX, deltaY) => {
+      setRotation(prev => prev + deltaX * 0.5);
+    },
+    onSwipeLeft: () => {
+      setRotation(prev => prev - 15);
+    },
+    onSwipeRight: () => {
+      setRotation(prev => prev + 15);
+    },
+    onDoubleTap: () => {
+      setZoom(1);
+      setRotation(0);
+    }
+  });
+
   const handleMouseMove = (event: React.MouseEvent) => {
     if (viewMode === '3d' && stageRef.current) {
       const rect = stageRef.current.getBoundingClientRect();
@@ -59,6 +80,22 @@ const Stage3D: React.FC<Stage3DProps> = ({
       mouseY.set(event.clientY - centerY);
     }
   };
+
+  // Agregar event listeners para gestos táctiles
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    stage.addEventListener('touchstart', touchGestures.handleTouchStart, { passive: false });
+    stage.addEventListener('touchmove', touchGestures.handleTouchMove, { passive: false });
+    stage.addEventListener('touchend', touchGestures.handleTouchEnd, { passive: false });
+
+    return () => {
+      stage.removeEventListener('touchstart', touchGestures.handleTouchStart);
+      stage.removeEventListener('touchmove', touchGestures.handleTouchMove);
+      stage.removeEventListener('touchend', touchGestures.handleTouchEnd);
+    };
+  }, [touchGestures]);
 
   const handleDancerDrag = (id: string, info: any) => {
     const newX = Math.max(0, Math.min(800, info.point.x));
