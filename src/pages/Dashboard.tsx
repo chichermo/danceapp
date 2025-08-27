@@ -13,9 +13,7 @@ import {
   Chip,
   LinearProgress,
   IconButton,
-  Tooltip,
   Container,
-  Paper,
   Divider,
 } from '@mui/material';
 import {
@@ -24,10 +22,6 @@ import {
   FitnessCenter as CoachIcon,
   Class as ClassIcon,
   MusicNote as ChoreographyIcon,
-  Schedule as ScheduleIcon,
-  Star as StarIcon,
-  EmojiEvents as TrophyIcon,
-  CalendarToday as CalendarIcon,
   LocationOn as LocationIcon,
   AccessTime as AccessTimeIcon,
   ArrowForward as ArrowForwardIcon,
