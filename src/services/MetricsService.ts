@@ -57,7 +57,7 @@ class MetricsService {
     this.practiceSessions.push(newSession);
     this.saveMetricsData();
     
-    console.log(`📊 Sesión de práctica registrada: ${newSession.duration} minutos`);
+    console.log(`📊 Practice session recorded: ${newSession.duration} minutes`);
     return newSession.id;
   }
 
@@ -246,7 +246,7 @@ class MetricsService {
         systemStartTime: this.systemStartTime
       }));
     } catch (error) {
-      console.error('❌ Error al guardar métricas:', error);
+      console.error('❌ Error saving metrics:', error);
     }
   }
 
@@ -267,7 +267,7 @@ class MetricsService {
         this.generateSampleMetrics();
       }
     } catch (error) {
-      console.error('❌ Error al cargar métricas:', error);
+      console.error('❌ Error loading metrics:', error);
       this.generateSampleMetrics();
     }
   }

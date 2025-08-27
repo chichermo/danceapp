@@ -80,7 +80,7 @@ class SocialService {
         role: 'teacher',
         level: 'expert',
         joinDate: new Date('2023-01-15'),
-        bio: 'Profesora de danza contemporánea con 10 años de experiencia',
+        bio: 'Contemporary dance teacher with 10 years of experience',
         specialties: ['Contemporary', 'Modern', 'Jazz']
       },
       {
@@ -90,7 +90,7 @@ class SocialService {
         role: 'teacher',
         level: 'expert',
         joinDate: new Date('2023-02-01'),
-        bio: 'Especialista en Hip Hop y danza urbana',
+        bio: 'Hip Hop and urban dance specialist',
         specialties: ['Hip Hop', 'Urban', 'Breakdance']
       },
       {
@@ -100,7 +100,7 @@ class SocialService {
         role: 'student',
         level: 'intermediate',
         joinDate: new Date('2023-03-10'),
-        bio: 'Estudiante apasionada por la danza contemporánea',
+        bio: 'Student passionate about contemporary dance',
         specialties: ['Contemporary', 'Ballet']
       },
       {
@@ -126,7 +126,7 @@ class SocialService {
         id: 'post-1',
         authorId: 'user-1',
         author: this.users[0],
-        content: '¡Nueva coreografía de contemporáneo lista! Esta pieza explora la conexión entre el movimiento y la emoción. ¿Qué opinan?',
+        content: 'New contemporary choreography ready! This piece explores the connection between movement and emotion. What do you think?',
         type: 'choreography',
         attachments: [{
           type: 'video',
@@ -167,7 +167,7 @@ class SocialService {
         id: 'post-3',
         authorId: 'user-4',
         author: this.users[3],
-        content: '¡Logré mi primer backflip! Después de meses de práctica, finalmente lo conseguí. La perseverancia es clave en la danza.',
+        content: 'I achieved my first backflip! After months of practice, I finally got it. Perseverance is key in dance.',
         type: 'achievement',
         attachments: [{
           type: 'video',

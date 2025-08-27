@@ -62,7 +62,7 @@ class RealtimeService {
       // Simular conexión WebSocket (en una app real sería una URL real)
       this.simulateWebSocketConnection();
     } catch (error) {
-      console.error('Error al inicializar WebSocket:', error);
+      console.error('Error initializing WebSocket:', error);
     }
   }
 
@@ -170,7 +170,7 @@ class RealtimeService {
         try {
           callback(event);
         } catch (error) {
-          console.error('Error en listener de evento:', error);
+          console.error('Error in event listener:', error);
         }
       });
     }
@@ -313,7 +313,7 @@ class RealtimeService {
       this.reconnectAttempts = 0;
       return true;
     } catch (error) {
-      console.error('Error al reconectar:', error);
+      console.error('Error reconnecting:', error);
       return false;
     }
   }

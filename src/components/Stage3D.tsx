@@ -138,10 +138,10 @@ const Stage3D: React.FC<Stage3DProps> = ({
       }}>
         <Paper sx={{ p: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
           <Typography variant="caption" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
-            Vista
+            View
           </Typography>
           <Box sx={{ display: 'flex', gap: 0.5 }}>
-            <Tooltip title="Vista Superior">
+            <Tooltip title="Top View">
               <IconButton 
                 size="small" 
                 onClick={() => setViewMode('top')}
@@ -150,7 +150,7 @@ const Stage3D: React.FC<Stage3DProps> = ({
                 <ViewInAr />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Vista Frontal">
+            <Tooltip title="Front View">
               <IconButton 
                 size="small" 
                 onClick={() => setViewMode('front')}
@@ -159,7 +159,7 @@ const Stage3D: React.FC<Stage3DProps> = ({
                 <ViewInAr />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Vista Lateral">
+            <Tooltip title="Side View">
               <IconButton 
                 size="small" 
                 onClick={() => setViewMode('side')}
@@ -168,7 +168,7 @@ const Stage3D: React.FC<Stage3DProps> = ({
                 <ViewInAr />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Vista 3D">
+            <Tooltip title="3D View">
               <IconButton 
                 size="small" 
                 onClick={() => setViewMode('3d')}
@@ -185,12 +185,12 @@ const Stage3D: React.FC<Stage3DProps> = ({
             Zoom
           </Typography>
           <Box sx={{ display: 'flex', gap: 0.5 }}>
-            <Tooltip title="Acercar">
+            <Tooltip title="Zoom In">
               <IconButton size="small" onClick={() => setZoom(Math.min(2, zoom + 0.1))}>
                 <ZoomIn />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Alejar">
+            <Tooltip title="Zoom Out">
               <IconButton size="small" onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}>
                 <ZoomOut />
               </IconButton>
@@ -200,15 +200,15 @@ const Stage3D: React.FC<Stage3DProps> = ({
 
         <Paper sx={{ p: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
           <Typography variant="caption" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
-            Rotación
+            Rotation
           </Typography>
           <Box sx={{ display: 'flex', gap: 0.5 }}>
-            <Tooltip title="Rotar Izquierda">
+            <Tooltip title="Rotate Left">
               <IconButton size="small" onClick={() => setRotation(rotation - 15)}>
                 <RotateLeft />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Rotar Derecha">
+            <Tooltip title="Rotate Right">
               <IconButton size="small" onClick={() => setRotation(rotation + 15)}>
                 <RotateRight />
               </IconButton>
@@ -218,15 +218,15 @@ const Stage3D: React.FC<Stage3DProps> = ({
 
         <Paper sx={{ p: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
           <Typography variant="caption" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
-            Opciones
+            Options
           </Typography>
           <Box sx={{ display: 'flex', gap: 0.5 }}>
-            <Tooltip title="Mostrar/Ocultar Cuadrícula">
+            <Tooltip title="Show/Hide Grid">
               <IconButton size="small" onClick={() => setShowGrid(!showGrid)}>
                 <Layers />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Mostrar/Ocultar Capas">
+            <Tooltip title="Show/Hide Layers">
               <IconButton size="small" onClick={() => setShowLayers(!showLayers)}>
                 <Visibility />
               </IconButton>
@@ -434,7 +434,7 @@ const Stage3D: React.FC<Stage3DProps> = ({
                 {dancer.name}
               </Typography>
 
-              {/* Indicador de Formación */}
+              {/* Formation Indicator */}
               {dancer.formation && (
                 <Chip
                   label={dancer.formation}
@@ -454,7 +454,7 @@ const Stage3D: React.FC<Stage3DProps> = ({
             </motion.div>
           ))}
 
-          {/* Marcadores de Posición */}
+          {/* Position Markers */}
           <Box
             sx={{
               position: 'absolute',
@@ -473,7 +473,7 @@ const Stage3D: React.FC<Stage3DProps> = ({
           />
         </Box>
 
-        {/* Información de Vista */}
+        {/* View Information */}
         <Box
           sx={{
             position: 'absolute',
@@ -488,11 +488,11 @@ const Stage3D: React.FC<Stage3DProps> = ({
           }}
         >
           <Typography variant="caption">
-            Vista: {viewMode.toUpperCase()} | Zoom: {zoom.toFixed(1)}x | Rotación: {rotation}°
+            View: {viewMode.toUpperCase()} | Zoom: {zoom.toFixed(1)}x | Rotation: {rotation}°
           </Typography>
         </Box>
 
-        {/* Indicador de Formación Actual */}
+        {/* Current Formation Indicator */}
         {currentFormation && (
           <Box
             sx={{
@@ -508,7 +508,7 @@ const Stage3D: React.FC<Stage3DProps> = ({
               boxShadow: '0 4px 15px rgba(255,107,157,0.4)'
             }}
           >
-            Formación: {currentFormation}
+            Formation: {currentFormation}
           </Box>
         )}
       </Box>

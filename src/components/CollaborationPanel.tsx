@@ -71,11 +71,11 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
   const [comments, setComments] = useState<Comment[]>([
     {
       id: '1',
-      author: 'Coach María',
-      content: 'Asegúrate de que Ana esté en la primera fila para el salto',
+      author: 'Coach Maria',
+      content: 'Make sure Ana is in the front row for the jump',
       timestamp: new Date(),
       type: 'instruction',
-      formation: 'Formación A',
+      formation: 'Formation A',
       position: { x: 200, y: 300, z: 0 },
       replies: [],
       isResolved: false,
@@ -83,16 +83,16 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
     },
     {
       id: '2',
-      author: 'Bailarín Carlos',
-      content: '¿Podemos ajustar el timing del giro en el minuto 2:30?',
+      author: 'Dancer Carlos',
+      content: 'Can we adjust the timing of the turn at minute 2:30?',
       timestamp: new Date(Date.now() - 300000),
       type: 'question',
-      formation: 'Formación B',
+      formation: 'Formation B',
       replies: [
         {
           id: '2.1',
-          author: 'Coach María',
-          content: 'Sí, lo ajustaremos en el próximo ensayo',
+          author: 'Coach Maria',
+          content: 'Yes, we will adjust it in the next rehearsal',
           timestamp: new Date(Date.now() - 240000),
           type: 'comment',
           replies: [],
@@ -125,7 +125,7 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
 
     const comment: Comment = {
       id: Date.now().toString(),
-      author: 'Usuario Actual',
+      author: 'Current User',
       content: newComment,
       timestamp: new Date(),
       type: commentType,
@@ -145,7 +145,7 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
   const handleReply = (commentId: string, replyContent: string) => {
     const reply: Comment = {
       id: `${commentId}.${Date.now()}`,
-      author: 'Usuario Actual',
+      author: 'Current User',
       content: replyContent,
       timestamp: new Date(),
       type: 'comment',
@@ -201,14 +201,14 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
     const hours = Math.floor(diff / 3600000);
     const days = Math.floor(diff / 86400000);
 
-    if (minutes < 1) return 'Ahora';
-    if (minutes < 60) return `Hace ${minutes}m`;
+    if (minutes < 1) return 'Now';
+    if (minutes < 60) return `${minutes}m ago`;
     if (hours < 24) return `Hace ${hours}h`;
     return `Hace ${days}d`;
   };
 
   const filteredComments = comments.filter(comment => {
-    if (activeTab === 0) return true; // Todos
+    if (activeTab === 0) return true; // All
     if (activeTab === 1) return comment.type === 'instruction';
     if (activeTab === 2) return comment.type === 'question';
     if (activeTab === 3) return comment.type === 'note';
@@ -292,7 +292,7 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
           <Tab label="Todos" />
           <Tab label="Instrucciones" />
           <Tab label="Preguntas" />
-          <Tab label="Notas" />
+                          <Tab label="Notes" />
         </Tabs>
       </Box>
 
@@ -534,7 +534,7 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setEditingComment(null)}>Cancelar</Button>
+                          <Button onClick={() => setEditingComment(null)}>Cancel</Button>
           <Button 
             onClick={() => {
               if (editingComment) {

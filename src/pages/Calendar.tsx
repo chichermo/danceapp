@@ -54,28 +54,28 @@ const Calendar: React.FC = () => {
       name: 'Hip Hop Teens',
       type: 'Hip Hop',
       category: 'Teens',
-      coach: 'María González',
+      coach: 'Maria Gonzalez',
       date: new Date(),
       startTime: '16:00',
       endTime: '17:30',
-      location: 'Sala Principal',
+      location: 'Main Hall',
       maxStudents: 20,
       currentStudents: 15,
       students: ['Ana', 'Carlos', 'Laura', 'Miguel'],
     },
     {
       id: '2',
-      name: 'Contemporáneo Adultos',
-      type: 'Contemporáneo',
-      category: 'Adultos',
+      name: 'Contemporary Adults',
+      type: 'Contemporary',
+      category: 'Adults',
       coach: 'Carlos Ruiz',
       date: new Date(Date.now() + 24 * 60 * 60 * 1000),
       startTime: '18:00',
       endTime: '19:30',
-      location: 'Sala 2',
+      location: 'Hall 2',
       maxStudents: 15,
       currentStudents: 12,
-      students: ['Sofía', 'Diego', 'Carmen'],
+      students: ['Sofia', 'Diego', 'Carmen'],
     },
   ]);
 
@@ -93,9 +93,9 @@ const Calendar: React.FC = () => {
     maxStudents: 20,
   });
 
-  const classTypes = ['Hip Hop', 'Contemporáneo', 'Ragga', 'Jazz', 'Ballet'];
-  const categories = ['Mini', 'Teens', 'Adultos', 'High Level'];
-  const coaches = ['María González', 'Carlos Ruiz', 'Ana Martínez', 'Luis Pérez'];
+  const classTypes = ['Hip Hop', 'Contemporary', 'Ragga', 'Jazz', 'Ballet'];
+  const categories = ['Mini', 'Teens', 'Adults', 'High Level'];
+  const coaches = ['Maria Gonzalez', 'Carlos Ruiz', 'Ana Martinez', 'Luis Perez'];
 
   const handleOpenDialog = (classItem?: Class) => {
     if (classItem) {
@@ -160,7 +160,7 @@ const Calendar: React.FC = () => {
   const getTypeColor = (type: string) => {
     const colors: { [key: string]: string } = {
       'Hip Hop': '#1976d2',
-      'Contemporáneo': '#dc004e',
+      'Contemporary': '#dc004e',
       'Ragga': '#ff9800',
       'Jazz': '#9c27b0',
       'Ballet': '#4caf50',
@@ -172,7 +172,7 @@ const Calendar: React.FC = () => {
     const colors: { [key: string]: string } = {
       'Mini': '#ff9800',
       'Teens': '#2196f3',
-      'Adultos': '#4caf50',
+      'Adults': '#4caf50',
       'High Level': '#9c27b0',
     };
     return colors[category] || '#757575';
@@ -182,14 +182,14 @@ const Calendar: React.FC = () => {
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
         <Typography variant="h4" component="h1">
-          Calendario de Clases
+          Calendar of Classes
         </Typography>
         <Button
           variant="contained"
           startIcon={<AddIcon />}
           onClick={() => handleOpenDialog()}
         >
-          Nueva Clase
+          New Class
         </Button>
       </Box>
 
@@ -203,12 +203,12 @@ const Calendar: React.FC = () => {
                     {classItem.name}
                   </Typography>
                   <Box>
-                    <Tooltip title="Editar">
+                    <Tooltip title="Edit">
                       <IconButton size="small" onClick={() => handleOpenDialog(classItem)}>
                         <EditIcon />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Eliminar">
+                    <Tooltip title="Delete">
                       <IconButton size="small" color="error" onClick={() => handleDelete(classItem.id)}>
                         <DeleteIcon />
                       </IconButton>
@@ -269,7 +269,7 @@ const Calendar: React.FC = () => {
                   <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                     <PeopleIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
                     <Typography variant="body2" color="text.secondary">
-                      {classItem.currentStudents}/{classItem.maxStudents} estudiantes
+                      {classItem.currentStudents}/{classItem.maxStudents} students
                     </Typography>
                   </Box>
                   <Box sx={{ width: '100%', backgroundColor: 'grey.200', borderRadius: 1, overflow: 'hidden' }}>
@@ -286,7 +286,7 @@ const Calendar: React.FC = () => {
                 {classItem.students.length > 0 && (
                   <Box>
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                      Estudiantes inscritos:
+                      Students enrolled:
                     </Typography>
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                       {classItem.students.map((student, index) => (
@@ -306,27 +306,27 @@ const Calendar: React.FC = () => {
         ))}
       </Grid>
 
-      {/* Dialog para crear/editar clase */}
+              {/* Dialog to create/edit class */}
       <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
         <DialogTitle>
-          {editingClass ? 'Editar Clase' : 'Nueva Clase'}
+          {editingClass ? 'Edit Class' : 'New Class'}
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={2} sx={{ mt: 1 }}>
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="Nombre de la Clase"
+                label="Class Name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
             </Grid>
             <Grid item xs={6}>
               <FormControl fullWidth>
-                <InputLabel>Tipo de Clase</InputLabel>
+                <InputLabel>Class Type</InputLabel>
                 <Select
                   value={formData.type}
-                  label="Tipo de Clase"
+                  label="Class Type"
                   onChange={(e) => setFormData({ ...formData, type: e.target.value })}
                 >
                   {classTypes.map((type) => (
@@ -337,10 +337,10 @@ const Calendar: React.FC = () => {
             </Grid>
             <Grid item xs={6}>
               <FormControl fullWidth>
-                <InputLabel>Categoría</InputLabel>
+                <InputLabel>Category</InputLabel>
                 <Select
                   value={formData.category}
-                  label="Categoría"
+                  label="Category"
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                 >
                   {categories.map((category) => (
@@ -366,7 +366,7 @@ const Calendar: React.FC = () => {
             <Grid item xs={12}>
               <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={es}>
                 <DatePicker
-                  label="Fecha"
+                  label="Date"
                   value={formData.date}
                   onChange={(newValue) => setFormData({ ...formData, date: newValue || new Date() })}
                   slots={{
@@ -381,7 +381,7 @@ const Calendar: React.FC = () => {
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                label="Hora de Inicio"
+                label="Start Time"
                 type="time"
                 value={formData.startTime}
                 onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
@@ -391,7 +391,7 @@ const Calendar: React.FC = () => {
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                label="Hora de Fin"
+                label="End Time"
                 type="time"
                 value={formData.endTime}
                 onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
@@ -401,7 +401,7 @@ const Calendar: React.FC = () => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="Ubicación"
+                label="Location"
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
               />
@@ -409,7 +409,7 @@ const Calendar: React.FC = () => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="Máximo de Estudiantes"
+                label="Max Students"
                 type="number"
                 value={formData.maxStudents}
                 onChange={(e) => setFormData({ ...formData, maxStudents: parseInt(e.target.value) })}
@@ -419,9 +419,9 @@ const Calendar: React.FC = () => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancelar</Button>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
           <Button onClick={handleSave} variant="contained">
-            {editingClass ? 'Actualizar' : 'Crear'}
+            {editingClass ? 'Update' : 'Create'}
           </Button>
         </DialogActions>
       </Dialog>

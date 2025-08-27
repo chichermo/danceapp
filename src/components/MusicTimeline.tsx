@@ -338,7 +338,7 @@ const MusicTimeline: React.FC<MusicTimelineProps> = ({
         {/* Controles Adicionales */}
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 2 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Tooltip title="Volumen">
+            <Tooltip title="Volume">
               <IconButton 
                 size="small" 
                 onClick={() => setShowVolume(!showVolume)}
@@ -363,7 +363,7 @@ const MusicTimeline: React.FC<MusicTimelineProps> = ({
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Tooltip title="Velocidad de Reproducción">
+            <Tooltip title="Playback Speed">
               <IconButton 
                 size="small" 
                 onClick={() => setShowSpeed(!showSpeed)}
@@ -402,7 +402,7 @@ const MusicTimeline: React.FC<MusicTimelineProps> = ({
               }
             }}
           >
-            Agregar Marcador
+            Add Marker
           </Button>
         </Box>
       </Paper>
@@ -484,14 +484,14 @@ const MusicTimeline: React.FC<MusicTimelineProps> = ({
       {/* Dialog para Agregar/Editar Marcador */}
       <Dialog open={showMarkerDialog} onClose={() => setShowMarkerDialog(false)} maxWidth="sm" fullWidth>
         <DialogTitle>
-          {editingMarker ? 'Editar Marcador' : 'Nuevo Marcador'}
+          {editingMarker ? 'Edit Marker' : 'New Marker'}
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={2} sx={{ mt: 1 }}>
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="Etiqueta"
+                label="Label"
                 value={editingMarker?.label || newMarker.label || ''}
                 onChange={(e) => {
                   if (editingMarker) {
@@ -506,7 +506,7 @@ const MusicTimeline: React.FC<MusicTimelineProps> = ({
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                label="Tiempo (segundos)"
+                label="Time (seconds)"
                 type="number"
                 value={editingMarker?.time || newMarker.time || 0}
                 onChange={(e) => {
@@ -525,7 +525,7 @@ const MusicTimeline: React.FC<MusicTimelineProps> = ({
               <TextField
                 fullWidth
                 select
-                label="Tipo"
+                label="Type"
                 value={editingMarker?.type || newMarker.type || 'formation'}
                 onChange={(e) => {
                   if (editingMarker) {
@@ -535,17 +535,17 @@ const MusicTimeline: React.FC<MusicTimelineProps> = ({
                   }
                 }}
               >
-                <option value="formation">🎭 Formación</option>
-                <option value="cue">🎯 Señal</option>
-                <option value="highlight">⭐ Destacado</option>
-                <option value="note">📝 Nota</option>
+                <option value="formation">🎭 Formation</option>
+                <option value="cue">🎯 Cue</option>
+                <option value="highlight">⭐ Highlight</option>
+                <option value="note">📝 Note</option>
               </TextField>
             </Grid>
             
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="Descripción (opcional)"
+                label="Description (optional)"
                 multiline
                 rows={2}
                 value={editingMarker?.description || newMarker.description || ''}
@@ -561,20 +561,20 @@ const MusicTimeline: React.FC<MusicTimelineProps> = ({
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setShowMarkerDialog(false)}>Cancelar</Button>
+          <Button onClick={() => setShowMarkerDialog(false)}>Cancel</Button>
           {editingMarker && (
             <Button 
               color="error" 
               onClick={() => handleDeleteMarker(editingMarker.id)}
             >
-              Eliminar
+              Delete
             </Button>
           )}
           <Button 
             onClick={editingMarker ? handleEditMarker : handleAddMarker}
             variant="contained"
           >
-            {editingMarker ? 'Actualizar' : 'Agregar'}
+            {editingMarker ? 'Update' : 'Add'}
           </Button>
         </DialogActions>
       </Dialog>

@@ -88,16 +88,16 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
       });
 
       if (result.success) {
-        setSuccess('¡Inicio de sesión exitoso!');
+        setSuccess('Login successful!');
         setTimeout(() => {
           onLoginSuccess?.();
           onClose();
         }, 1000);
       } else {
-        setError(result.error || 'Error al iniciar sesión');
+        setError(result.error || 'Error logging in');
       }
     } catch (error) {
-      setError('Error de conexión');
+      setError('Connection error');
     } finally {
       setLoading(false);
     }
@@ -111,14 +111,14 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
       const result = await authService.register(registerData);
 
       if (result.success) {
-        setSuccess('¡Registro exitoso! Ahora puedes iniciar sesión.');
+        setSuccess('Registration successful! You can now log in.');
         setActiveTab(0);
         setLoginData(prev => ({ ...prev, email: registerData.email }));
       } else {
-        setError(result.error || 'Error al registrar usuario');
+        setError(result.error || 'Error registering user');
       }
     } catch (error) {
-      setError('Error de conexión');
+      setError('Connection error');
     } finally {
       setLoading(false);
     }
@@ -126,16 +126,16 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
 
   const handleSocialLogin = (provider: string) => {
     setError(null);
-    setSuccess(`Iniciando sesión con ${provider}...`);
-    // Simular login social
+    setSuccess(`Logging in with ${provider}...`);
+    // Simulate social login
     setTimeout(() => {
-      setError('Login social no implementado en esta demo');
+      setError('Social login not implemented in this demo');
     }, 1000);
   };
 
   const handleForgotPassword = () => {
     if (!loginData.email) {
-      setError('Por favor ingresa tu email primero');
+      setError('Please enter your email first');
       return;
     }
 
@@ -143,9 +143,9 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
     authService.resetPassword(loginData.email).then(result => {
       setLoading(false);
       if (result.success) {
-        setSuccess('Se ha enviado un email con las instrucciones para restablecer tu contraseña');
+        setSuccess('An email with password reset instructions has been sent');
       } else {
-        setError(result.error || 'Error al enviar email');
+        setError(result.error || 'Error sending email');
       }
     });
   };
@@ -163,7 +163,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
             <Login />
           </Avatar>
           <Typography variant="h6">
-            {activeTab === 0 ? 'Iniciar Sesión' : 'Crear Cuenta'}
+            {activeTab === 0 ? 'Log In' : 'Create Account'}
           </Typography>
         </Box>
         <IconButton onClick={onClose} size="small">
@@ -180,8 +180,8 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
             centered
             sx={{ mb: 3 }}
           >
-            <Tab label="Iniciar Sesión" />
-            <Tab label="Crear Cuenta" />
+            <Tab label="Log In" />
+            <Tab label="Create Account" />
           </Tabs>
 
           {/* Alertas */}
@@ -291,7 +291,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <TextField
                   fullWidth
-                  label="Nombre completo"
+                  label="Full Name"
                   value={registerData.name}
                   onChange={(e) => setRegisterData(prev => ({ ...prev, name: e.target.value }))}
                   InputProps={{
@@ -421,7 +421,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
             <Typography variant="body2" color="text.secondary">
               <strong>Admin:</strong> admin@dance.com / admin123<br />
               <strong>Profesor:</strong> teacher@dance.com / teacher123<br />
-              <strong>Estudiante:</strong> student@dance.com / student123
+                              <strong>Student:</strong> student@dance.com / student123
             </Typography>
           </Box>
         </Box>
@@ -429,7 +429,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
 
       <DialogActions sx={{ p: 3 }}>
         <Button onClick={onClose} variant="outlined">
-          Cancelar
+                          Cancel
         </Button>
         <Button
           onClick={activeTab === 0 ? handleLogin : handleRegister}
@@ -443,7 +443,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
             }
           }}
         >
-          {loading ? 'Procesando...' : (activeTab === 0 ? 'Iniciar Sesión' : 'Crear Cuenta')}
+                      {loading ? 'Processing...' : (activeTab === 0 ? 'Sign In' : 'Create Account')}
         </Button>
       </DialogActions>
     </Dialog>

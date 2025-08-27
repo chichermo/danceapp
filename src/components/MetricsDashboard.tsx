@@ -109,16 +109,16 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
           choreographyName: 'Hip Hop Fusion',
           totalPracticeSessions: 15,
           averageCompletionTime: 45,
-          mostDifficultFormation: 'Formación Central',
+          mostDifficultFormation: 'Central Formation',
           studentEngagement: 8,
           lastPracticed: new Date()
         },
         {
           choreographyId: '2',
-          choreographyName: 'Contemporáneo Expressivo',
+          choreographyName: 'Contemporary Expressive',
           totalPracticeSessions: 12,
           averageCompletionTime: 60,
-          mostDifficultFormation: 'Apertura',
+          mostDifficultFormation: 'Opening',
           studentEngagement: 6,
           lastPracticed: new Date()
         }
@@ -176,7 +176,7 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
   if (loading) {
     return (
       <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
-        <DialogTitle>📊 Dashboard de Métricas</DialogTitle>
+        <DialogTitle>📊 Metrics Dashboard</DialogTitle>
         <DialogContent>
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 400 }}>
             <LinearProgress sx={{ width: '100%' }} />
@@ -189,14 +189,14 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
   return (
     <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
       <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        📊 Dashboard de Métricas
+        📊 Metrics Dashboard
         <Box>
-          <Tooltip title="Actualizar métricas">
+          <Tooltip title="Refresh metrics">
             <IconButton onClick={loadMetrics} color="primary">
               <Refresh />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Exportar métricas">
+          <Tooltip title="Export metrics">
             <IconButton onClick={exportMetrics} color="primary">
               <Download />
             </IconButton>
@@ -206,13 +206,13 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
       
       <DialogContent>
         <Box sx={{ mt: 2 }}>
-          {/* Métricas del Sistema */}
+          {/* System Metrics */}
           {systemMetrics && (
             <Card sx={{ mb: 3 }}>
               <CardContent>
                 <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                   <Assessment sx={{ mr: 1 }} />
-                  Métricas del Sistema
+                  System Metrics
                 </Typography>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6} md={3}>
@@ -222,7 +222,7 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
                         {systemMetrics.totalUsers}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Usuarios Activos
+                        Active Users
                       </Typography>
                     </Box>
                   </Grid>
@@ -233,7 +233,7 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
                         {formatTime(systemMetrics.totalPracticeTime)}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Tiempo Total de Práctica
+                        Total Practice Time
                       </Typography>
                     </Box>
                   </Grid>
@@ -244,7 +244,7 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
                         {systemMetrics.totalChoreographies}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Coreografías
+                        Coreographies
                       </Typography>
                     </Box>
                   </Grid>
@@ -255,7 +255,7 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
                         {formatTime(systemMetrics.averageSessionDuration)}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Duración Promedio
+                        Average Duration
                       </Typography>
                     </Box>
                   </Grid>
@@ -264,13 +264,13 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
             </Card>
           )}
 
-          {/* Reporte Semanal */}
+          {/* Weekly Report */}
           {weeklyReport && (
             <Card sx={{ mb: 3 }}>
               <CardContent>
                 <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                   <EmojiEvents sx={{ mr: 1 }} />
-                  Reporte Semanal
+                  Weekly Report
                 </Typography>
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={4}>
@@ -278,12 +278,12 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
                       {weeklyReport.week}
                     </Typography>
                     <Typography variant="h5">
-                      {weeklyReport.totalSessions} sesiones
+                      {weeklyReport.totalSessions} sessions
                     </Typography>
                   </Grid>
                   <Grid item xs={12} md={4}>
                     <Typography variant="body2" color="text.secondary">
-                      Tiempo Total
+                      Total Time
                     </Typography>
                     <Typography variant="h5">
                       {formatTime(weeklyReport.totalPracticeTime)}
@@ -291,7 +291,7 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
                   </Grid>
                   <Grid item xs={12} md={4}>
                     <Typography variant="body2" color="text.secondary">
-                      Precisión Promedio
+                      Average Accuracy
                     </Typography>
                     <Typography variant="h5">
                       {weeklyReport.averageAccuracy.toFixed(1)}%
@@ -303,13 +303,13 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
           )}
 
           <Grid container spacing={3}>
-            {/* Progreso de Estudiantes */}
+            {/* Student Progress */}
             <Grid item xs={12} md={6}>
               <Card>
                 <CardContent>
                   <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                     <Person sx={{ mr: 1 }} />
-                    Progreso de Estudiantes
+                    Student Progress
                   </Typography>
                   <List>
                     {studentProgress.map((student, index) => (
@@ -329,7 +329,7 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
                             primary={student.studentName}
                             secondary={
                               <span style={{ fontSize: '0.875rem', color: 'rgba(0, 0, 0, 0.6)' }}>
-                                {formatTime(student.totalPracticeTime)} • {student.choreographiesCompleted} coreografías
+                                {formatTime(student.totalPracticeTime)} • {student.choreographiesCompleted} choreographies
                               </span>
                             }
                           />
@@ -352,13 +352,13 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
               </Card>
             </Grid>
 
-            {/* Estadísticas de Coreografías */}
+            {/* Choreography Statistics */}
             <Grid item xs={12} md={6}>
               <Card>
                 <CardContent>
                   <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                     <MusicNote sx={{ mr: 1 }} />
-                    Estadísticas de Coreografías
+                    Choreography Statistics
                   </Typography>
                   <List>
                     {choreographyStats.map((choreography, index) => (
@@ -373,25 +373,25 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
                             primary={choreography.choreographyName}
                             secondary={
                               <span style={{ fontSize: '0.875rem', color: 'rgba(0, 0, 0, 0.6)' }}>
-                                Tiempo promedio: {formatTime(choreography.averageCompletionTime)}
+                                Average time: {formatTime(choreography.averageCompletionTime)}
                               </span>
                             }
                           />
                           <Box sx={{ display: 'flex', gap: 1, mb: 1, ml: 7 }}>
                             <Chip
-                              label={`${choreography.totalPracticeSessions} sesiones`}
+                              label={`${choreography.totalPracticeSessions} sessions`}
                               size="small"
                               color="primary"
                             />
                             <Chip
-                              label={`${choreography.studentEngagement} estudiantes`}
+                              label={`${choreography.studentEngagement} students`}
                               size="small"
                               color="secondary"
                             />
                           </Box>
                           <Box sx={{ ml: 7, mb: 1 }}>
                             <span style={{ fontSize: '0.875rem', color: 'rgba(0, 0, 0, 0.6)' }}>
-                              Última práctica: {choreography.lastPracticed.toLocaleDateString()}
+                              Last practice: {choreography.lastPracticed.toLocaleDateString()}
                             </span>
                           </Box>
                         </ListItem>
@@ -407,7 +407,7 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
       
       <DialogActions>
         <Button onClick={onClose} variant="outlined">
-          Cerrar
+          Close
         </Button>
       </DialogActions>
     </Dialog>

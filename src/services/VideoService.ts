@@ -60,7 +60,7 @@ class VideoService {
     this.generateSampleVideos();
   }
 
-  // Generar videos de muestra
+  // Generate sample videos
   private generateSampleVideos(): void {
     const videoTypes = [
       { type: 'choreography', count: 8, prefix: 'Coreografía' },
@@ -102,10 +102,10 @@ class VideoService {
       }
     });
 
-    console.log(`🎬 ${this.videoTracks.length} videos generados`);
+    console.log(`🎬 ${this.videoTracks.length} videos generated`);
   }
 
-  // Generar plantillas de formaciones
+  // Generate formation templates
   private generateFormationTemplates(): void {
     const formations = [
       { name: 'Línea', dancers: 8, pattern: 'line' },
@@ -123,15 +123,15 @@ class VideoService {
       this.formationTemplates.push(template);
     });
 
-    console.log(`📐 ${this.formationTemplates.length} plantillas de formación generadas`);
+    console.log(`📐 ${this.formationTemplates.length} formation templates generated`);
   }
 
-  // Crear plantilla de formación
+  // Create formation template
   private createFormationTemplate(name: string, dancerCount: number, pattern: string): FormationFrame {
     const dancers: DancerPosition[] = [];
     const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F'];
 
-    // Generar posiciones según el patrón
+    // Generate positions based on pattern
     for (let i = 0; i < dancerCount; i++) {
       const position = this.getPositionByPattern(pattern, i, dancerCount);
       
@@ -173,7 +173,7 @@ class VideoService {
     };
   }
 
-  // Obtener posición según patrón
+  // Get position based on pattern
   private getPositionByPattern(pattern: string, index: number, total: number): { x: number; y: number; z: number } {
     const spacing = 2;
     
@@ -196,11 +196,11 @@ class VideoService {
       
       case 'diamond':
         const diamondPositions = [
-          { x: 0, y: 0, z: 3 },    // centro
-          { x: -2, y: 0, z: 0 },   // izquierda
-          { x: 2, y: 0, z: 0 },    // derecha
-          { x: 0, y: 0, z: -3 },   // atrás
-          { x: 0, y: 0, z: 0 }     // centro
+          { x: 0, y: 0, z: 3 },    // center
+          { x: -2, y: 0, z: 0 },   // left
+          { x: 2, y: 0, z: 0 },    // right
+          { x: 0, y: 0, z: -3 },   // back
+          { x: 0, y: 0, z: 0 }     // center
         ];
         return diamondPositions[index] || { x: 0, y: 0, z: 0 };
       
@@ -255,7 +255,7 @@ class VideoService {
     }
   }
 
-  // Obtener animación aleatoria
+  // Get random animation
   private getRandomAnimation(): string {
     const animations = [
       'idle', 'walk', 'run', 'jump', 'spin', 'wave', 'clap',
@@ -264,22 +264,22 @@ class VideoService {
     return animations[Math.floor(Math.random() * animations.length)];
   }
 
-  // Generar datos de formación para un video
+  // Generate formation data for a video
   private generateFormationData(formationName: string, duration: number): FormationFrame[] {
     const frames: FormationFrame[] = [];
-    const frameCount = Math.floor(duration * 2); // 2 frames por segundo
+    const frameCount = Math.floor(duration * 2); // 2 frames per second
     
-    // Usar la primera plantilla disponible como base
+    // Use the first available template as base
     const baseTemplate = this.formationTemplates[0];
     if (!baseTemplate) {
-      console.warn('No hay plantillas de formación disponibles');
+      console.warn('No formation templates available');
       return frames;
     }
     
     for (let i = 0; i < frameCount; i++) {
       const timestamp = i * 0.5;
       
-      // Crear frame con variaciones en el tiempo
+      // Create frame with variations in time
       const frame: FormationFrame = {
         timestamp,
         dancers: baseTemplate.dancers.map(dancer => ({
@@ -306,13 +306,13 @@ class VideoService {
     return frames;
   }
 
-  // Obtener resolución aleatoria
+  // Get random resolution
   private getRandomResolution(): string {
     const resolutions = ['1920x1080', '1280x720', '854x480', '640x360'];
     return resolutions[Math.floor(Math.random() * resolutions.length)];
   }
 
-  // Generar URL de video simulada
+  // Generate simulated video URL
   private generateVideoUrl(type: string, style: string): string {
     const baseUrls: { [key: string]: string } = {
       choreography: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
@@ -324,33 +324,33 @@ class VideoService {
     return baseUrls[type] || baseUrls.choreography;
   }
 
-  // Generar URL de thumbnail simulada
+  // Generate simulated thumbnail URL
   private generateThumbnailUrl(type: string, style: string): string {
     const text = encodeURIComponent(`${type} ${style}`);
     return `data:image/svg+xml;base64,${btoa(`<svg width="320" height="180" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#4ECDC4"/><text x="50%" y="50%" font-family="Arial" font-size="14" fill="white" text-anchor="middle" dy=".3em">${text}</text></svg>`)}`;
   }
 
-  // Obtener todos los videos
+  // Get all videos
   getAllVideos(): VideoTrack[] {
     return this.videoTracks;
   }
 
-  // Obtener videos por tipo
+  // Get videos by type
   getVideosByType(type: string): VideoTrack[] {
     return this.videoTracks.filter(video => video.type === type);
   }
 
-  // Obtener video por ID
+  // Get video by ID
   getVideoById(id: string): VideoTrack | undefined {
     return this.videoTracks.find(video => video.id === id);
   }
 
-  // Obtener plantillas de formación
+  // Get formation templates
   getFormationTemplates(): FormationFrame[] {
     return this.formationTemplates;
   }
 
-  // Crear video personalizado para coreografía
+  // Create custom video for choreography
   createCustomVideo(choreographyId: string, requirements: {
     title: string;
     duration: number;
@@ -375,7 +375,7 @@ class VideoService {
     return customVideo;
   }
 
-  // Simular reproducción de video
+  // Simulate video playback
   playVideo(videoId: string, onProgress?: (progress: number, frame: FormationFrame) => void): Promise<void> {
     return new Promise((resolve) => {
       const video = this.getVideoById(videoId);
@@ -394,7 +394,7 @@ class VideoService {
         return;
       }
 
-      // Simular progreso de reproducción con frames
+      // Simulate playback progress with frames
       let currentFrame = 0;
       const totalFrames = video.formationData.length;
       
@@ -413,16 +413,16 @@ class VideoService {
           console.log(`✅ Reproducción completada: ${video.title}`);
           resolve();
         }
-      }, 500); // 2 FPS para simulación
+      }, 500); // 2 FPS for simulation
     });
   }
 
-  // Obtener todos los videos
+  // Get all videos
   getVideoTracks(): VideoTrack[] {
     return [...this.videoTracks];
   }
 
-  // Obtener estadísticas de videos
+  // Get video statistics
   getVideoStats(): {
     totalVideos: number;
     types: { [key: string]: number };

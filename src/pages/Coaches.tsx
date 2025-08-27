@@ -57,7 +57,7 @@ const Coaches: React.FC = () => {
   const [coaches, setCoaches] = useState<Coach[]>([
     {
       id: '1',
-      name: 'María González',
+      name: 'Maria Gonzalez',
       email: 'maria.gonzalez@heliopsis.com',
       phone: '+34 600 111 222',
       specialties: ['Hip Hop', 'Urban Dance', 'Teens'],
@@ -65,7 +65,7 @@ const Coaches: React.FC = () => {
       rating: 4.8,
       totalStudents: 45,
       activeClasses: 12,
-      bio: 'Especialista en Hip Hop y danza urbana con más de 8 años de experiencia. Apasionada por enseñar a jóvenes bailarines.',
+      bio: 'Hip Hop and urban dance specialist with over 8 years of experience. Passionate about teaching young dancers.',
       joinDate: new Date('2020-03-15'),
       status: 'active',
       photo: '',
@@ -75,27 +75,27 @@ const Coaches: React.FC = () => {
       name: 'Carlos Ruiz',
       email: 'carlos.ruiz@heliopsis.com',
       phone: '+34 600 222 333',
-      specialties: ['Contemporáneo', 'Jazz', 'Adultos'],
+      specialties: ['Contemporary', 'Jazz', 'Adults'],
       experience: 12,
       rating: 4.9,
       totalStudents: 38,
       activeClasses: 8,
-      bio: 'Bailarín profesional con formación en danza contemporánea. Especializado en técnicas avanzadas para adultos.',
+      bio: 'Professional dancer with training in contemporary dance. Specialized in advanced techniques for adults.',
       joinDate: new Date('2019-09-01'),
       status: 'active',
       photo: '',
     },
     {
       id: '3',
-      name: 'Ana Martínez',
+      name: 'Ana Martinez',
       email: 'ana.martinez@heliopsis.com',
       phone: '+34 600 333 444',
-      specialties: ['Ragga', 'Mini', 'Principiantes'],
+      specialties: ['Ragga', 'Mini', 'Beginners'],
       experience: 5,
       rating: 4.7,
       totalStudents: 32,
       activeClasses: 10,
-      bio: 'Especialista en danza Ragga y trabajo con niños pequeños. Metodología adaptada para principiantes.',
+      bio: 'Ragga dance specialist and work with small children. Methodology adapted for beginners.',
       joinDate: new Date('2021-01-10'),
       status: 'active',
       photo: '',
@@ -110,7 +110,7 @@ const Coaches: React.FC = () => {
       rating: 5.0,
       totalStudents: 28,
       activeClasses: 6,
-      bio: 'Maestro de ballet clásico con amplia experiencia en formación técnica avanzada y competiciones.',
+              bio: 'Classical ballet master with extensive experience in advanced technical training and competitions.',
       joinDate: new Date('2018-06-01'),
       status: 'active',
       photo: '',
@@ -128,7 +128,7 @@ const Coaches: React.FC = () => {
     bio: '',
   });
 
-  const allSpecialties = ['Hip Hop', 'Contemporáneo', 'Ragga', 'Jazz', 'Ballet', 'Urban Dance', 'Teens', 'Mini', 'Adultos', 'High Level', 'Principiantes', 'Técnica'];
+  const allSpecialties = ['Hip Hop', 'Contemporary', 'Ragga', 'Jazz', 'Ballet', 'Urban Dance', 'Teens', 'Mini', 'Adults', 'High Level', 'Beginners', 'Technique'];
 
   const handleOpenDialog = (coach?: Coach) => {
     if (coach) {
@@ -207,8 +207,8 @@ const Coaches: React.FC = () => {
 
   const getStatusText = (status: string) => {
     const texts: { [key: string]: string } = {
-      'active': 'Activo',
-      'inactive': 'Inactivo',
+              'active': 'Active',
+        'inactive': 'Inactive',
       'on_leave': 'De Permiso',
     };
     return texts[status] || status;
@@ -250,7 +250,7 @@ const Coaches: React.FC = () => {
                 {coaches.filter(c => c.status === 'active').length}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Activos
+                Active
               </Typography>
             </CardContent>
           </Card>
@@ -353,7 +353,7 @@ const Coaches: React.FC = () => {
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                       <SchoolIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
                       <Typography variant="body2" color="text.secondary">
-                        {coach.experience} años exp.
+                        {coach.experience} years exp.
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
@@ -425,7 +425,7 @@ const Coaches: React.FC = () => {
             <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
-                label="Años de Experiencia"
+                label="Years of Experience"
                 type="number"
                 value={formData.experience}
                 onChange={(e) => setFormData({ ...formData, experience: parseInt(e.target.value) })}
@@ -440,7 +440,7 @@ const Coaches: React.FC = () => {
                 rows={4}
                 value={formData.bio}
                 onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                placeholder="Describe la experiencia, formación y especialidades del coach..."
+                                  placeholder="Describe the experience, training and specialties of the coach..."
               />
             </Grid>
             <Grid item xs={12}>

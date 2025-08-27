@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Card,
@@ -67,13 +67,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
   const [loading, setLoading] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
-  useEffect(() => {
-    if (open) {
-      analyzeCurrentState();
-    }
-  }, [open, currentFormation, dancers, musicTempo]);
-
-  const analyzeCurrentState = async () => {
+  const analyzeCurrentState = useCallback(async () => {
     setLoading(true);
     
     // Simular análisis con delay
@@ -104,7 +98,13 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
 
       setLoading(false);
     }, 1500);
-  };
+  }, [dancers, musicTempo, musicStyle, choreography]);
+
+  useEffect(() => {
+    if (open) {
+      analyzeCurrentState();
+    }
+  }, [open, currentFormation, dancers, musicTempo, musicStyle, choreography, analyzeCurrentState]);
 
   const getSeverityColor = (severity: 'low' | 'medium' | 'high') => {
     switch (severity) {
@@ -131,9 +131,9 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
   };
 
   const tabs = [
-    { label: '💡 Sugerencias', icon: <Lightbulb /> },
-    { label: '🎭 Análisis de Postura', icon: <Psychology /> },
-    { label: '⚡ Optimización', icon: <AutoFixHigh /> }
+    { label: '💡 Suggestions', icon: <Lightbulb /> },
+    { label: '🎭 Posture Analysis', icon: <Psychology /> },
+    { label: '⚡ Optimization', icon: <AutoFixHigh /> }
   ];
 
   return (
@@ -141,15 +141,15 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
       <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Psychology sx={{ mr: 1, color: 'primary.main' }} />
-          Asistente de IA
+          AI Assistant
         </Box>
         <Box>
-          <Tooltip title="Actualizar análisis">
+          <Tooltip title="Update analysis">
             <IconButton onClick={analyzeCurrentState} disabled={loading}>
               <Refresh />
             </IconButton>
           </Tooltip>
-          <Tooltip title={showDetails ? "Ocultar detalles" : "Mostrar detalles"}>
+          <Tooltip title={showDetails ? "Hide details" : "Show details"}>
             <IconButton onClick={() => setShowDetails(!showDetails)}>
               {showDetails ? <VisibilityOff /> : <Visibility />}
             </IconButton>
@@ -162,7 +162,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
           <Box sx={{ mb: 2 }}>
             <LinearProgress />
             <Typography variant="body2" sx={{ mt: 1, textAlign: 'center' }}>
-              Analizando coreografía...
+              Analyzing choreography...
             </Typography>
           </Box>
         )}
@@ -200,7 +200,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
             >
               <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                 <Lightbulb sx={{ mr: 1 }} />
-                Sugerencias de Formaciones
+                Formation Suggestions
               </Typography>
               
               {suggestions.length > 0 ? (
@@ -249,7 +249,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
                           </Box>
                           
                           <Typography variant="body2" sx={{ mb: 1 }}>
-                            Bailarines: {suggestion.dancers.length}
+                            Dancers: {suggestion.dancers.length}
                           </Typography>
                           
                           <Button
@@ -258,7 +258,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
                             fullWidth
                             startIcon={<Star />}
                           >
-                            Aplicar Sugerencia
+                            Apply Suggestion
                           </Button>
                         </CardContent>
                       </Card>
@@ -267,7 +267,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
                 </Grid>
               ) : (
                 <Alert severity="info">
-                  No hay sugerencias disponibles en este momento.
+                  No suggestions available at this time.
                 </Alert>
               )}
             </motion.div>
@@ -284,7 +284,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
             >
               <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                 <Psychology sx={{ mr: 1 }} />
-                Análisis de Postura
+                Posture Analysis
               </Typography>
               
               {postureAnalysis.length > 0 ? (
@@ -294,7 +294,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
                       <AccordionSummary expandIcon={<ExpandMore />}>
                         <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
                           <Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
-                            Bailarín {analysis.dancerId}
+                            Dancer {analysis.dancerId}
                           </Typography>
                           <Chip
                             label={`${analysis.overallScore}/100`}
@@ -331,7 +331,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
                           </List>
                         ) : (
                           <Alert severity="success">
-                            ¡Excelente postura! No se detectaron problemas.
+                            Excellent posture! No problems detected.
                           </Alert>
                         )}
                       </AccordionDetails>
@@ -340,7 +340,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
                 </List>
               ) : (
                 <Alert severity="info">
-                  No hay bailarines para analizar en este momento.
+                  No dancers to analyze at this time.
                 </Alert>
               )}
             </motion.div>
@@ -357,7 +357,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
             >
               <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                 <AutoFixHigh sx={{ mr: 1 }} />
-                Optimización de Coreografía
+                Choreography Optimization
               </Typography>
               
               {optimization ? (
@@ -367,7 +367,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
                     sx={{ mb: 2 }}
                     icon={<TrendingUp />}
                   >
-                    Mejora estimada: +{optimization.overallImprovement}%
+                    Estimated improvement: +{optimization.overallImprovement}%
                   </Alert>
                   
                   <List>
@@ -392,7 +392,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
                 </Box>
               ) : (
                 <Alert severity="info">
-                  No hay coreografía para optimizar en este momento.
+                  No choreography to optimize at this time.
                 </Alert>
               )}
             </motion.div>
@@ -402,7 +402,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
 
       <DialogActions>
         <Button onClick={onClose} variant="outlined">
-          Cerrar
+          Close
         </Button>
         <Button 
           onClick={analyzeCurrentState} 
@@ -410,7 +410,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
           disabled={loading}
           startIcon={<Refresh />}
         >
-          Actualizar
+          Update
         </Button>
       </DialogActions>
     </Dialog>

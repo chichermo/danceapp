@@ -83,7 +83,7 @@ const FileImporter: React.FC<FileImporterProps> = ({
     if (!acceptedFormats.some(format => format.includes(fileExtension || ''))) {
       setImportResult({
         success: 0,
-        errors: [`Formato de archivo no soportado: ${fileExtension}`],
+        errors: [`Unsupported file format: ${fileExtension}`],
         warnings: [],
         data: []
       });
@@ -94,7 +94,7 @@ const FileImporter: React.FC<FileImporterProps> = ({
     if (file.size > maxFileSize * 1024 * 1024) {
       setImportResult({
         success: 0,
-        errors: [`Archivo demasiado grande. Máximo: ${maxFileSize}MB`],
+        errors: [`File too large. Maximum: ${maxFileSize}MB`],
         warnings: [],
         data: []
       });
@@ -121,7 +121,7 @@ const FileImporter: React.FC<FileImporterProps> = ({
         warnings = jsonData.warnings;
       } else if (fileExtension === 'xlsx' || fileExtension === 'xls') {
         // Para Excel necesitaríamos una librería como xlsx
-        errors = ['Formato Excel no implementado aún. Por favor exporta como CSV.'];
+        errors = ['Excel format not implemented yet. Please export as CSV.'];
       }
 
       const result: ImportResult = {
@@ -139,7 +139,7 @@ const FileImporter: React.FC<FileImporterProps> = ({
     } catch (error) {
       setImportResult({
         success: 0,
-        errors: [`Error al procesar archivo: ${error}`],
+        errors: [`Error processing file: ${error}`],
         warnings: [],
         data: []
       });
@@ -156,7 +156,7 @@ const FileImporter: React.FC<FileImporterProps> = ({
                const lines = text.split('\n').filter(line => line.trim());
 
                if (lines.length < 2) {
-                 resolve({ data: [], errors: ['Archivo CSV vacío o sin datos'], warnings: [] });
+                 resolve({ data: [], errors: ['Empty CSV file or no data'], warnings: [] });
                  return;
                }
 
@@ -165,14 +165,14 @@ const FileImporter: React.FC<FileImporterProps> = ({
                const errors: string[] = [];
                const warnings: string[] = [];
 
-               console.log('Headers detectados:', headers);
-               console.log('Total de líneas:', lines.length);
+               console.log('Detected headers:', headers);
+               console.log('Total lines:', lines.length);
 
                for (let i = 1; i < lines.length; i++) {
                  try {
                    const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
                    if (values.length !== headers.length) {
-                     warnings.push(`Fila ${i + 1}: Número de columnas inconsistente (${values.length} vs ${headers.length})`);
+                     warnings.push(`Row ${i + 1}: Inconsistent number of columns (${values.length} vs ${headers.length})`);
                      continue;
                    }
 
@@ -181,23 +181,23 @@ const FileImporter: React.FC<FileImporterProps> = ({
                      row[header] = values[index] || '';
                    });
 
-                   // Solo agregar filas que tengan al menos un dato no vacío
+                   // Only add rows that have at least one non-empty data
                    if (Object.values(row).some(value => value && value.toString().trim().length > 0)) {
                      data.push(row);
                    }
 
-                   // Validaciones básicas
+                   // Basic validations
                    if (!row['Nombre'] && !row['nombre'] && !row['firstName'] && !row['FirstName']) {
-                     warnings.push(`Fila ${i + 1}: Nombre faltante. Columnas disponibles: ${Object.keys(row).join(', ')}`);
+                     warnings.push(`Row ${i + 1}: Missing name. Available columns: ${Object.keys(row).join(', ')}`);
                    }
                  } catch (error) {
-                   errors.push(`Fila ${i + 1}: Error de formato - ${error}`);
+                   errors.push(`Row ${i + 1}: Format error - ${error}`);
                  }
                }
 
-               console.log('Datos procesados:', data);
-               console.log('Errores:', errors);
-               console.log('Advertencias:', warnings);
+               console.log('Processed data:', data);
+               console.log('Errors:', errors);
+               console.log('Warnings:', warnings);
 
                resolve({ data, errors, warnings });
              };
@@ -222,12 +222,12 @@ const FileImporter: React.FC<FileImporterProps> = ({
           } else if (jsonData.data && Array.isArray(jsonData.data)) {
             data = jsonData.data;
           } else {
-            errors.push('Formato JSON no reconocido. Esperado: array de estudiantes o objeto con propiedad "students"');
+            errors.push('Unrecognized JSON format. Expected: array of students or object with "students" property');
           }
 
           resolve({ data, errors, warnings });
         } catch (error) {
-          resolve({ data: [], errors: [`Error al parsear JSON: ${error}`], warnings: [] });
+          resolve({ data: [], errors: [`Error parsing JSON: ${error}`], warnings: [] });
         }
       };
       reader.readAsText(file);
@@ -236,9 +236,9 @@ const FileImporter: React.FC<FileImporterProps> = ({
 
   const downloadTemplate = () => {
     const template = [
-      'Nombre,Apellido,FechaNacimiento,Genero,Email,Telefono,Direccion,Grupo,Nivel',
-      'Ana,García,2010-05-15,Femenino,ana@email.com,+56912345678,Av. Providencia 1234,Mini Ballet,Principiante',
-      'Carlos,Rodríguez,2009-08-22,Masculino,carlos@email.com,+56923456789,Calle Las Condes 567,Teen Hip Hop,Intermedio'
+      'FirstName,LastName,BirthDate,Gender,Email,Phone,Address,Group,Level',
+              'Ana,Garcia,2010-05-15,Female,ana@email.com,+56912345678,Av. Providencia 1234,Mini Ballet,Beginner',
+        'Carlos,Rodriguez,2009-08-22,Male,carlos@email.com,+56923456789,Calle Las Condes 567,Teen Hip Hop,Intermediate'
     ].join('\n');
 
     const blob = new Blob([template], { type: 'text/csv' });
@@ -255,12 +255,12 @@ const FileImporter: React.FC<FileImporterProps> = ({
       <Paper sx={{ p: 3, mb: 3 }}>
         <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
           <FileUpload color="primary" />
-          Importar Estudiantes
+          Import Students
         </Typography>
 
         <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-          Arrastra y suelta tu archivo aquí, o haz clic para seleccionar. 
-          Formatos soportados: {acceptedFormats.join(', ')}
+          Drag and drop your file here, or click to select. 
+          Supported formats: {acceptedFormats.join(', ')}
         </Typography>
 
         {/* Área de Drop */}
@@ -295,16 +295,16 @@ const FileImporter: React.FC<FileImporterProps> = ({
           {isImporting ? (
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
               <CircularProgress size={40} />
-              <Typography>Procesando archivo...</Typography>
+              <Typography>Processing file...</Typography>
             </Box>
           ) : (
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
               <CloudUpload sx={{ fontSize: 48, color: 'primary.main' }} />
               <Typography variant="h6">
-                {dragActive ? 'Suelta el archivo aquí' : 'Arrastra archivo aquí o haz clic'}
+                {dragActive ? 'Drop the file here' : 'Drag file here or click'}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Máximo {maxFileSize}MB
+                Maximum {maxFileSize}MB
               </Typography>
             </Box>
           )}
@@ -318,7 +318,7 @@ const FileImporter: React.FC<FileImporterProps> = ({
             variant="outlined"
             size="small"
           >
-            Descargar Plantilla CSV
+            Download CSV Template
           </Button>
         </Box>
       </Paper>
@@ -333,21 +333,21 @@ const FileImporter: React.FC<FileImporterProps> = ({
           <Paper sx={{ p: 3 }}>
             <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
               <TableChart color="primary" />
-              Resultados de Importación
+              Import Results
             </Typography>
 
             {/* Resumen */}
             <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap' }}>
               <Chip
                 icon={<CheckCircle />}
-                label={`${importResult.success} estudiantes importados`}
+                label={`${importResult.success} students imported`}
                 color="success"
                 variant="outlined"
               />
               {importResult.errors.length > 0 && (
                 <Chip
                   icon={<Error />}
-                  label={`${importResult.errors.length} errores`}
+                  label={`${importResult.errors.length} errors`}
                   color="error"
                   variant="outlined"
                 />
@@ -355,7 +355,7 @@ const FileImporter: React.FC<FileImporterProps> = ({
               {importResult.warnings.length > 0 && (
                 <Chip
                   icon={<Warning />}
-                  label={`${importResult.warnings.length} advertencias`}
+                  label={`${importResult.warnings.length} warnings`}
                   color="warning"
                   variant="outlined"
                 />
@@ -368,7 +368,7 @@ const FileImporter: React.FC<FileImporterProps> = ({
                 <AccordionSummary expandIcon={<ExpandMore />}>
                   <Typography color="error" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Error color="error" />
-                    Errores ({importResult.errors.length})
+                    Errors ({importResult.errors.length})
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -386,13 +386,13 @@ const FileImporter: React.FC<FileImporterProps> = ({
               </Accordion>
             )}
 
-            {/* Advertencias */}
+            {/* Warnings */}
             {importResult.warnings.length > 0 && (
               <Accordion sx={{ mb: 2 }}>
                 <AccordionSummary expandIcon={<ExpandMore />}>
                   <Typography color="warning.main" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Warning color="warning" />
-                    Advertencias ({importResult.warnings.length})
+                    Warnings ({importResult.warnings.length})
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -416,7 +416,7 @@ const FileImporter: React.FC<FileImporterProps> = ({
                 <AccordionSummary expandIcon={<ExpandMore />}>
                   <Typography color="success.main" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <CheckCircle color="success" />
-                    Datos Importados ({importResult.data.length})
+                    Imported Data ({importResult.data.length})
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -426,14 +426,14 @@ const FileImporter: React.FC<FileImporterProps> = ({
                         <ListItem key={index}>
                           <ListItemText
                             primary={`${row.Nombre || row.firstName || 'N/A'} ${row.Apellido || row.lastName || ''}`}
-                            secondary={`${row.Email || row.email || 'Sin email'} • ${row.Grupo || row.group || 'Sin grupo'}`}
+                            secondary={`${row.Email || row.email || 'No email'} • ${row.Grupo || row.group || 'No group'}`}
                           />
                         </ListItem>
                       ))}
                       {importResult.data.length > 10 && (
                         <ListItem>
                           <ListItemText
-                            primary={`... y ${importResult.data.length - 10} estudiantes más`}
+                            primary={`... and ${importResult.data.length - 10} more students`}
                             color="text.secondary"
                           />
                         </ListItem>

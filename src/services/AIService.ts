@@ -443,7 +443,7 @@ class AIService {
       'La sincronización con la música es buena'
     ];
 
-    // Generar advertencias
+            // Generate warnings
     const warnings = [];
     if (previousFormations.length > 5) {
       warnings.push('Demasiadas formaciones pueden confundir a la audiencia');

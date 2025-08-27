@@ -82,7 +82,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
   };
 
   const formatNumber = (num: number) => {
-    return new Intl.NumberFormat('es-ES').format(num);
+    return new Intl.NumberFormat('en-US').format(num);
   };
 
   const formatTime = (ms: number) => {
@@ -104,16 +104,16 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
   };
 
   const tabs = [
-    { label: '📊 Resumen', icon: <Assessment /> },
-    { label: '⚡ Rendimiento', icon: <Speed /> },
-    { label: '👥 Usuarios', icon: <People /> },
-    { label: '📈 Eventos', icon: <Analytics /> }
+    { label: '📊 Summary', icon: <Assessment /> },
+    { label: '⚡ Performance', icon: <Speed /> },
+    { label: '👥 Users', icon: <People /> },
+    { label: '📈 Events', icon: <Analytics /> }
   ];
 
   if (loading) {
     return (
       <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
-        <DialogTitle>📊 Dashboard de Analytics</DialogTitle>
+        <DialogTitle>📊 Analytics Dashboard</DialogTitle>
         <DialogContent>
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 400 }}>
             <LinearProgress sx={{ width: '100%' }} />
@@ -128,15 +128,15 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
       <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Analytics sx={{ mr: 1, color: 'primary.main' }} />
-          Dashboard de Analytics
+          Analytics Dashboard
         </Box>
         <Box>
-          <Tooltip title="Actualizar datos">
+          <Tooltip title="Update data">
             <IconButton onClick={loadAnalyticsData} color="primary">
               <Refresh />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Exportar datos">
+          <Tooltip title="Export data">
             <IconButton onClick={() => {
               const data = analyticsService.exportAnalytics();
               const blob = new Blob([data], { type: 'application/json' });
@@ -157,7 +157,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
 
       <DialogContent>
         <Box sx={{ mt: 2 }}>
-          {/* Tabs de navegación */}
+          {/* Navigation Tabs */}
           <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
             <Box sx={{ display: 'flex', gap: 1 }}>
               {tabs.map((tab, index) => (
@@ -174,7 +174,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
             </Box>
           </Box>
 
-          {/* Tab 1: Resumen */}
+          {/* Tab 1: Summary */}
           {activeTab === 0 && analyticsData && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -182,19 +182,19 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
               transition={{ duration: 0.3 }}
             >
               <Grid container spacing={3}>
-                {/* Métricas principales */}
+                {/* Main Metrics */}
                 <Grid item xs={12} md={3}>
                   <Card>
                     <CardContent>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                         <People sx={{ mr: 1, color: 'primary.main' }} />
-                        <Typography variant="h6">Usuarios Totales</Typography>
+                        <Typography variant="h6">Total Users</Typography>
                       </Box>
                       <Typography variant="h4" color="primary">
                         {formatNumber(analyticsData.summary.totalUsers)}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        {formatNumber(analyticsData.summary.activeUsers)} activos
+                        {formatNumber(analyticsData.summary.activeUsers)} active
                       </Typography>
                     </CardContent>
                   </Card>
@@ -205,13 +205,13 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                     <CardContent>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                         <Timer sx={{ mr: 1, color: 'success.main' }} />
-                        <Typography variant="h6">Duración Promedio</Typography>
+                        <Typography variant="h6">Average Duration</Typography>
                       </Box>
                       <Typography variant="h4" color="success.main">
                         {formatTime(analyticsData.summary.sessionDuration)}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Por sesión
+                        Per session
                       </Typography>
                     </CardContent>
                   </Card>
@@ -222,13 +222,13 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                     <CardContent>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                         <Speed sx={{ mr: 1, color: 'warning.main' }} />
-                        <Typography variant="h6">Tiempo de Carga</Typography>
+                        <Typography variant="h6">Load Time</Typography>
                       </Box>
                       <Typography variant="h4" color="warning.main">
                         {formatTime(analyticsData.performanceSummary.averageLoadTime)}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Promedio
+                        Average
                       </Typography>
                     </CardContent>
                   </Card>
@@ -239,13 +239,13 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                     <CardContent>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                         <TrendingUp sx={{ mr: 1, color: 'info.main' }} />
-                        <Typography variant="h6">Retención</Typography>
+                        <Typography variant="h6">Retention</Typography>
                       </Box>
                       <Typography variant="h4" color="info.main">
                         {analyticsData.summary.userRetention.toFixed(1)}%
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        De usuarios
+                        Of users
                       </Typography>
                     </CardContent>
                   </Card>
@@ -257,14 +257,14 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                     <CardContent>
                       <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                         <Insights sx={{ mr: 1 }} />
-                        Funcionalidades Más Usadas
+                        Most Used Features
                       </Typography>
                       <List>
                         {analyticsData.topFeatures.map((feature: any, index: number) => (
                           <ListItem key={index}>
                             <ListItemText
                               primary={feature.feature}
-                              secondary={`${feature.usage} usos`}
+                              secondary={`${feature.usage} uses`}
                             />
                             <Chip
                               label={`#${index + 1}`}
@@ -278,13 +278,13 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                   </Card>
                 </Grid>
 
-                {/* Recomendaciones */}
+                {/* Recommendations */}
                 <Grid item xs={12} md={6}>
                   <Card>
                     <CardContent>
                       <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                         <Warning sx={{ mr: 1 }} />
-                        Recomendaciones
+                        Recommendations
                       </Typography>
                       {analyticsData.recommendations.length > 0 ? (
                         <List>
@@ -302,7 +302,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                         </List>
                       ) : (
                         <Alert severity="success">
-                          ¡Todo se ve bien! No hay recomendaciones en este momento.
+                          Everything looks good! No recommendations at the moment.
                         </Alert>
                       )}
                     </CardContent>
@@ -312,7 +312,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
             </motion.div>
           )}
 
-          {/* Tab 2: Rendimiento */}
+          {/* Tab 2: Performance */}
           {activeTab === 1 && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -325,7 +325,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                     <CardContent>
                       <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                         <Speed sx={{ mr: 1 }} />
-                        Tiempo de Carga
+                        Load Time
                       </Typography>
                       <Typography variant="h4" color="primary">
                         {formatTime(analyticsData?.performanceSummary.averageLoadTime || 0)}
@@ -337,7 +337,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                         sx={{ mt: 1 }}
                       />
                       <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                        Objetivo: &lt; 3s
+                        Target: &lt; 3s
                       </Typography>
                     </CardContent>
                   </Card>
@@ -348,7 +348,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                     <CardContent>
                       <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                         <Memory sx={{ mr: 1 }} />
-                        Uso de Memoria
+                        Memory Usage
                       </Typography>
                       <Typography variant="h4" color="primary">
                         {formatBytes(analyticsData?.performanceSummary.averageMemoryUsage || 0)}
@@ -360,7 +360,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                         sx={{ mt: 1 }}
                       />
                       <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                        Objetivo: &lt; 50MB
+                        Target: &lt; 50MB
                       </Typography>
                     </CardContent>
                   </Card>
@@ -371,7 +371,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                     <CardContent>
                       <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                         <Error sx={{ mr: 1 }} />
-                        Tasa de Errores
+                        Error Rate
                       </Typography>
                       <Typography variant="h4" color="primary">
                         {analyticsData?.performanceSummary.errorRate.toFixed(2) || 0}%
@@ -383,7 +383,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                         sx={{ mt: 1 }}
                       />
                       <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                        Objetivo: &lt; 5%
+                        Target: &lt; 5%
                       </Typography>
                     </CardContent>
                   </Card>
@@ -393,15 +393,15 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                   <Card>
                     <CardContent>
                       <Typography variant="h6" sx={{ mb: 2 }}>
-                        Métricas de Rendimiento Recientes
+                        Recent Performance Metrics
                       </Typography>
                       <TableContainer>
                         <Table size="small">
                           <TableHead>
                             <TableRow>
-                              <TableCell>Tiempo de Carga</TableCell>
-                              <TableCell>Memoria</TableCell>
-                              <TableCell>Errores</TableCell>
+                              <TableCell>Load Time</TableCell>
+                              <TableCell>Memory</TableCell>
+                              <TableCell>Errors</TableCell>
                               <TableCell>Timestamp</TableCell>
                             </TableRow>
                           </TableHead>
@@ -432,7 +432,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
             </motion.div>
           )}
 
-          {/* Tab 3: Usuarios */}
+          {/* Tab 3: Users */}
           {activeTab === 2 && analyticsData && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -444,30 +444,30 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                   <Card>
                     <CardContent>
                       <Typography variant="h6" sx={{ mb: 2 }}>
-                        Estadísticas de Usuarios
+                        User Statistics
                       </Typography>
                       <List>
                         <ListItem>
                           <ListItemText
-                            primary="Usuarios Totales"
+                            primary="Total Users"
                             secondary={formatNumber(analyticsData.summary.totalUsers)}
                           />
                         </ListItem>
                         <ListItem>
                           <ListItemText
-                            primary="Usuarios Activos (24h)"
+                            primary="Active Users (24h)"
                             secondary={formatNumber(analyticsData.summary.activeUsers)}
                           />
                         </ListItem>
                         <ListItem>
                           <ListItemText
-                            primary="Retención de Usuarios"
+                            primary="User Retention"
                             secondary={`${analyticsData.summary.userRetention.toFixed(1)}%`}
                           />
                         </ListItem>
                         <ListItem>
                           <ListItemText
-                            primary="Duración Promedio de Sesión"
+                            primary="Average Session Duration"
                             secondary={formatTime(analyticsData.summary.sessionDuration)}
                           />
                         </ListItem>
@@ -480,14 +480,14 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                   <Card>
                     <CardContent>
                       <Typography variant="h6" sx={{ mb: 2 }}>
-                        Actividad por Funcionalidad
+                        Activity by Feature
                       </Typography>
                       <List>
                         {Object.entries(analyticsData.summary.featureUsage).map(([feature, usage]: [string, any]) => (
                           <ListItem key={feature}>
                             <ListItemText
                               primary={feature}
-                              secondary={`${usage} usos`}
+                              secondary={`${usage} uses`}
                             />
                             <LinearProgress
                               variant="determinate"
@@ -504,7 +504,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
             </motion.div>
           )}
 
-          {/* Tab 4: Eventos */}
+          {/* Tab 4: Events */}
           {activeTab === 3 && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -514,17 +514,17 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
               <Card>
                 <CardContent>
                   <Typography variant="h6" sx={{ mb: 2 }}>
-                    Eventos Recientes
+                    Recent Events
                   </Typography>
                   <TableContainer>
                     <Table size="small">
                       <TableHead>
                         <TableRow>
-                          <TableCell>Acción</TableCell>
-                          <TableCell>Componente</TableCell>
-                          <TableCell>Usuario</TableCell>
+                          <TableCell>Action</TableCell>
+                          <TableCell>Component</TableCell>
+                          <TableCell>User</TableCell>
                           <TableCell>Timestamp</TableCell>
-                          <TableCell>Detalles</TableCell>
+                          <TableCell>Details</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -545,8 +545,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
                             </TableCell>
                             <TableCell>
                               {Object.keys(event.metadata).length > 0 ? 
-                                `${Object.keys(event.metadata).length} propiedades` : 
-                                'Sin detalles'
+                                `${Object.keys(event.metadata).length} properties` : 
+                                'No details'
                               }
                             </TableCell>
                           </TableRow>
@@ -563,14 +563,14 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
 
       <DialogActions>
         <Button onClick={onClose} variant="outlined">
-          Cerrar
+          Close
         </Button>
         <Button 
           onClick={loadAnalyticsData} 
           variant="contained"
           startIcon={<Refresh />}
         >
-          Actualizar
+          Update
         </Button>
       </DialogActions>
     </Dialog>

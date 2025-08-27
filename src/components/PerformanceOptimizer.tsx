@@ -158,10 +158,10 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
       <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Speed sx={{ mr: 1, color: 'primary.main' }} />
-          Optimizador de Rendimiento
+          Performance Optimizer
         </Box>
         <Box>
-          <Tooltip title="Recopilar métricas">
+          <Tooltip title="Collect Metrics">
             <IconButton onClick={collectMetrics} color="primary">
               <Refresh />
             </IconButton>
@@ -171,13 +171,13 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
 
       <DialogContent>
         <Box sx={{ mt: 2 }}>
-          {/* Métricas de Rendimiento Actuales */}
+          {/* Current Performance Metrics */}
           {performanceMetrics && (
             <Card sx={{ mb: 3 }}>
               <CardContent>
                 <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                   <Speed sx={{ mr: 1 }} />
-                  Métricas Actuales
+                  Current Metrics
                 </Typography>
                 <Grid container spacing={2}>
                   {performanceMetrics.memory && (
@@ -189,7 +189,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                             {formatBytes(performanceMetrics.memory.used)}
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
-                            Memoria Usada
+                            Used Memory
                           </Typography>
                         </Box>
                       </Grid>
@@ -199,7 +199,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                             {formatBytes(performanceMetrics.memory.total)}
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
-                            Memoria Total
+                            Total Memory
                           </Typography>
                         </Box>
                       </Grid>
@@ -209,7 +209,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                             {((performanceMetrics.memory.used / performanceMetrics.memory.limit) * 100).toFixed(1)}%
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
-                            Uso de Memoria
+                            Memory Usage
                           </Typography>
                         </Box>
                       </Grid>
@@ -224,7 +224,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                             {formatTime(performanceMetrics.timing.loadTime)}
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
-                            Tiempo de Carga
+                            Load Time
                           </Typography>
                         </Box>
                       </Grid>
@@ -245,12 +245,12 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
             </Card>
           )}
 
-          {/* Configuración de Optimización */}
+          {/* Optimization Configuration */}
           <Card sx={{ mb: 3 }}>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                 <Settings sx={{ mr: 1 }} />
-                Configuración de Optimización
+                Optimization Configuration
               </Typography>
               <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
@@ -261,7 +261,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                         onChange={(e) => handleSettingChange('enableVirtualization', e.target.checked)}
                       />
                     }
-                    label="Virtualización de Listas"
+                    label="List Virtualization"
                   />
                   <FormControlLabel
                     control={
@@ -270,7 +270,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                         onChange={(e) => handleSettingChange('enableMemoization', e.target.checked)}
                       />
                     }
-                    label="Memoización de Componentes"
+                    label="Component Memoization"
                   />
                   <FormControlLabel
                     control={
@@ -279,7 +279,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                         onChange={(e) => handleSettingChange('enableLazyLoading', e.target.checked)}
                       />
                     }
-                    label="Carga Perezosa"
+                    label="Lazy Loading"
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>
@@ -290,7 +290,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                         onChange={(e) => handleSettingChange('enableCodeSplitting', e.target.checked)}
                       />
                     }
-                    label="División de Código"
+                    label="Code Splitting"
                   />
                   <FormControlLabel
                     control={
@@ -309,7 +309,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
               <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
                   <Typography variant="subtitle2" gutterBottom>
-                    Delay de Debounce: {settings.debounceDelay}ms
+                    Debounce Delay: {settings.debounceDelay}ms
                   </Typography>
                   <Slider
                     value={settings.debounceDelay}
@@ -326,7 +326,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <Typography variant="subtitle2" gutterBottom>
-                    Delay de Throttle: {settings.throttleDelay}ms
+                    Throttle Delay: {settings.throttleDelay}ms
                   </Typography>
                   <Slider
                     value={settings.throttleDelay}
@@ -345,29 +345,29 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
             </CardContent>
           </Card>
 
-          {/* Proceso de Optimización */}
+          {/* Optimization Process */}
           {isOptimizing && (
             <Card sx={{ mb: 3 }}>
               <CardContent>
                 <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                   <PlayArrow sx={{ mr: 1 }} />
-                  Optimizando Aplicación...
+                  Optimizing Application...
                 </Typography>
                 <LinearProgress sx={{ mb: 2 }} />
                 <Typography variant="body2" color="text.secondary">
-                  Analizando componentes y aplicando optimizaciones...
+                  Analyzing components and applying optimizations...
                 </Typography>
               </CardContent>
             </Card>
           )}
 
-          {/* Resultados de Optimización */}
+          {/* Optimization Results */}
           {optimizationResults && (
             <Card sx={{ mb: 3 }}>
               <CardContent>
                 <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                   <CheckCircle sx={{ mr: 1, color: 'success.main' }} />
-                  Resultados de Optimización
+                  Optimization Results
                 </Typography>
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={3}>
@@ -376,7 +376,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                         {optimizationResults.componentsOptimized}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Componentes Optimizados
+                        Components Optimized
                       </Typography>
                     </Box>
                   </Grid>
@@ -386,7 +386,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                         {optimizationResults.memorySaved}%
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Memoria Ahorrada
+                        Memory Saved
                       </Typography>
                     </Box>
                   </Grid>
@@ -396,7 +396,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                         {optimizationResults.renderTimeImproved}ms
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Tiempo de Render Mejorado
+                        Render Time Improved
                       </Typography>
                     </Box>
                   </Grid>
@@ -406,7 +406,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                         {optimizationResults.bundleSizeReduced}%
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Bundle Reducido
+                        Bundle Reduced
                       </Typography>
                     </Box>
                   </Grid>
@@ -416,7 +416,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                   <Box sx={{ mt: 3 }}>
                     <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                       <Info sx={{ mr: 1 }} />
-                      Recomendaciones
+                      Recommendations
                     </Typography>
                     <List>
                       {optimizationResults.recommendations.map((recommendation: string, index: number) => (
@@ -434,12 +434,12 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
             </Card>
           )}
 
-          {/* Consejos de Optimización */}
+          {/* Optimization Tips */}
           <Card>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                 <Tune sx={{ mr: 1 }} />
-                Consejos de Optimización
+                Optimization Tips
               </Typography>
               <List>
                 <ListItem>
@@ -447,8 +447,8 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                     <CheckCircle color="success" />
                   </ListItemIcon>
                   <ListItemText
-                    primary="Usa React.memo para componentes que se re-renderizan frecuentemente"
-                    secondary="Evita re-renders innecesarios memorizando componentes"
+                    primary="Use React.memo for components that re-render frequently"
+                    secondary="Avoid unnecessary re-renders by memoizing components"
                   />
                 </ListItem>
                 <ListItem>
@@ -456,8 +456,8 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                     <CheckCircle color="success" />
                   </ListItemIcon>
                   <ListItemText
-                    primary="Implementa lazy loading para componentes pesados"
-                    secondary="Carga componentes solo cuando son necesarios"
+                    primary="Implement lazy loading for heavy components"
+                    secondary="Load components only when they are needed"
                   />
                 </ListItem>
                 <ListItem>
@@ -465,8 +465,8 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                     <CheckCircle color="success" />
                   </ListItemIcon>
                   <ListItemText
-                    primary="Usa useMemo y useCallback para cálculos costosos"
-                    secondary="Memoiza valores y funciones para evitar recálculos"
+                    primary="Use useMemo and useCallback for expensive calculations"
+                    secondary="Memoize values and functions to avoid recalculations"
                   />
                 </ListItem>
                 <ListItem>
@@ -474,8 +474,8 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                     <CheckCircle color="success" />
                   </ListItemIcon>
                   <ListItemText
-                    primary="Optimiza imágenes con lazy loading y compresión"
-                    secondary="Reduce el tamaño de las imágenes y cárgalas bajo demanda"
+                    primary="Optimize images with lazy loading and compression"
+                    secondary="Reduce image size and load them on demand"
                   />
                 </ListItem>
               </List>
@@ -486,7 +486,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
 
       <DialogActions>
         <Button onClick={onClose} variant="outlined">
-          Cerrar
+          Close
         </Button>
         <Button
           onClick={runOptimization}
@@ -500,7 +500,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
             }
           }}
         >
-          {isOptimizing ? 'Optimizando...' : 'Ejecutar Optimización'}
+          {isOptimizing ? 'Optimizing...' : 'Run Optimization'}
         </Button>
       </DialogActions>
     </Dialog>

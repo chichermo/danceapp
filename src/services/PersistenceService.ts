@@ -8,14 +8,14 @@ export interface PersistenceData {
 
 class PersistenceService {
   private readonly STORAGE_KEY = 'heliopsis-dance-data';
-  private readonly AUTO_SAVE_INTERVAL = 30000; // 30 segundos
+  private readonly AUTO_SAVE_INTERVAL = 30000; // 30 seconds
   private autoSaveTimer: NodeJS.Timeout | null = null;
 
   constructor() {
     this.startAutoSave();
   }
 
-  // Guardar datos en localStorage
+  // Save data to localStorage
   saveData(data: Partial<PersistenceData>): void {
     try {
       const existingData = this.loadData();
@@ -26,23 +26,23 @@ class PersistenceService {
       };
       
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(updatedData));
-      console.log('💾 Datos guardados exitosamente');
+      console.log('💾 Data saved successfully');
     } catch (error) {
-      console.error('❌ Error al guardar datos:', error);
+      console.error('❌ Error saving data:', error);
     }
   }
 
-  // Cargar datos desde localStorage
+  // Load data from localStorage
   loadData(): PersistenceData {
     try {
       const data = localStorage.getItem(this.STORAGE_KEY);
       if (data) {
         const parsedData = JSON.parse(data);
-        console.log('📂 Datos cargados exitosamente');
+        console.log('📂 Data loaded successfully');
         return parsedData;
       }
     } catch (error) {
-      console.error('❌ Error al cargar datos:', error);
+      console.error('❌ Error loading data:', error);
     }
     
     return {
@@ -54,51 +54,51 @@ class PersistenceService {
     };
   }
 
-  // Guardar coreografías
+  // Save choreographies
   saveChoreographies(choreographies: any[]): void {
     this.saveData({ choreographies });
   }
 
-  // Cargar coreografías
+  // Load choreographies
   loadChoreographies(): any[] {
     const data = this.loadData();
     return data.choreographies || [];
   }
 
-  // Guardar estudiantes
+  // Save students
   saveStudents(students: any[]): void {
     this.saveData({ students });
   }
 
-  // Cargar estudiantes
+  // Load students
   loadStudents(): any[] {
     const data = this.loadData();
     return data.students || [];
   }
 
-  // Guardar formaciones
+  // Save formations
   saveFormations(formations: any[]): void {
     this.saveData({ formations });
   }
 
-  // Cargar formaciones
+  // Load formations
   loadFormations(): any[] {
     const data = this.loadData();
     return data.formations || [];
   }
 
-  // Guardar configuraciones
+  // Save settings
   saveSettings(settings: any): void {
     this.saveData({ settings });
   }
 
-  // Cargar configuraciones
+  // Load settings
   loadSettings(): any {
     const data = this.loadData();
     return data.settings || {};
   }
 
-  // Iniciar guardado automático
+  // Start auto-save
   startAutoSave(): void {
     if (this.autoSaveTimer) {
       clearInterval(this.autoSaveTimer);
@@ -109,7 +109,7 @@ class PersistenceService {
     }, this.AUTO_SAVE_INTERVAL);
   }
 
-  // Detener guardado automático
+  // Stop auto-save
   stopAutoSave(): void {
     if (this.autoSaveTimer) {
       clearInterval(this.autoSaveTimer);
@@ -117,42 +117,42 @@ class PersistenceService {
     }
   }
 
-  // Guardado automático
+  // Auto-save
   private autoSave(): void {
-    // Este método se puede extender para guardar datos específicos
-    console.log('🔄 Guardado automático ejecutado');
+    // This method can be extended to save specific data
+    console.log('🔄 Auto-save executed');
   }
 
-  // Limpiar todos los datos
+  // Clear all data
   clearAllData(): void {
     try {
       localStorage.removeItem(this.STORAGE_KEY);
-      console.log('🗑️ Todos los datos han sido eliminados');
+      console.log('🗑️ All data has been cleared');
     } catch (error) {
-      console.error('❌ Error al limpiar datos:', error);
+      console.error('❌ Error clearing data:', error);
     }
   }
 
-  // Exportar datos
+  // Export data
   exportData(): string {
     const data = this.loadData();
     return JSON.stringify(data, null, 2);
   }
 
-  // Importar datos
+  // Import data
   importData(jsonData: string): boolean {
     try {
       const data = JSON.parse(jsonData);
       this.saveData(data);
-      console.log('📥 Datos importados exitosamente');
+      console.log('📥 Data imported successfully');
       return true;
     } catch (error) {
-      console.error('❌ Error al importar datos:', error);
+      console.error('❌ Error importing data:', error);
       return false;
     }
   }
 
-  // Obtener estadísticas de almacenamiento
+  // Get storage statistics
   getStorageStats(): {
     totalSize: number;
     lastSaved: string;
@@ -169,6 +169,6 @@ class PersistenceService {
   }
 }
 
-// Instancia singleton
+// Singleton instance
 const persistenceService = new PersistenceService();
 export default persistenceService;

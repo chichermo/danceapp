@@ -245,11 +245,11 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
       }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
           <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
-            🎥 Análisis de Video - Coach's Eye Style
+            🎥 Video Analysis - Coach's Eye Style
           </Typography>
           <Box sx={{ display: 'flex', gap: 1 }}>
             <Chip 
-              label={isRecording ? 'Grabando...' : 'Listo'}
+              label={isRecording ? 'Recording...' : 'Ready'}
               color={isRecording ? 'error' : 'default'}
               size="small"
             />
@@ -270,7 +270,7 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
             onClick={isRecording ? stopRecording : startRecording}
             sx={{ color: isRecording ? 'white' : 'white' }}
           >
-            {isRecording ? 'Detener' : 'Grabar'}
+            {isRecording ? 'Stop' : 'Record'}
           </Button>
 
           <IconButton onClick={handlePlayPause} sx={{ color: 'white' }}>
@@ -293,7 +293,7 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
         {/* Controles de Velocidad y Zoom */}
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="body2">Velocidad:</Typography>
+            <Typography variant="body2">Speed:</Typography>
             <Box sx={{ display: 'flex', gap: 0.5 }}>
               {[0.25, 0.5, 1, 1.5, 2].map((speed) => (
                 <Button
@@ -343,16 +343,16 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
           }}
         >
           <Tab label="🎥 Video" />
-          <Tab label="✏️ Telestración" />
-          <Tab label="📍 Marcadores" />
-          <Tab label="📊 Análisis" />
+          <Tab label="✏️ Telestracion" />
+          <Tab label="📍 Markers" />
+          <Tab label="📊 Analysis" />
         </Tabs>
       </Box>
 
       {/* Contenido según Tab */}
              {currentTab === 0 && (
          <Box>
-           <Typography variant="h6" sx={{ mb: 2 }}>Reproducción de Video</Typography>
+           <Typography variant="h6" sx={{ mb: 2 }}>Video Playback</Typography>
            
            {/* Sección de subida de video */}
            <Paper sx={{ p: 3, mb: 3, textAlign: 'center', borderStyle: 'dashed', borderColor: '#ccc' }}>
@@ -385,11 +385,11 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
                    fontSize: '1.1rem'
                  }}
                >
-                 📁 Subir Video para Análisis
+                 📁 Upload Video for Analysis
                </Button>
              </label>
              <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-               Formatos soportados: MP4, MOV, AVI, MKV (máx. 500MB)
+               Supported formats: MP4, MOV, AVI, MKV (max 500MB)
              </Typography>
            </Paper>
 
@@ -406,10 +406,10 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
                controls
                onPlay={() => setIsPlaying(true)}
                onPause={() => setIsPlaying(false)}
-               poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect width='100%25' height='100%25' fill='%23f5f5f5'/%3E%3Ctext x='50%25' y='50%25' font-size='24' text-anchor='middle' dy='.3em' fill='%23999'%3E🎥 Sube un video para comenzar el análisis%3C/text%3E%3C/svg%3E"
+               poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect width='100%25' height='100%25' fill='%23f5f5f5'/%3E%3Ctext x='50%25' y='50%25' font-size='24' text-anchor='middle' dy='.3em' fill='%23999'%3E🎥 Upload a video to start analysis%3C/text%3E%3C/svg%3E"
              />
              <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-               📝 Una vez cargado el video, podrás usar todas las herramientas de análisis
+               📝 Once the video is loaded, you can use all analysis tools
              </Typography>
            </Paper>
          </Box>
@@ -417,12 +417,12 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
 
       {currentTab === 1 && (
         <Box>
-          <Typography variant="h6" sx={{ mb: 2 }}>Herramientas de Telestración</Typography>
+          <Typography variant="h6" sx={{ mb: 2 }}>Telestracion Tools</Typography>
           
           {/* Controles de Dibujo */}
           <Paper sx={{ p: 2, mb: 2 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-              <Typography variant="subtitle2">Herramientas:</Typography>
+              <Typography variant="subtitle2">Tools:</Typography>
               {['brush', 'arrow', 'circle', 'rectangle', 'line'].map((tool) => (
                 <IconButton
                   key={tool}
@@ -448,7 +448,7 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
               
               <TextField
                 type="number"
-                label="Tamaño"
+                label="Size"
                 value={selectedTool.size}
                 onChange={(e) => setSelectedTool(prev => ({ ...prev, size: parseInt(e.target.value) }))}
                 size="small"
@@ -464,7 +464,7 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
                 disabled={drawingHistory.length === 0}
                 size="small"
               >
-                Deshacer
+                Undo
               </Button>
               <Button
                 startIcon={<Delete />}
@@ -472,7 +472,7 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
                 color="error"
                 size="small"
               >
-                Limpiar
+                Clear
               </Button>
               <FormControlLabel
                 control={
@@ -481,7 +481,7 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
                     onChange={(e) => setShowGrid(e.target.checked)}
                   />
                 }
-                label="Mostrar Cuadrícula"
+                label="Show Grid"
               />
             </Box>
           </Paper>
@@ -504,7 +504,7 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
               }}
             />
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-              Haz clic y arrastra para dibujar sobre el video
+              Click and drag to draw on the video
             </Typography>
           </Paper>
         </Box>
@@ -512,11 +512,11 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
 
       {currentTab === 2 && (
         <Box>
-          <Typography variant="h6" sx={{ mb: 2 }}>Marcadores de Análisis</Typography>
+          <Typography variant="h6" sx={{ mb: 2 }}>Analysis Markers</Typography>
           
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
             <Typography variant="body2" color="text.secondary">
-              Marca momentos importantes para análisis técnico
+              Mark important moments for technical analysis
             </Typography>
             <Button
               variant="contained"
@@ -529,7 +529,7 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
                 }
               }}
             >
-              Agregar Marcador
+              Add Marker
             </Button>
           </Box>
 
@@ -594,33 +594,33 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
 
       {currentTab === 3 && (
         <Box>
-          <Typography variant="h6" sx={{ mb: 2 }}>Análisis Técnico</Typography>
+          <Typography variant="h6" sx={{ mb: 2 }}>Technical Analysis</Typography>
           
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
               <Card>
                 <CardContent>
-                  <Typography variant="h6" sx={{ mb: 2 }}>📊 Estadísticas</Typography>
+                  <Typography variant="h6" sx={{ mb: 2 }}>📊 Statistics</Typography>
                   <List>
                     <ListItem>
                       <ListItemIcon>🎯</ListItemIcon>
                       <ListItemText 
-                        primary="Marcadores Técnicos" 
-                        secondary={`${markers.filter(m => m.type === 'technique').length} marcadores`}
+                        primary="Technical Markers" 
+                        secondary={`${markers.filter(m => m.type === 'technique').length} markers`}
                       />
                     </ListItem>
                     <ListItem>
                       <ListItemIcon>🎭</ListItemIcon>
                       <ListItemText 
-                        primary="Formaciones" 
-                        secondary={`${markers.filter(m => m.type === 'formation').length} marcadores`}
+                        primary="Formations" 
+                        secondary={`${markers.filter(m => m.type === 'formation').length} markers`}
                       />
                     </ListItem>
                     <ListItem>
                       <ListItemIcon>⚠️</ListItemIcon>
                       <ListItemText 
-                        primary="Correcciones" 
-                        secondary={`${markers.filter(m => m.type === 'correction').length} marcadores`}
+                        primary="Corrections" 
+                        secondary={`${markers.filter(m => m.type === 'correction').length} markers`}
                       />
                     </ListItem>
                   </List>
@@ -631,20 +631,20 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
             <Grid item xs={12} md={6}>
               <Card>
                 <CardContent>
-                  <Typography variant="h6" sx={{ mb: 2 }}>💡 Recomendaciones</Typography>
+                  <Typography variant="h6" sx={{ mb: 2 }}>💡 Recommendations</Typography>
                   <List>
                     <ListItem>
                       <ListItemIcon>⭐</ListItemIcon>
                       <ListItemText 
-                        primary="Mejorar sincronización" 
-                        secondary="Practicar transiciones entre formaciones"
+                        primary="Improve synchronization" 
+                        secondary="Practice transitions between formations"
                       />
                     </ListItem>
                     <ListItem>
                       <ListItemIcon>⭐</ListItemIcon>
                       <ListItemText 
-                        primary="Técnica de brazos" 
-                        secondary="Mantener brazos más estirados en la posición 2"
+                        primary="Arm technique" 
+                        secondary="Keep arms more extended in position 2"
                       />
                     </ListItem>
                   </List>
@@ -655,17 +655,17 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
         </Box>
       )}
 
-      {/* Dialog para Agregar/Editar Marcador */}
+      {/* Dialog to Add/Edit Marker */}
       <Dialog open={showMarkerDialog} onClose={() => setShowMarkerDialog(false)} maxWidth="sm" fullWidth>
         <DialogTitle>
-          {editingMarker ? 'Editar Marcador' : 'Nuevo Marcador'}
+          {editingMarker ? 'Edit Marker' : 'New Marker'}
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={2} sx={{ mt: 1 }}>
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="Descripción"
+                label="Description"
                 value={editingMarker?.description || ''}
                 onChange={(e) => setEditingMarker(prev => prev ? { ...prev, description: e.target.value } : null)}
                 multiline
@@ -677,21 +677,21 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
               <TextField
                 fullWidth
                 select
-                label="Tipo"
+                label="Type"
                 value={editingMarker?.type || 'technique'}
                 onChange={(e) => setEditingMarker(prev => prev ? { ...prev, type: e.target.value as any } : null)}
               >
-                <option value="technique">🎯 Técnica</option>
-                <option value="formation">🎭 Formación</option>
-                <option value="correction">⚠️ Corrección</option>
-                <option value="highlight">⭐ Destacado</option>
+                <option value="technique">🎯 Technique</option>
+                <option value="formation">🎭 Formation</option>
+                <option value="correction">⚠️ Correction</option>
+                <option value="highlight">⭐ Highlight</option>
               </TextField>
             </Grid>
             
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                label="Tiempo (segundos)"
+                label="Time (seconds)"
                 type="number"
                 value={editingMarker?.time || currentTime}
                 onChange={(e) => setEditingMarker(prev => prev ? { ...prev, time: parseFloat(e.target.value) } : null)}
@@ -701,19 +701,19 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setShowMarkerDialog(false)}>Cancelar</Button>
+          <Button onClick={() => setShowMarkerDialog(false)}>Cancel</Button>
           <Button 
             onClick={() => {
               if (editingMarker) {
-                // Actualizar marcador existente
+                // Update existing marker
                 setMarkers(prev => prev.map(m => m.id === editingMarker.id ? editingMarker : m));
                 setEditingMarker(null);
               } else {
-                // Agregar nuevo marcador
+                // Add new marker
                 addMarker({
                   time: currentTime,
                   type: 'technique',
-                  description: 'Nuevo marcador',
+                  description: 'New marker',
                   color: '#FF6B9D'
                 });
               }
@@ -721,7 +721,7 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
             }}
             variant="contained"
           >
-            {editingMarker ? 'Actualizar' : 'Agregar'}
+            {editingMarker ? 'Update' : 'Add'}
           </Button>
         </DialogActions>
       </Dialog>

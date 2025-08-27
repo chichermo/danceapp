@@ -2,12 +2,14 @@ export interface MusicTrack {
   id: string;
   title: string;
   artist: string;
-  duration: number; // en segundos
+  duration: number; // in seconds
   genre: string;
-  tempo: number; // BPM
+  bpm: number; // BPM
   url: string;
-  waveform?: number[]; // datos de forma de onda simulados
-  beats?: number[]; // tiempos de beats en segundos
+  waveform?: number[]; // simulated waveform data
+  beats?: number[]; // beat times in seconds
+  key?: string; // song key
+  uploadedAt?: Date; // upload date
 }
 
 export interface ChoreographyMusic {
@@ -62,18 +64,20 @@ class MusicService {
           id: `track-${genre.name.toLowerCase()}-${i + 1}`,
           title: trackTitles[trackIndex] || `${genre.name} Track ${i + 1}`,
           artist: artists[trackIndex % artists.length],
-          duration: 180 + Math.random() * 120, // 3-5 minutos
+          duration: 180 + Math.random() * 120, // 3-5 minutes
           genre: genre.name,
-          tempo: genre.tempo + Math.floor(Math.random() * 20 - 10), // variación de ±10 BPM
+          bpm: genre.tempo + Math.floor(Math.random() * 20 - 10), // variation ±10 BPM
           url: this.generateAudioUrl(genre.style, genre.tempo),
           waveform: this.generateWaveform(genre.tempo),
-          beats: this.generateBeats(genre.tempo, 180 + Math.random() * 120)
+          beats: this.generateBeats(genre.tempo, 180 + Math.random() * 120),
+                      key: 'C', // Default key
+          uploadedAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000)
         };
         this.musicTracks.push(track);
       }
     });
 
-    console.log(`🎵 ${this.musicTracks.length} pistas de música generadas`);
+    console.log(`🎵 ${this.musicTracks.length} music tracks generated`);
   }
 
   // Generar URL de audio simulada
@@ -189,10 +193,12 @@ class MusicService {
       artist: 'AI Generated',
       duration: requirements.duration,
       genre: requirements.genre,
-      tempo: requirements.tempo,
+      bpm: requirements.tempo,
       url: this.generateAudioUrl(requirements.style, requirements.tempo),
       waveform: this.generateWaveform(requirements.tempo),
-      beats: this.generateBeats(requirements.tempo, requirements.duration)
+      beats: this.generateBeats(requirements.tempo, requirements.duration),
+      key: 'C', // Default key
+      uploadedAt: new Date()
     };
 
     this.musicTracks.push(customTrack);
@@ -207,25 +213,26 @@ class MusicService {
         throw new Error(`Track with ID ${trackId} not found`);
       }
 
-      console.log(`🎵 Reproduciendo: ${track.title} - ${track.artist}`);
-      console.log(`⏱️ Duración: ${Math.floor(track.duration / 60)}:${(track.duration % 60).toString().padStart(2, '0')}`);
-      console.log(`🎼 Tempo: ${track.tempo} BPM`);
-      console.log(`🎭 Género: ${track.genre}`);
+      console.log(`🎵 Playing: ${track.title}`);
+      console.log(`👤 Artist: ${track.artist}`);
+      console.log(`⏱️ Duration: ${Math.floor(track.duration / 60)}:${(track.duration % 60).toString().padStart(2, '0')}`);
+      console.log(`🎭 Genre: ${track.genre}`);
+      console.log(`🎯 BPM: ${track.bpm}`);
 
-      // Simular progreso de reproducción
+      // Simulate playback progress
       let progress = 0;
       const interval = setInterval(() => {
-        progress += 0.1;
+        progress += 1;
         if (onProgress) {
-          onProgress(progress / track.duration);
+          onProgress(progress);
         }
-        
-        if (progress >= track.duration) {
+
+        if (progress >= 100) {
           clearInterval(interval);
-          console.log(`✅ Reproducción completada: ${track.title}`);
+          console.log('✅ Track finished playing');
           resolve();
         }
-      }, 100);
+      }, (track.duration * 1000) / 100); // Update every 1% of duration
     });
   }
 
@@ -247,7 +254,7 @@ class MusicService {
 
     this.musicTracks.forEach(track => {
       genres[track.genre] = (genres[track.genre] || 0) + 1;
-      totalTempo += track.tempo;
+      totalTempo += track.bpm;
       totalDuration += track.duration;
     });
 

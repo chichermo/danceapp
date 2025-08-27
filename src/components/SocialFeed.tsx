@@ -179,7 +179,7 @@ const SocialFeed: React.FC<SocialFeedProps> = ({ open, onClose }) => {
       <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Typography variant="h6" sx={{ mr: 2 }}>
-            🌟 Comunidad de Danza
+            🌟 Dance Community
           </Typography>
           <Badge badgeContent={notifications.length} color="error">
             <Notifications />
@@ -381,7 +381,7 @@ const SocialFeed: React.FC<SocialFeedProps> = ({ open, onClose }) => {
                             </Button>
                           </Box>
 
-                          {/* Comentarios */}
+                          {/* Comments */}
                           {post.comments.length > 0 && (
                             <Box sx={{ mt: 2, pt: 2, borderTop: 1, borderColor: 'divider' }}>
                               {post.comments.slice(0, 2).map((comment, commentIndex) => (
@@ -402,7 +402,7 @@ const SocialFeed: React.FC<SocialFeedProps> = ({ open, onClose }) => {
                               ))}
                               {post.comments.length > 2 && (
                                 <Typography variant="body2" color="text.secondary">
-                                  Ver {post.comments.length - 2} comentarios más...
+                                  View {post.comments.length - 2} more comments...
                                 </Typography>
                               )}
                             </Box>
@@ -418,15 +418,15 @@ const SocialFeed: React.FC<SocialFeedProps> = ({ open, onClose }) => {
         </Grid>
       </DialogContent>
 
-      {/* Dialog para crear post */}
+      {/* Dialog to create post */}
       <Dialog open={showCreatePost} onClose={() => setShowCreatePost(false)} maxWidth="sm" fullWidth>
-        <DialogTitle>Crear Nuevo Post</DialogTitle>
+        <DialogTitle>Create New Post</DialogTitle>
         <DialogContent>
           <TextField
             fullWidth
             multiline
             rows={4}
-            placeholder="¿Qué quieres compartir con la comunidad?"
+            placeholder="What do you want to share with the community?"
             value={newPostContent}
             onChange={(e) => setNewPostContent(e.target.value)}
             sx={{ mb: 2 }}
@@ -437,39 +437,39 @@ const SocialFeed: React.FC<SocialFeedProps> = ({ open, onClose }) => {
               onClick={() => setNewPostType('choreography')}
               startIcon={<span>🎭</span>}
             >
-              Coreografía
+              Choreography
             </Button>
             <Button
               variant={newPostType === 'tip' ? 'contained' : 'outlined'}
               onClick={() => setNewPostType('tip')}
               startIcon={<span>💡</span>}
             >
-              Consejo
+              Tip
             </Button>
             <Button
               variant={newPostType === 'achievement' ? 'contained' : 'outlined'}
               onClick={() => setNewPostType('achievement')}
               startIcon={<span>🏆</span>}
             >
-              Logro
+              Achievement
             </Button>
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setShowCreatePost(false)}>Cancelar</Button>
+          <Button onClick={() => setShowCreatePost(false)}>Cancel</Button>
           <Button 
             onClick={handleCreatePost} 
             variant="contained"
             disabled={!newPostContent.trim()}
           >
-            Publicar
+            Publish
           </Button>
         </DialogActions>
       </Dialog>
 
       <DialogActions>
         <Button onClick={onClose} variant="outlined">
-          Cerrar
+          Close
         </Button>
       </DialogActions>
     </Dialog>

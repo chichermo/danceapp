@@ -30,7 +30,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [danceStyle, setDanceStyle] = useState<keyof typeof danceColors>('contemporary');
   const [customGradient, setCustomGradient] = useState(gradients.dance);
 
-  // Cargar preferencias del tema desde localStorage
+  // Load theme preferences from localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
     const savedDanceStyle = localStorage.getItem('danceStyle') as keyof typeof danceColors | null;
@@ -41,7 +41,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     if (savedGradient) setCustomGradient(savedGradient);
   }, []);
 
-  // Guardar preferencias en localStorage
+  // Save preferences in localStorage
   useEffect(() => {
     localStorage.setItem('theme', theme);
   }, [theme]);
@@ -60,7 +60,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   const handleSetDanceStyle = (style: keyof typeof danceColors) => {
     setDanceStyle(style);
-    // Actualizar gradiente basado en el estilo de danza
+    // Update gradient based on dance style
     const styleGradients = {
       hiphop: gradients.secondary,
       contemporary: gradients.dance,

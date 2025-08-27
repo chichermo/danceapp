@@ -88,7 +88,7 @@ const Students: React.FC = () => {
     severity: 'info'
   });
 
-  // Cargar datos iniciales
+  // Load initial data
   useEffect(() => {
     loadStudents();
     loadDanceGroups();
@@ -117,7 +117,8 @@ const Students: React.FC = () => {
         phone: student.phone || '',
         address: student.address,
         guardians: student.guardians.map(g => ({
-          name: g.name,
+          firstName: g.firstName,
+          lastName: g.lastName,
           relationship: g.relationship,
           phone: g.phone,
           email: g.email,
@@ -147,7 +148,7 @@ const Students: React.FC = () => {
     firstName: '',
     lastName: '',
     dateOfBirth: '',
-    gender: 'Femenino',
+            gender: 'Female',
     email: '',
     phone: '',
     address: {
@@ -155,18 +156,19 @@ const Students: React.FC = () => {
       city: '',
       state: '',
       zipCode: '',
-      country: 'Chile'
+      country: 'Belgium'
     },
     guardians: [{
-      name: '',
-      relationship: 'Padre',
+      firstName: '',
+      lastName: '',
+      relationship: 'Father',
       phone: '',
       email: '',
       emergencyContact: true,
       canPickUp: true
     }],
     danceGroups: [],
-    level: 'Principiante',
+    level: 'Beginner',
     medicalInfo: '',
     allergies: [],
     notes: ''
@@ -210,7 +212,7 @@ const Students: React.FC = () => {
       if (updated) {
         setSnackbar({
           open: true,
-          message: 'Estudiante actualizado exitosamente',
+          message: 'Student updated successfully',
           severity: 'success'
         });
       }
@@ -219,7 +221,7 @@ const Students: React.FC = () => {
       const newStudent = studentService.createStudent(formData);
       setSnackbar({
         open: true,
-        message: 'Estudiante creado exitosamente',
+        message: 'Student created successfully',
         severity: 'success'
       });
     }
@@ -229,12 +231,12 @@ const Students: React.FC = () => {
   };
 
   const handleDelete = (studentId: string) => {
-    if (window.confirm('¿Estás seguro de que quieres eliminar este estudiante?')) {
+    if (window.confirm('Are you sure you want to delete this student?')) {
       const deleted = studentService.deleteStudent(studentId);
       if (deleted) {
         setSnackbar({
           open: true,
-          message: 'Estudiante eliminado exitosamente',
+          message: 'Student deleted successfully',
           severity: 'success'
         });
         loadStudents();
@@ -251,7 +253,7 @@ const Students: React.FC = () => {
     if (result.success > 0) {
       setSnackbar({
         open: true,
-        message: `${result.success} estudiantes importados exitosamente${result.errors.length > 0 ? `, ${result.errors.length} errores` : ''}`,
+        message: `${result.success} students imported successfully${result.errors.length > 0 ? `, ${result.errors.length} errors` : ''}`,
         severity: result.errors.length > 0 ? 'info' : 'success'
       });
       
@@ -260,7 +262,7 @@ const Students: React.FC = () => {
     } else {
       setSnackbar({
         open: true,
-        message: `No se pudieron importar estudiantes. Errores: ${result.errors.join(', ')}`,
+        message: `Could not import students. Errors: ${result.errors.join(', ')}`,
         severity: 'error'
       });
     }
@@ -279,7 +281,7 @@ const Students: React.FC = () => {
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h4" sx={{ mb: 3, fontWeight: 'bold', color: 'primary.main' }}>
-        👥 Gestión de Estudiantes
+        👥 Student Management
       </Typography>
 
       {/* Estadísticas */}
@@ -293,7 +295,7 @@ const Students: React.FC = () => {
               <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                 {stats.totalStudents}
               </Typography>
-              <Typography variant="body2">Total Estudiantes</Typography>
+              <Typography variant="body2">Total Students</Typography>
             </CardContent>
           </Card>
         </Grid>
@@ -306,7 +308,7 @@ const Students: React.FC = () => {
               <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                 {stats.activeStudents}
               </Typography>
-              <Typography variant="body2">Estudiantes Activos</Typography>
+              <Typography variant="body2">Active Students</Typography>
             </CardContent>
           </Card>
         </Grid>
@@ -319,7 +321,7 @@ const Students: React.FC = () => {
               <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                 {stats.averageAge}
               </Typography>
-              <Typography variant="body2">Edad Promedio</Typography>
+              <Typography variant="body2">Average Age</Typography>
             </CardContent>
           </Card>
         </Grid>
@@ -332,7 +334,7 @@ const Students: React.FC = () => {
               <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                 {Math.round(stats.attendanceRate * 100)}%
               </Typography>
-              <Typography variant="body2">Asistencia Promedio</Typography>
+              <Typography variant="body2">Average Attendance</Typography>
             </CardContent>
           </Card>
         </Grid>
@@ -344,7 +346,7 @@ const Students: React.FC = () => {
           <Grid item xs={12} md={6}>
             <TextField
               fullWidth
-              placeholder="Buscar estudiantes..."
+              placeholder="Search students..."
               value={filters.search}
               onChange={(e) => setFilters({ ...filters, search: e.target.value })}
               InputProps={{
@@ -363,7 +365,7 @@ const Students: React.FC = () => {
                 onClick={() => setShowFilters(!showFilters)}
                 variant={showFilters ? 'contained' : 'outlined'}
               >
-                Filtros
+                Filters
               </Button>
               <Button
                 startIcon={<UploadIcon />}
@@ -371,7 +373,7 @@ const Students: React.FC = () => {
                 variant="outlined"
                 color="secondary"
               >
-                Importar
+                Import
               </Button>
               <Button
                 startIcon={<DownloadIcon />}
@@ -381,13 +383,13 @@ const Students: React.FC = () => {
                   const url = window.URL.createObjectURL(blob);
                   const a = document.createElement('a');
                   a.href = url;
-                  a.download = 'estudiantes.csv';
+                  a.download = 'students.csv';
                   a.click();
                   window.URL.revokeObjectURL(url);
                 }}
                 variant="outlined"
               >
-                Exportar
+                Export
               </Button>
               <Button
                 startIcon={<AddIcon />}
@@ -400,7 +402,7 @@ const Students: React.FC = () => {
                   }
                 }}
               >
-                Nuevo Estudiante
+                New Student
               </Button>
             </Box>
           </Grid>
@@ -418,44 +420,44 @@ const Students: React.FC = () => {
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6} md={3}>
                   <FormControl fullWidth>
-                    <InputLabel>Nivel</InputLabel>
+                    <InputLabel>Level</InputLabel>
                     <Select
                       value={filters.level}
                       onChange={(e) => setFilters({ ...filters, level: e.target.value })}
-                      label="Nivel"
+                      label="Level"
                     >
-                      <MenuItem value="">Todos</MenuItem>
-                      <MenuItem value="Principiante">Principiante</MenuItem>
-                      <MenuItem value="Intermedio">Intermedio</MenuItem>
-                      <MenuItem value="Avanzado">Avanzado</MenuItem>
-                      <MenuItem value="Experto">Experto</MenuItem>
+                      <MenuItem value="">All</MenuItem>
+                      <MenuItem value="Beginner">Beginner</MenuItem>
+                      <MenuItem value="Intermediate">Intermediate</MenuItem>
+                      <MenuItem value="Advanced">Advanced</MenuItem>
+                      <MenuItem value="Expert">Expert</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
                   <FormControl fullWidth>
-                    <InputLabel>Estado</InputLabel>
+                    <InputLabel>Status</InputLabel>
                     <Select
                       value={filters.status}
                       onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-                      label="Estado"
+                      label="Status"
                     >
-                      <MenuItem value="">Todos</MenuItem>
-                      <MenuItem value="Activo">Activo</MenuItem>
-                      <MenuItem value="Inactivo">Inactivo</MenuItem>
-                      <MenuItem value="Suspendido">Suspendido</MenuItem>
-                      <MenuItem value="Graduado">Graduado</MenuItem>
+                      <MenuItem value="">All</MenuItem>
+                      <MenuItem value="Active">Active</MenuItem>
+                      <MenuItem value="Inactive">Inactive</MenuItem>
+                      <MenuItem value="Suspended">Suspended</MenuItem>
+                      <MenuItem value="Graduated">Graduated</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
                   <FormControl fullWidth>
-                    <InputLabel>Grupos</InputLabel>
+                    <InputLabel>Groups</InputLabel>
                     <Select
                       multiple
                       value={filters.danceGroups}
                       onChange={(e) => setFilters({ ...filters, danceGroups: e.target.value as string[] })}
-                      label="Grupos"
+                      label="Groups"
                     >
                       {danceGroups.map((group) => (
                         <MenuItem key={group.id} value={group.id}>
@@ -468,7 +470,7 @@ const Students: React.FC = () => {
                 <Grid item xs={12} sm={6} md={3}>
                   <Box>
                     <Typography variant="body2" gutterBottom>
-                      Rango de Edad: {filters.ageRange[0]} - {filters.ageRange[1]} años
+                      Age Range: {filters.ageRange[0]} - {filters.ageRange[1]} years
                     </Typography>
                     <Slider
                       value={filters.ageRange}
@@ -521,7 +523,7 @@ const Students: React.FC = () => {
                           {student.fullName}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                          {student.age} años • {student.gender}
+                          {student.age} years • {student.gender}
                         </Typography>
                       </Box>
                       <Box>
@@ -529,9 +531,9 @@ const Students: React.FC = () => {
                           label={student.level}
                           size="small"
                           color={
-                            student.level === 'Principiante' ? 'default' :
-                            student.level === 'Intermedio' ? 'primary' :
-                            student.level === 'Avanzado' ? 'secondary' : 'success'
+                            student.level === 'Beginner' ? 'default' :
+                            student.level === 'Intermediate' ? 'primary' :
+                            student.level === 'Advanced' ? 'secondary' : 'success'
                           }
                         />
                       </Box>
@@ -555,14 +557,14 @@ const Students: React.FC = () => {
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                       <Email sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
                       <Typography variant="body2" color="text.secondary">
-                        {student.email || 'Sin email'}
+                        {student.email || 'No email'}
                       </Typography>
                     </Box>
 
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                       <Phone sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
                       <Typography variant="body2" color="text.secondary">
-                        {student.phone || 'Sin teléfono'}
+                        {student.phone || 'No phone'}
                       </Typography>
                     </Box>
 
@@ -576,14 +578,14 @@ const Students: React.FC = () => {
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                       <Group sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
                       <Typography variant="body2" color="text.secondary">
-                        {student.danceGroups.length} grupo(s)
+                        {student.danceGroups.length} group(s)
                       </Typography>
                     </Box>
 
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                       <TrendingUp sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
                       <Typography variant="body2" color="text.secondary">
-                        {Math.round(student.attendanceRate * 100)}% asistencia
+                        {Math.round(student.attendanceRate * 100)}% attendance
                       </Typography>
                     </Box>
 
@@ -591,7 +593,7 @@ const Students: React.FC = () => {
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <Typography variant="caption" color="text.secondary">
-                        Inscrito: {student.joinDate.toLocaleDateString('es-ES')}
+                        Enrolled: {student.joinDate.toLocaleDateString('en-US')}
                       </Typography>
                       <Box>
                         <IconButton
@@ -627,15 +629,15 @@ const Students: React.FC = () => {
         disablePortal
       >
         <DialogTitle>
-          {editingStudent ? 'Editar Estudiante' : 'Nuevo Estudiante'}
+          {editingStudent ? 'Edit Student' : 'New Student'}
         </DialogTitle>
         <DialogContent>
           <Tabs value={activeTab} onChange={(_, value) => setActiveTab(value)} sx={{ mb: 3 }}>
-            <Tab label="Información Personal" />
-            <Tab label="Contacto y Dirección" />
-            <Tab label="Apoderados" />
-            <Tab label="Información Académica" />
-            <Tab label="Información Médica" />
+                            <Tab label="Personal Information" />
+                <Tab label="Contact & Address" />
+                <Tab label="Guardians" />
+                <Tab label="Academic Information" />
+                <Tab label="Medical Information" />
           </Tabs>
 
           {activeTab === 0 && (
@@ -643,7 +645,7 @@ const Students: React.FC = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Nombre"
+                  label="First Name"
                   value={formData.firstName}
                   onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                   required
@@ -652,7 +654,7 @@ const Students: React.FC = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Apellido"
+                  label="Last Name"
                   value={formData.lastName}
                   onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                   required
@@ -661,7 +663,7 @@ const Students: React.FC = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Fecha de Nacimiento"
+                  label="Date of Birth"
                   type="date"
                   value={formData.dateOfBirth}
                   onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
@@ -671,16 +673,16 @@ const Students: React.FC = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Género</InputLabel>
-                  <Select
-                    value={formData.gender}
-                    onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                    label="Género"
-                  >
-                    <MenuItem value="Femenino">Femenino</MenuItem>
-                    <MenuItem value="Masculino">Masculino</MenuItem>
-                    <MenuItem value="No binario">No binario</MenuItem>
-                    <MenuItem value="Prefiero no decir">Prefiero no decir</MenuItem>
+                                      <InputLabel>Gender</InputLabel>
+                    <Select
+                      value={formData.gender}
+                      onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+                      label="Gender"
+                    >
+                                          <MenuItem value="Female">Female</MenuItem>
+                      <MenuItem value="Male">Male</MenuItem>
+                      <MenuItem value="Non-binary">Non-binary</MenuItem>
+                      <MenuItem value="Prefer not to say">Prefer not to say</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -701,7 +703,7 @@ const Students: React.FC = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Teléfono"
+                  label="Phone"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 />
@@ -709,7 +711,7 @@ const Students: React.FC = () => {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Calle y Número"
+                  label="Street and Number"
                   value={formData.address.street}
                   onChange={(e) => setFormData({
                     ...formData,
@@ -720,7 +722,7 @@ const Students: React.FC = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Ciudad"
+                                        label="City"
                   value={formData.address.city}
                   onChange={(e) => setFormData({
                     ...formData,
@@ -731,7 +733,7 @@ const Students: React.FC = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Región"
+                  label="State/Region"
                   value={formData.address.state}
                   onChange={(e) => setFormData({
                     ...formData,
@@ -742,7 +744,7 @@ const Students: React.FC = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Código Postal"
+                                        label="Postal Code"
                   value={formData.address.zipCode}
                   onChange={(e) => setFormData({
                     ...formData,
@@ -753,7 +755,7 @@ const Students: React.FC = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="País"
+                                        label="Country"
                   value={formData.address.country}
                   onChange={(e) => setFormData({
                     ...formData,
@@ -769,24 +771,24 @@ const Students: React.FC = () => {
               {formData.guardians.map((guardian, index) => (
                 <Paper key={index} sx={{ p: 2, mb: 2 }}>
                   <Typography variant="h6" sx={{ mb: 2 }}>
-                    Apoderado {index + 1}
+                    Guardian {index + 1}
                   </Typography>
                   <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                       <TextField
                         fullWidth
-                        label="Nombre Completo"
-                        value={guardian.name}
+                        label="First Name"
+                        value={guardian.firstName}
                         onChange={(e) => {
                           const newGuardians = [...formData.guardians];
-                          newGuardians[index].name = e.target.value;
+                          newGuardians[index].firstName = e.target.value;
                           setFormData({ ...formData, guardians: newGuardians });
                         }}
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <FormControl fullWidth>
-                        <InputLabel>Relación</InputLabel>
+                        <InputLabel>Relationship</InputLabel>
                         <Select
                           value={guardian.relationship}
                           onChange={(e) => {
@@ -794,20 +796,20 @@ const Students: React.FC = () => {
                             newGuardians[index].relationship = e.target.value as any;
                             setFormData({ ...formData, guardians: newGuardians });
                           }}
-                          label="Relación"
+                          label="Relationship"
                         >
-                          <MenuItem value="Padre">Padre</MenuItem>
-                          <MenuItem value="Madre">Madre</MenuItem>
-                          <MenuItem value="Tutor">Tutor</MenuItem>
-                          <MenuItem value="Apoderado">Apoderado</MenuItem>
-                          <MenuItem value="Otro">Otro</MenuItem>
+                          <MenuItem value="Father">Father</MenuItem>
+                          <MenuItem value="Mother">Mother</MenuItem>
+                          <MenuItem value="Guardian">Guardian</MenuItem>
+                          <MenuItem value="Legal Representative">Legal Representative</MenuItem>
+                          <MenuItem value="Other">Other</MenuItem>
                         </Select>
                       </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField
                         fullWidth
-                        label="Teléfono"
+                        label="Phone"
                         value={guardian.phone}
                         onChange={(e) => {
                           const newGuardians = [...formData.guardians];
@@ -841,7 +843,7 @@ const Students: React.FC = () => {
                             }}
                           />
                         }
-                        label="Contacto de Emergencia"
+                        label="Emergency Contact"
                       />
                       <FormControlLabel
                         control={
@@ -854,7 +856,7 @@ const Students: React.FC = () => {
                             }}
                           />
                         }
-                        label="Puede Recoger al Estudiante"
+                        label="Can Pick Up Student"
                       />
                     </Grid>
                   </Grid>
@@ -865,8 +867,9 @@ const Students: React.FC = () => {
                 onClick={() => setFormData({
                   ...formData,
                   guardians: [...formData.guardians, {
-                    name: '',
-                    relationship: 'Padre',
+                    firstName: '',
+                    lastName: '',
+                    relationship: 'Father',
                     phone: '',
                     email: '',
                     emergencyContact: false,
@@ -875,7 +878,7 @@ const Students: React.FC = () => {
                 })}
                 variant="outlined"
               >
-                Agregar Apoderado
+                Add Guardian
               </Button>
             </Box>
           )}
@@ -884,28 +887,28 @@ const Students: React.FC = () => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Nivel</InputLabel>
+                  <InputLabel>Level</InputLabel>
                   <Select
                     value={formData.level}
                     onChange={(e) => setFormData({ ...formData, level: e.target.value })}
-                    label="Nivel"
+                    label="Level"
                   >
-                    <MenuItem value="Principiante">Principiante</MenuItem>
-                    <MenuItem value="Intermedio">Intermedio</MenuItem>
-                    <MenuItem value="Avanzado">Avanzado</MenuItem>
-                    <MenuItem value="Experto">Experto</MenuItem>
+                                          <MenuItem value="Beginner">Beginner</MenuItem>
+                      <MenuItem value="Intermediate">Intermediate</MenuItem>
+                      <MenuItem value="Advanced">Advanced</MenuItem>
+                      <MenuItem value="Expert">Expert</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Grupos de Danza</InputLabel>
-                  <Select
-                    multiple
-                    value={formData.danceGroups}
-                    onChange={(e) => setFormData({ ...formData, danceGroups: e.target.value as string[] })}
-                    label="Grupos de Danza"
-                  >
+                                      <InputLabel>Dance Groups</InputLabel>
+                    <Select
+                      multiple
+                      value={formData.danceGroups}
+                      onChange={(e) => setFormData({ ...formData, danceGroups: e.target.value as string[] })}
+                      label="Dance Groups"
+                    >
                     {danceGroups.map((group) => (
                       <MenuItem key={group.id} value={group.id}>
                         {group.name} - {group.style}
@@ -917,12 +920,12 @@ const Students: React.FC = () => {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Notas"
+                  label="Notes"
                   multiline
                   rows={3}
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  placeholder="Información adicional sobre el estudiante..."
+                  placeholder="Additional information about the student..."
                 />
               </Grid>
             </Grid>
@@ -933,33 +936,33 @@ const Students: React.FC = () => {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Información Médica"
+                  label="Medical Information"
                   multiline
                   rows={3}
                   value={formData.medicalInfo}
                   onChange={(e) => setFormData({ ...formData, medicalInfo: e.target.value })}
-                  placeholder="Condiciones médicas, alergias, medicamentos..."
+                  placeholder="Medical conditions, allergies, medications..."
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Alergias"
+                  label="Allergies"
                   value={formData.allergies.join(', ')}
                   onChange={(e) => setFormData({
                     ...formData,
                     allergies: e.target.value.split(',').map(a => a.trim()).filter(a => a)
                   })}
-                  placeholder="Separar múltiples alergias con comas"
+                  placeholder="Separate multiple allergies with commas"
                 />
               </Grid>
             </Grid>
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancelar</Button>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
           <Button onClick={handleSave} variant="contained">
-            {editingStudent ? 'Actualizar' : 'Crear'}
+            {editingStudent ? 'Update' : 'Create'}
           </Button>
         </DialogActions>
       </Dialog>
@@ -972,7 +975,7 @@ const Students: React.FC = () => {
         fullWidth
         disablePortal
       >
-        <DialogTitle>Importar Estudiantes</DialogTitle>
+        <DialogTitle>Import Students</DialogTitle>
         <DialogContent>
           <FileImporter
             onImportComplete={handleImportComplete}
@@ -981,7 +984,7 @@ const Students: React.FC = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setShowImportDialog(false)}>Cerrar</Button>
+          <Button onClick={() => setShowImportDialog(false)}>Close</Button>
         </DialogActions>
       </Dialog>
 

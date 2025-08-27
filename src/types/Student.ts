@@ -8,8 +8,9 @@ export interface Address {
 
 export interface Guardian {
   id: string;
-  name: string;
-  relationship: 'Padre' | 'Madre' | 'Tutor' | 'Apoderado' | 'Otro';
+  firstName: string;
+  lastName: string;
+  relationship: 'Father' | 'Mother' | 'Guardian' | 'Legal Representative' | 'Other';
   phone: string;
   email: string;
   emergencyContact: boolean;
@@ -19,8 +20,8 @@ export interface Guardian {
 export interface DanceGroup {
   id: string;
   name: string;
-  level: 'Principiante' | 'Intermedio' | 'Avanzado' | 'Experto';
-  style: 'Contemporáneo' | 'Hip Hop' | 'Ballet' | 'Jazz' | 'Salsa' | 'Otro';
+  level: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
+  style: 'Contemporary' | 'Hip Hop' | 'Ballet' | 'Jazz' | 'Salsa' | 'Other';
   schedule: string;
   coach: string;
   maxStudents: number;
@@ -33,43 +34,43 @@ export interface Student {
   fullName: string;
   dateOfBirth: Date;
   age: number;
-  gender: 'Femenino' | 'Masculino' | 'No binario' | 'Prefiero no decir';
+  gender: 'Female' | 'Male' | 'Non-binary' | 'Prefer not to say';
   
-  // Contacto
+  // Contact
   email?: string;
   phone?: string;
   
-  // Dirección
+  // Address
   address: Address;
   
-  // Apoderados
+  // Guardians
   guardians: Guardian[];
   
-  // Información Académica
-  danceGroups: string[]; // IDs de los grupos
-  level: 'Principiante' | 'Intermedio' | 'Avanzado' | 'Experto';
+  // Academic Information
+  danceGroups: string[]; // Group IDs
+  level: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
   joinDate: Date;
   lastClassDate?: Date;
   
-  // Estado
+  // Status
   isActive: boolean;
-  status: 'Activo' | 'Inactivo' | 'Suspendido' | 'Graduado';
+  status: 'Active' | 'Inactive' | 'Suspended' | 'Graduated';
   
-  // Información Adicional
+  // Additional Information
   medicalInfo?: string;
   allergies?: string[];
   notes?: string;
   
-  // Archivos
+  // Files
   photo?: string;
   documents?: string[];
   
-  // Estadísticas
+  // Statistics
   totalClasses: number;
   attendanceRate: number;
   choreographiesParticipated: number;
   
-  // Fechas
+  // Dates
   createdAt: Date;
   updatedAt: Date;
 }

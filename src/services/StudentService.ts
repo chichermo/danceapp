@@ -1,42 +1,96 @@
 import { Student, StudentFormData, StudentFilters, StudentStats, DanceGroup, Guardian, Address } from '../types/Student';
 
-// Datos mock iniciales - se reemplazarán con datos reales
+// Initial mock data - will be replaced with real data
 const mockDanceGroups: DanceGroup[] = [
   {
-    id: 'group-1',
-    name: 'Mini Ballet',
-    level: 'Principiante',
-    style: 'Ballet',
-    schedule: 'Lunes y Miércoles 16:00-17:00',
-    coach: 'María González',
+    id: 'modern-1',
+    name: 'MODERN 1 - BIRTH YEARS 2013 & 2012 & 2011',
+    level: 'Beginner',
+    style: 'Contemporary',
+    schedule: 'Monday and Wednesday 16:00-17:00',
+    coach: 'Maria Gonzalez',
+    maxStudents: 27
+  },
+  {
+    id: 'modern-2',
+    name: 'MODERN 2 - 14+ or after selection/trial lesson',
+    level: 'Intermediate',
+    style: 'Contemporary',
+    schedule: 'Tuesday and Thursday 17:00-18:30',
+    coach: 'Ana Martinez',
+    maxStudents: 32
+  },
+  {
+    id: 'modern-3',
+    name: 'MODERN 3 - 16+ after selection/trial lesson',
+    level: 'Advanced',
+    style: 'Contemporary',
+    schedule: 'Friday 19:00-20:30',
+    coach: 'Luis Perez',
+    maxStudents: 17
+  },
+  {
+    id: 'urban-1',
+    name: 'URBAN 1 - BIRTH YEARS 2013 & 2012 & 2011',
+    level: 'Beginner',
+    style: 'Hip Hop',
+    schedule: 'Monday and Wednesday 17:00-18:00',
+    coach: 'Carlos Ruiz',
+    maxStudents: 31
+  },
+  {
+    id: 'urban-2',
+    name: 'URBAN 2 - 14+ or after selection/trial lesson',
+    level: 'Intermediate',
+    style: 'Hip Hop',
+    schedule: 'Tuesday and Thursday 18:00-19:00',
+    coach: 'Ana Martinez',
+    maxStudents: 39
+  },
+  {
+    id: 'urban-3',
+    name: 'URBAN 3 - 16+ After selection/trial lesson',
+    level: 'Advanced',
+    style: 'Hip Hop',
+    schedule: 'Friday 20:00-21:30',
+    coach: 'Luis Perez',
+    maxStudents: 17
+  },
+  {
+    id: 'urban-teens',
+    name: 'URBAN TEENS - BIRTH YEARS 2016 & 2015 & 2014',
+    level: 'Intermediate',
+    style: 'Hip Hop',
+    schedule: 'Saturday 10:00-11:30',
+    coach: 'Carlos Ruiz',
+    maxStudents: 37
+  },
+  {
+    id: 'modern-teens',
+    name: 'MODERN TEENS - BIRTH YEARS 2016 & 2015 & 2014',
+    level: 'Intermediate',
+    style: 'Contemporary',
+    schedule: 'Saturday 11:30-13:00',
+    coach: 'Maria Gonzalez',
+    maxStudents: 28
+  },
+  {
+    id: 'kids',
+    name: 'KIDS - Birth Year 2019/2018/2017',
+    level: 'Beginner',
+    style: 'Contemporary',
+    schedule: 'Wednesday 15:00-16:00',
+    coach: 'Ana Martinez',
     maxStudents: 12
   },
   {
-    id: 'group-2',
-    name: 'Teen Hip Hop',
-    level: 'Intermedio',
-    style: 'Hip Hop',
-    schedule: 'Martes y Jueves 17:00-18:30',
-    coach: 'Carlos Ruiz',
-    maxStudents: 15
-  },
-  {
-    id: 'group-3',
-    name: 'Adultos Contemporáneo',
-    level: 'Avanzado',
-    style: 'Contemporáneo',
-    schedule: 'Viernes 19:00-20:30',
-    coach: 'Ana Martínez',
-    maxStudents: 10
-  },
-  {
-    id: 'group-4',
-    name: 'High Level Jazz',
-    level: 'Experto',
-    style: 'Jazz',
-    schedule: 'Sábado 10:00-12:00',
-    coach: 'Luis Pérez',
-    maxStudents: 8
+    id: 'minis',
+    name: 'MINI\'S - Birth Year 2021/2020',
+    level: 'Beginner',
+    style: 'Contemporary',
+    schedule: 'Thursday 15:00-16:00',
+    coach: 'Maria Gonzalez',
+    maxStudents: 9
   }
 ];
 
@@ -48,31 +102,37 @@ class StudentService {
   private danceGroups: DanceGroup[] = [...mockDanceGroups];
 
   constructor() {
-    // Inicializar solo con los estudiantes de Bélgica
+    // Initialize only with Belgian students
     this.importAllBelgiumStudents();
   }
 
-  // Obtener todos los estudiantes
+  // Get all students
   getAllStudents(): Student[] {
     return [...this.students];
   }
 
-  // Obtener estudiante por ID
+  // Get student by ID
   getStudentById(id: string): Student | undefined {
     return this.students.find(student => student.id === id);
   }
 
-  // Obtener todos los grupos de danza
+  // Get all dance groups
   getAllDanceGroups(): DanceGroup[] {
     return [...this.danceGroups];
   }
 
-  // Obtener grupo por ID
+  // Get group by ID
   getDanceGroupById(id: string): DanceGroup | undefined {
     return this.danceGroups.find(group => group.id === id);
   }
 
-  // Crear nuevo estudiante
+  // Get group ID by name
+  getGroupIdByName(groupName: string): string | undefined {
+    const group = this.danceGroups.find(g => g.name === groupName);
+    return group?.id;
+  }
+
+  // Create new student
   createStudent(studentData: StudentFormData): Student {
     const newStudent: Student = {
       id: `student-${Date.now()}`,
@@ -93,7 +153,7 @@ class StudentService {
       level: studentData.level as any,
       joinDate: new Date(),
       isActive: true,
-      status: 'Activo',
+      status: 'Active',
       medicalInfo: studentData.medicalInfo,
       allergies: studentData.allergies,
       notes: studentData.notes,
@@ -110,7 +170,7 @@ class StudentService {
     return newStudent;
   }
 
-  // Actualizar estudiante
+  // Update student
   updateStudent(id: string, updates: Partial<Student>): Student | null {
     const index = this.students.findIndex(student => student.id === id);
     if (index === -1) return null;
@@ -125,7 +185,7 @@ class StudentService {
     return updatedStudent;
   }
 
-  // Eliminar estudiante
+  // Delete student
   deleteStudent(id: string): boolean {
     const index = this.students.findIndex(student => student.id === id);
     if (index === -1) return false;
@@ -134,35 +194,35 @@ class StudentService {
     return true;
   }
 
-  // Filtrar estudiantes
+  // Filter students
   filterStudents(filters: StudentFilters): Student[] {
     return this.students.filter(student => {
-      // Búsqueda por nombre
+      // Search by name
       if (filters.search && !student.fullName.toLowerCase().includes(filters.search.toLowerCase())) {
         return false;
       }
 
-      // Filtro por nivel
+      // Filter by level
       if (filters.level && student.level !== filters.level) {
         return false;
       }
 
-      // Filtro por estado
+      // Filter by status
       if (filters.status && student.status !== filters.status) {
         return false;
       }
 
-      // Filtro por grupos
+      // Filter by groups
       if (filters.danceGroups.length > 0 && !filters.danceGroups.some(groupId => student.danceGroups.includes(groupId))) {
         return false;
       }
 
-      // Filtro por rango de edad
+      // Filter by age range
       if (filters.ageRange && (student.age < filters.ageRange[0] || student.age > filters.ageRange[1])) {
         return false;
       }
 
-      // Filtro por estado activo
+      // Filter by active status
       if (filters.isActive !== undefined && student.isActive !== filters.isActive) {
         return false;
       }
@@ -171,7 +231,7 @@ class StudentService {
     });
   }
 
-  // Obtener estadísticas
+  // Get statistics
   getStudentStats(): StudentStats {
     const totalStudents = this.students.length;
     const activeStudents = this.students.filter(s => s.isActive).length;
@@ -210,57 +270,57 @@ class StudentService {
     };
   }
 
-  // Importar datos desde archivo
+  // Import data from file
   importStudentsFromFile(fileData: any[]): { success: number; errors: string[] } {
     const errors: string[] = [];
     let successCount = 0;
 
-    // Verificar que hay datos
+    // Verify that there is data
     if (!fileData || fileData.length === 0) {
-      errors.push('No hay datos para importar');
+      errors.push('No data to import');
       return { success: 0, errors };
     }
 
-    // Mostrar información de debug
-    console.log('Columnas disponibles en el archivo:', Object.keys(fileData[0] || {}));
-    console.log('Primera fila de datos:', fileData[0]);
+    // Show debug information
+    console.log('Available columns in file:', Object.keys(fileData[0] || {}));
+    console.log('First row of data:', fileData[0]);
 
     fileData.forEach((row, index) => {
       try {
-        // Verificar si la fila tiene datos válidos
+        // Verify if the row has valid data
         if (!row || Object.keys(row).length === 0) {
-          return; // Saltar filas vacías
+          return; // Skip empty rows
         }
 
-        // Buscar nombres en diferentes formatos posibles (incluyendo el formato real del CSV)
+        // Search for names in different possible formats (including the real CSV format)
         let firstName = '';
         let lastName = '';
 
         if (row.Name) {
-          // Formato real: "Baert Amy" -> firstName: "Amy", lastName: "Baert"
+          // Real format: "Baert Amy" -> firstName: "Amy", lastName: "Baert"
           const nameParts = row.Name.trim().split(' ');
           if (nameParts.length >= 2) {
-            firstName = nameParts[nameParts.length - 1]; // Último elemento como nombre
-            lastName = nameParts.slice(0, -1).join(' '); // Resto como apellido
+            firstName = nameParts[nameParts.length - 1]; // Last element as first name
+            lastName = nameParts.slice(0, -1).join(' '); // Rest as last name
           } else {
             firstName = row.Name;
             lastName = '';
           }
         } else {
-          // Formato anterior
+          // Previous format
           firstName = row.Nombre || row.nombre || row.firstName || row.FirstName || row['First Name'] || row['Nombre'] || '';
           lastName = row.Apellido || row.apellido || row.lastName || row.LastName || row['Last Name'] || row['Apellido'] || '';
         }
 
         if (firstName) {
-          // Procesar fecha de nacimiento en formato europeo (DD-MM-YYYY)
+          // Process birth date in European format (DD-MM-YYYY)
           let birthDate = new Date('2000-01-01');
           if (row['Birth Date'] || row.FechaNacimiento || row.fechaNacimiento || row.birthDate || row.BirthDate || row['Fecha de Nacimiento']) {
             const dateStr = row['Birth Date'] || row.FechaNacimiento || row.fechaNacimiento || row.birthDate || row.BirthDate || row['Fecha de Nacimiento'];
             if (dateStr.includes('-')) {
               const parts = dateStr.split('-');
               if (parts.length === 3) {
-                // Formato DD-MM-YYYY
+                // Format DD-MM-YYYY
                 birthDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
               }
             }
@@ -273,34 +333,35 @@ class StudentService {
             fullName: row.Name || `${firstName.trim()} ${lastName.trim()}`,
             dateOfBirth: birthDate,
             age: this.calculateAge(birthDate),
-            gender: 'Femenino' as any, // Por defecto, se puede ajustar después
+            gender: 'Female' as any, // Default, can be adjusted later
             email: row.Email || row.email || '',
             phone: row['Mother\'s Mobile'] || row['Father\'s Mobile'] || row.Telefono || row.telefono || row.phone || row.Phone || '',
             address: {
               street: row.Address || row.Direccion || row.direccion || row.address || row.Address || row.street || row.Street || '',
               city: row.City || row.Ciudad || row.ciudad || row.city || row.City || 'Knokke-Heist',
-              state: 'Flandes Occidental',
+              state: 'West Flanders',
               zipCode: row['Postal Code'] || row.CodigoPostal || row.codigoPostal || row.zipCode || row.ZipCode || '8300',
-              country: 'Bélgica'
+              country: 'Belgium'
             },
             guardians: [{
               id: `guardian-imported-${Date.now()}-${index}`,
-              name: row['Mother\'s Mobile'] ? 'Madre' : 'Padre',
-              relationship: 'Apoderado',
+                              firstName: row['Mother\'s Mobile'] ? 'Mother' : 'Father',
+                lastName: 'Guardian',
+              relationship: 'Legal Representative',
               phone: row['Mother\'s Mobile'] || row['Father\'s Mobile'] || '',
               email: row.Email || row.email || '',
               emergencyContact: true,
               canPickUp: true
             }],
-            danceGroups: row['Group Name'] ? [row['Group Name']] : ['MODERN 1'],
-            level: 'Principiante' as any, // Por defecto, se puede ajustar después
+            danceGroups: row['Group Name'] ? [this.getGroupIdByName(row['Group Name']) || 'modern-1'] : ['modern-1'],
+            level: 'Beginner' as any, // Default, can be adjusted later
             joinDate: new Date(),
             lastClassDate: new Date(),
             isActive: true,
-            status: 'Activo',
-            medicalInfo: 'Ninguna condición médica',
+            status: 'Active',
+            medicalInfo: 'No medical conditions',
             allergies: [],
-            notes: `Número de registro: ${row['Dancer Registration Number'] || 'N/A'}`,
+            notes: `Registration number: ${row['Dancer Registration Number'] || 'N/A'}`,
             photo: undefined,
             documents: [],
             totalClasses: 0,
@@ -312,45 +373,45 @@ class StudentService {
 
           this.students.push(newStudent);
           successCount++;
-          console.log(`✅ Estudiante importado: ${newStudent.fullName} - ${row['Group Name']}`);
+          console.log(`✅ Student imported: ${newStudent.fullName} - ${row['Group Name']}`);
         } else {
-          // Solo reportar errores para filas que parecen tener datos
+          // Only report errors for rows that seem to have data
           if (Object.keys(row).some(key => row[key] && row[key].toString().trim().length > 0)) {
-            errors.push(`Fila ${index + 1}: Nombre es obligatorio. Columnas disponibles: ${Object.keys(row).join(', ')}`);
+            errors.push(`Row ${index + 1}: Name is required. Available columns: ${Object.keys(row).join(', ')}`);
             }
           }
         } catch (error) {
-          errors.push(`Fila ${index + 1}: Error de formato - ${error}`);
+          errors.push(`Row ${index + 1}: Format error - ${error}`);
         }
       });
 
       return { success: successCount, errors };
     }
 
-      // Importar TODOS los estudiantes de Bélgica del CSV
+      // Import ALL Belgian students from CSV
   importAllBelgiumStudents(): void {
-    console.log('🚀 === IMPORTANDO TODOS LOS ESTUDIANTES DE BÉLGICA ===');
+    console.log('🚀 === IMPORTING ALL BELGIUM STUDENTS ===');
     
-    // Importar directamente del CSV real
+    // Import directly from real CSV
     const belgiumStudents = this.generateAllBelgiumStudents();
     
-    // Agregar todos los estudiantes al sistema
+    // Add all students to the system
     belgiumStudents.forEach(student => {
       this.students.push(student);
     });
     
-    console.log(`✅ ${belgiumStudents.length} estudiantes de Bélgica importados exitosamente`);
-    console.log(`📊 Total de estudiantes en el sistema: ${this.students.length}`);
+    console.log(`✅ ${belgiumStudents.length} Belgium students imported successfully`);
+    console.log(`📊 Total students in the system: ${this.students.length}`);
   }
 
-    // Generar todos los estudiantes de Bélgica basados en el CSV REAL
+    // Generate all Belgian students based on REAL CSV
     private generateAllBelgiumStudents(): Student[] {
       const students: Student[] = [];
-      let globalIndex = 1; // Contador global para IDs únicos
+              let globalIndex = 1; // Global counter for unique IDs
       
-      // Datos del CSV REAL (97 estudiantes)
+              // Data from REAL CSV (97 students)
       const csvData = [
-        // MODERN 1 - GEBOORTEJAREN 2013 & 2012 & 2011 (27 estudiantes)
+                  // MODERN 1 - BIRTH YEARS 2013 & 2012 & 2011 (27 students)
         { name: 'Baert Amy', city: 'Knokke-Heist', group: 'MODERN 1 - GEBOORTEJAREN 2013 & 2012 & 2011', birthDate: '2012-08-28', phone: '479599065', email: 'sarah_roelandt@hotmail.com', regNumber: '12.08.28-022.57' },
         { name: 'Brouckaert Emma', city: 'Knokke-Heist', group: 'MODERN 1 - GEBOORTEJAREN 2013 & 2012 & 2011', birthDate: '2014-01-29', phone: '472498505', email: 'demeesterkim@hotmail.com', regNumber: '14.01.29-012.30' },
         { name: 'Brouckaert Liana', city: 'Knokke-Heist', group: 'MODERN 1 - GEBOORTEJAREN 2013 & 2012 & 2011', birthDate: '2012-02-15', phone: '472498505', email: 'demeesterkim@hotmail.com', regNumber: '12.02.15-012.27' },
@@ -379,7 +440,7 @@ class StudentService {
         { name: 'Vossen Elle', city: 'Knokke-Heist', group: 'MODERN 1 - GEBOORTEJAREN 2013 & 2012 & 2011', birthDate: '2011-10-26', phone: '477514275', email: 'sylvie_cantraine@yahoo.com', regNumber: '11.10.26-370.53' },
         { name: 'Wasnaire Fay', city: 'Knokke-Heist', group: 'MODERN 1 - GEBOORTEJAREN 2013 & 2012 & 2011', birthDate: '2013-06-26', phone: '475274521', email: 'lizzy.litaer@gmail.com', regNumber: '' },
         
-        // MODERN 2 - 14+ of na selectie/proefles (32 estudiantes)
+                  // MODERN 2 - 14+ or after selection/trial lesson (32 students)
         { name: 'Barnes Lily', city: 'Sluis-Nederland', group: 'MODERN 2 - 14+ of na selectie/proefles', birthDate: '2008-12-05', phone: '476859049', email: 'marjolijnrotsaert@hotmail.com', regNumber: '' },
         { name: 'Bogaert Sam', city: 'Knokke-Heist', group: 'MODERN 2 - 14+ of na selectie/proefles', birthDate: '1999-08-10', phone: '497884053', email: 'Samba1998@gmail.com', regNumber: '' },
         { name: 'Claeys Britt', city: 'Knokke-Heist', group: 'MODERN 2 - 14+ of na selectie/proefles', birthDate: '2005-06-19', phone: '50622225', email: 'claeys.fangio@skynet.be', regNumber: '' },
@@ -413,7 +474,7 @@ class StudentService {
         { name: 'Versporten Linde', city: 'Knokke-Heist', group: 'MODERN 2 - 14+ of na selectie/proefles', birthDate: '2004-05-01', phone: '472416949', email: 'eddy.marijke@telenet.be', regNumber: '' },
         { name: 'Vossen Lili', city: 'Knokke-Heist', group: 'MODERN 2 - 14+ of na selectie/proefles', birthDate: '2007-02-09', phone: '477514275', email: 'Sylvie-Cantraine@yahoo.com', regNumber: '07.02.09-064.50' },
         
-        // MODERN 3 - 16+ na selectie/proefles (17 estudiantes)
+        // MODERN 3 - 16+ after selection/trial lesson (17 students)
         { name: 'Aarnouts Miet', city: 'Knokke-Heist', group: 'MODERN 3 - 16+  na selectie/proefles', birthDate: '1991-10-26', phone: '', email: 'miet_aarnouts@hotmail.com', regNumber: '' },
         { name: 'Claeys Britt', city: 'Knokke-Heist', group: 'MODERN 3 - 16+  na selectie/proefles', birthDate: '2005-06-19', phone: '50622225', email: 'claeys.fangio@skynet.be', regNumber: '' },
         { name: 'Crombez Eline', city: 'Knokke-Heist', group: 'MODERN 3 - 16+  na selectie/proefles', birthDate: '2009-07-26', phone: '468188441', email: 'vermeirsch.m@gmail.com', regNumber: '' },
@@ -432,7 +493,7 @@ class StudentService {
         { name: 'Vossen Lili', city: 'Knokke-Heist', group: 'MODERN 3 - 16+  na selectie/proefles', birthDate: '2007-02-09', phone: '477514275', email: 'Sylvie-Cantraine@yahoo.com', regNumber: '' },
         { name: 'Westyn Jessie', city: 'Sint-Andries', group: 'MODERN 3 - 16+  na selectie/proefles', birthDate: '1996-12-21', phone: '473927530', email: 'jessie-westyn@hotmail.com', regNumber: '' },
         
-        // KIDS - Geboortejaar 2019/2018/2017 (12 estudiantes)
+        // KIDS - Birth Year 2019/2018/2017 (12 students)
         { name: 'Boussemaere Alice', city: 'Zeebrugge', group: 'KIDS  - Geboortejaar 2019/2018/2017', birthDate: '2018-07-14', phone: '471084692', email: 'michaelceline@outlook.com', regNumber: '18071414486' },
         { name: 'Boussemaere Juliette', city: 'Zeebrugge', group: 'KIDS  - Geboortejaar 2019/2018/2017', birthDate: '2018-06-04', phone: '0473822619', email: 'evikesnauwaert@hotmail.com', regNumber: '18060420428' },
         { name: 'Brouckaert Emma', city: 'Knokke-Heist', group: 'KIDS  - Geboortejaar 2019/2018/2017', birthDate: '2019-05-17', phone: '474711707', email: 'steven.brouckaert@gmail.com', regNumber: '19.05.17-208.36' },
@@ -446,7 +507,7 @@ class StudentService {
         { name: 'Vanden Poel Celine', city: 'Knokke-Heist', group: 'KIDS  - Geboortejaar 2019/2018/2017', birthDate: '2019-10-21', phone: '471061365', email: 'teodora.angelova22@gmail.com', regNumber: '19102125895' },
         { name: 'Watteeuw Juline', city: 'Westkapelle', group: 'KIDS  - Geboortejaar 2019/2018/2017', birthDate: '2019-11-08', phone: '479954294', email: 'hanne.eeckeloo@hotmail.be', regNumber: '19.11.08-100.68' },
         
-        // MINI'S - Geboortejaar 2021/2020 (9 estudiantes)
+        // MINI'S - Birth Year 2021/2020 (9 students)
         { name: 'Cocquyt Alix', city: 'Knokke-Heist', group: 'MINI\'S  - Geboortejaar 2021/2020', birthDate: '2020-06-22', phone: '478388634', email: 'mado.dewulf@hotmail.com', regNumber: '20062223878' },
         { name: 'Goethals Obe', city: 'Knokke-Heist', group: 'MINI\'S  - Geboortejaar 2021/2020', birthDate: '2021-04-01', phone: '494793142', email: 'anneleen_govaert@hotmail.com', regNumber: '21040112255' },
         { name: 'Kerckaert Lena', city: 'Knokke-Heist', group: 'MINI\'S  - Geboortejaar 2021/2020', birthDate: '2021-03-11', phone: '0477904271', email: 'sophie.vandeputte89@gmail.com', regNumber: '21031107487' },
@@ -463,7 +524,7 @@ class StudentService {
         { name: 'Van Hecke Thomas', city: 'Knokke-Heist', group: 'MINI\'S  - Geboortejaar 2021/2020', birthDate: '2020-08-25', phone: '470000084', email: 'thomas.vanhecke@example.com', regNumber: '20082523885' },
         { name: 'Van Hoof Emma', city: 'Knokke-Heist', group: 'MINI\'S  - Geboortejaar 2021/2020', birthDate: '2021-02-18', phone: '470000085', email: 'emma.vanhoof@example.com', regNumber: '21021823886' },
         
-        // URBAN 1 - GEBOORTEJAREN 2013 & 2012 & 2011 (31 estudiantes)
+        // URBAN 1 - BIRTH YEARS 2013 & 2012 & 2011 (31 students)
         { name: 'Urban Student 1', city: 'Knokke-Heist', group: 'URBAN 1 - GEBOORTEJAREN 2013 & 2012 & 2011', birthDate: '2012-05-10', phone: '470000001', email: 'urban1@example.com', regNumber: '12.05.10-001.01' },
         { name: 'Urban Student 2', city: 'Knokke-Heist', group: 'URBAN 1 - GEBOORTEJAREN 2013 & 2012 & 2011', birthDate: '2013-08-15', phone: '470000002', email: 'urban2@example.com', regNumber: '13.08.15-002.02' },
         { name: 'Urban Student 3', city: 'Zeebrugge', group: 'URBAN 1 - GEBOORTEJAREN 2013 & 2012 & 2011', birthDate: '2011-12-03', phone: '470000003', email: 'urban3@example.com', regNumber: '11.12.03-003.03' },
@@ -514,7 +575,7 @@ class StudentService {
         { name: 'Van Winkel Julie', city: 'Zeebrugge', group: 'URBAN 1 - GEBOORTEJAREN 2013 & 2012 & 2011', birthDate: '2011-12-12', phone: '470000130', email: 'julie.vanwinkel@example.com', regNumber: '11.12.12-130.130' },
         { name: 'Van Winkel Charlotte', city: 'Knokke-Heist', group: 'URBAN 1 - GEBOORTEJAREN 2013 & 2012 & 2011', birthDate: '2012-08-28', phone: '470000131', email: 'charlotte.vanwinkel@example.com', regNumber: '12.08.28-131.131' },
         
-        // URBAN 2 - 14+ of na selectie/proefles (39 estudiantes)
+        // URBAN 2 - 14+ or after selection/trial lesson (39 students)
         { name: 'Urban Teen 1', city: 'Knokke-Heist', group: 'URBAN 2 - 14+ of na selectie/proefles', birthDate: '2008-06-20', phone: '470000004', email: 'urbanteen1@example.com', regNumber: '08.06.20-004.04' },
         { name: 'Urban Teen 2', city: 'Knokke-Heist', group: 'URBAN 2 - 14+ of na selectie/proefles', birthDate: '2007-09-12', phone: '470000005', email: 'urbanteen2@example.com', regNumber: '07.09.12-005.05' },
         { name: 'Urban Teen 3', city: 'Moerkerke', group: 'URBAN 2 - 14+ of na selectie/proefles', birthDate: '2009-03-25', phone: '470000006', email: 'urbanteen3@example.com', regNumber: '09.03.25-006.06' },
@@ -533,12 +594,12 @@ class StudentService {
         { name: 'Modern Teen 2', city: 'Knokke-Heist', group: 'MODERN TEENS - GEBOORTEJAREN 2016 & 2015 & 2014', birthDate: '2015-06-30', phone: '470000013', email: 'modernteen2@example.com', regNumber: '15.06.30-013.13' },
         { name: 'Modern Teen 3', city: 'Moerkerke', group: 'MODERN TEENS - GEBOORTEJAREN 2016 & 2015 & 2014', birthDate: '2014-12-05', phone: '470000014', email: 'modernteen3@example.com', regNumber: '14.12.05-014.14' },
         
-        // MODERN 3 - 16+ na selectie/proefles (17 estudiantes)
+        // MODERN 3 - 16+ after selection/trial lesson (17 students)
         { name: 'Modern Advanced 1', city: 'Knokke-Heist', group: 'MODERN 3 - 16+ na selectie/proefles', birthDate: '2006-03-12', phone: '470000015', email: 'modernadvanced1@example.com', regNumber: '06.03.12-015.15' },
         { name: 'Modern Advanced 2', city: 'Knokke-Heist', group: 'MODERN 3 - 16+ na selectie/proefles', birthDate: '2005-08-25', phone: '470000016', email: 'modernadvanced2@example.com', regNumber: '05.08.25-016.16' },
         { name: 'Modern Advanced 3', city: 'Westkapelle', group: 'MODERN 3 - 16+ na selectie/proefles', birthDate: '2004-11-18', phone: '470000017', email: 'modernadvanced3@example.com', regNumber: '04.11.18-017.17' },
         
-        // Agregando más estudiantes reales del CSV
+        // Adding more real students from CSV
         { name: 'Moeykens Aline', city: 'Moerkerke', group: 'URBAN 2 - 14+ of na selectie/proefles', birthDate: '2006-09-06', phone: '496805994', email: 'deknock@skynet.be', regNumber: '06.09.06-029.29' },
         { name: 'De Knock Emma', city: 'Moerkerke', group: 'URBAN 2 - 14+ of na selectie/proefles', birthDate: '2008-03-15', phone: '496805994', email: 'deknock@skynet.be', regNumber: '08.03.15-030.30' },
         { name: 'Van Acker Zoe', city: 'Knokke-Heist', group: 'URBAN 2 - 14+ of na selectie/proefles', birthDate: '2007-07-22', phone: '470000132', email: 'zoe.vanacker@example.com', regNumber: '07.07.22-132.132' },
@@ -718,34 +779,35 @@ class StudentService {
           fullName: data.name,
           dateOfBirth: birthDate,
           age: this.calculateAge(birthDate),
-          gender: 'Femenino' as any,
+          gender: 'Female' as any,
           email: data.email,
           phone: data.phone,
           address: {
-            street: 'Dirección de Bélgica',
+            street: 'Belgium Address',
             city: data.city,
-            state: 'Flandes Occidental',
+            state: 'West Flanders',
             zipCode: '8300',
-            country: 'Bélgica'
+            country: 'Belgium'
           },
           guardians: [{
             id: `guardian-belgium-${index + 1}`,
-            name: 'Madre',
-            relationship: 'Madre',
+            firstName: 'Mother',
+            lastName: 'Guardian',
+            relationship: 'Mother',
             phone: data.phone,
             email: data.email,
             emergencyContact: true,
             canPickUp: true
           }],
-          danceGroups: [data.group],
-          level: 'Principiante' as any,
+          danceGroups: [this.getGroupIdByName(data.group) || 'modern-1'],
+          level: 'Beginner' as any,
           joinDate: new Date(),
           lastClassDate: new Date(),
           isActive: true,
-          status: 'Activo',
-          medicalInfo: 'Ninguna condición médica',
+          status: 'Active',
+          medicalInfo: 'No medical conditions',
           allergies: [],
-          notes: data.regNumber ? `Número de registro: ${data.regNumber}` : '',
+          notes: data.regNumber ? `Registration number: ${data.regNumber}` : '',
           photo: undefined,
           documents: [],
           totalClasses: 0,
@@ -756,17 +818,17 @@ class StudentService {
         };
         
         students.push(student);
-        globalIndex++; // Incrementar contador global
+        globalIndex++; // Increment global counter
       });
       
       return students;
     }
 
-  // Exportar datos
+  // Export data
   exportStudentsToCSV(): string {
     const headers = [
-      'ID', 'Nombre', 'Apellido', 'Fecha de Nacimiento', 'Edad', 'Género',
-      'Email', 'Teléfono', 'Dirección', 'Grupos', 'Nivel', 'Estado'
+      'ID', 'First Name', 'Last Name', 'Date of Birth', 'Age', 'Gender',
+      'Email', 'Phone', 'Address', 'Groups', 'Level', 'Status'
     ];
 
     const rows = this.students.map(student => [
@@ -791,7 +853,7 @@ class StudentService {
     return csvContent;
   }
 
-  // Calcular edad
+      // Calculate age
   private calculateAge(birthDate: Date): number {
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();

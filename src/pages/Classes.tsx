@@ -54,7 +54,7 @@ interface ClassType {
   location: string;
   description: string;
   isActive: boolean;
-  difficulty: 'Principiante' | 'Intermedio' | 'Avanzado' | 'Experto';
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
   price: number;
 }
 
@@ -65,31 +65,31 @@ const Classes: React.FC = () => {
       name: 'Hip Hop Teens',
       type: 'Hip Hop',
       category: 'Teens',
-      coach: 'María González',
+      coach: 'Maria Gonzalez',
       maxStudents: 20,
       currentStudents: 15,
       duration: 90,
-      schedule: ['Lunes 16:00', 'Miércoles 16:00'],
-      location: 'Sala Principal',
-      description: 'Clase de Hip Hop moderna para adolescentes con energía y ritmo urbano.',
+      schedule: ['Monday 16:00', 'Wednesday 16:00'],
+      location: 'Main Hall',
+      description: 'Modern Hip Hop class for teenagers with energy and urban rhythm.',
       isActive: true,
-      difficulty: 'Intermedio',
+      difficulty: 'Intermediate',
       price: 45,
     },
     {
       id: '2',
-      name: 'Contemporáneo Adultos',
-      type: 'Contemporáneo',
-      category: 'Adultos',
+      name: 'Contemporary Adults',
+      type: 'Contemporary',
+      category: 'Adults',
       coach: 'Carlos Ruiz',
       maxStudents: 15,
       currentStudents: 12,
       duration: 90,
-      schedule: ['Martes 18:00', 'Jueves 18:00'],
-      location: 'Sala 2',
-      description: 'Expresión corporal y danza contemporánea para adultos con técnicas avanzadas.',
+      schedule: ['Tuesday 18:00', 'Thursday 18:00'],
+      location: 'Hall 2',
+      description: 'Body expression and contemporary dance for adults with advanced techniques.',
       isActive: true,
-      difficulty: 'Avanzado',
+      difficulty: 'Advanced',
       price: 50,
     },
     {
@@ -97,15 +97,15 @@ const Classes: React.FC = () => {
       name: 'Ragga Mini',
       type: 'Ragga',
       category: 'Mini',
-      coach: 'Ana Martínez',
+      coach: 'Ana Martinez',
       maxStudents: 12,
       currentStudents: 8,
       duration: 60,
-      schedule: ['Lunes 15:00', 'Viernes 15:00'],
-      location: 'Sala Pequeña',
-      description: 'Introducción al Ragga para niños pequeños con movimientos divertidos y ritmos caribeños.',
+      schedule: ['Monday 15:00', 'Friday 15:00'],
+      location: 'Small Hall',
+      description: 'Introduction to Ragga for small children with fun movements and Caribbean rhythms.',
       isActive: true,
-      difficulty: 'Principiante',
+      difficulty: 'Beginner',
       price: 35,
     },
     {
@@ -113,15 +113,15 @@ const Classes: React.FC = () => {
       name: 'Jazz High Level',
       type: 'Jazz',
       category: 'High Level',
-      coach: 'Luis Pérez',
+      coach: 'Luis Perez',
       maxStudents: 10,
       currentStudents: 8,
       duration: 120,
-      schedule: ['Sábado 10:00'],
-      location: 'Sala Principal',
-      description: 'Jazz avanzado para bailarines experimentados con coreografías complejas.',
+      schedule: ['Saturday 10:00'],
+      location: 'Main Hall',
+      description: 'Advanced Jazz for experienced dancers with complex choreographies.',
       isActive: true,
-      difficulty: 'Experto',
+      difficulty: 'Expert',
       price: 60,
     },
   ]);
@@ -139,21 +139,21 @@ const Classes: React.FC = () => {
     schedule: [] as string[],
     location: '',
     description: '',
-    difficulty: 'Principiante' as 'Principiante' | 'Intermedio' | 'Avanzado' | 'Experto',
+    difficulty: 'Beginner' as 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert',
     price: 0,
   });
 
-  const classTypes = ['Hip Hop', 'Contemporáneo', 'Ragga', 'Jazz', 'Ballet', 'Urban Dance'];
-  const categories = ['Mini', 'Teens', 'Adultos', 'High Level'];
-  const coaches = ['María González', 'Carlos Ruiz', 'Ana Martínez', 'Luis Pérez'];
-  const difficulties = ['Principiante', 'Intermedio', 'Avanzado', 'Experto'];
+  const classTypes = ['Hip Hop', 'Contemporary', 'Ragga', 'Jazz', 'Ballet', 'Urban Dance'];
+  const categories = ['Mini', 'Teens', 'Adults', 'High Level'];
+  const coaches = ['Maria Gonzalez', 'Carlos Ruiz', 'Ana Martinez', 'Luis Perez'];
+  const difficulties = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
   const scheduleOptions = [
-    'Lunes 15:00', 'Lunes 16:00', 'Lunes 17:00', 'Lunes 18:00',
-    'Martes 15:00', 'Martes 16:00', 'Martes 17:00', 'Martes 18:00',
-    'Miércoles 15:00', 'Miércoles 16:00', 'Miércoles 17:00', 'Miércoles 18:00',
-    'Jueves 15:00', 'Jueves 16:00', 'Jueves 17:00', 'Jueves 18:00',
-    'Viernes 15:00', 'Viernes 16:00', 'Viernes 17:00', 'Viernes 18:00',
-    'Sábado 10:00', 'Sábado 11:00', 'Sábado 12:00',
+    'Monday 15:00', 'Monday 16:00', 'Monday 17:00', 'Monday 18:00',
+    'Tuesday 15:00', 'Tuesday 16:00', 'Tuesday 17:00', 'Tuesday 18:00',
+    'Wednesday 15:00', 'Wednesday 16:00', 'Wednesday 17:00', 'Wednesday 18:00',
+    'Thursday 15:00', 'Thursday 16:00', 'Thursday 17:00', 'Thursday 18:00',
+    'Friday 15:00', 'Friday 16:00', 'Friday 17:00', 'Friday 18:00',
+    'Saturday 10:00', 'Saturday 11:00', 'Saturday 12:00',
   ];
 
   const handleOpenDialog = (classItem?: ClassType) => {
@@ -184,7 +184,7 @@ const Classes: React.FC = () => {
         schedule: [],
         location: '',
         description: '',
-        difficulty: 'Principiante',
+        difficulty: 'Beginner',
         price: 0,
       });
     }
@@ -241,7 +241,7 @@ const Classes: React.FC = () => {
   const getTypeColor = (type: string) => {
     const colors: { [key: string]: string } = {
       'Hip Hop': '#1976d2',
-      'Contemporáneo': '#dc004e',
+      'Contemporary': '#dc004e',
       'Ragga': '#ff9800',
       'Jazz': '#9c27b0',
       'Ballet': '#4caf50',
@@ -254,7 +254,7 @@ const Classes: React.FC = () => {
     const colors: { [key: string]: string } = {
       'Mini': '#ff9800',
       'Teens': '#2196f3',
-      'Adultos': '#4caf50',
+      'Adults': '#4caf50',
       'High Level': '#9c27b0',
     };
     return colors[category] || '#757575';
@@ -262,10 +262,10 @@ const Classes: React.FC = () => {
 
   const getDifficultyColor = (difficulty: string) => {
     const colors: { [key: string]: string } = {
-      'Principiante': '#4caf50',
-      'Intermedio': '#ff9800',
-      'Avanzado': '#f44336',
-      'Experto': '#9c27b0',
+      'Beginner': '#4caf50',
+      'Intermediate': '#ff9800',
+      'Advanced': '#f44336',
+      'Expert': '#9c27b0',
     };
     return colors[difficulty] || '#757575';
   };
@@ -273,7 +273,7 @@ const Classes: React.FC = () => {
   const filteredClasses = classes.filter(classItem => {
     if (selectedTab === 0) return true;
     if (selectedTab === 1) return classItem.type === 'Hip Hop';
-    if (selectedTab === 2) return classItem.type === 'Contemporáneo';
+    if (selectedTab === 2) return classItem.type === 'Contemporary';
     if (selectedTab === 3) return classItem.type === 'Ragga';
     if (selectedTab === 4) return classItem.type === 'Jazz';
     if (selectedTab === 5) return classItem.type === 'Ballet';
@@ -284,18 +284,18 @@ const Classes: React.FC = () => {
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
         <Typography variant="h4" component="h1">
-          Clases
+          Classes
         </Typography>
         <Button
           variant="contained"
           startIcon={<AddIcon />}
           onClick={() => handleOpenDialog()}
         >
-          Nueva Clase
+          New Class
         </Button>
       </Box>
 
-      {/* Estadísticas */}
+      {/* Statistics */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
           <Card>
@@ -304,7 +304,7 @@ const Classes: React.FC = () => {
                 {classes.length}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Total Clases
+                Total Classes
               </Typography>
             </CardContent>
           </Card>
@@ -316,7 +316,7 @@ const Classes: React.FC = () => {
                 {classes.filter(c => c.isActive).length}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Activas
+                Active
               </Typography>
             </CardContent>
           </Card>
@@ -328,7 +328,7 @@ const Classes: React.FC = () => {
                 {classes.reduce((acc, c) => acc + c.currentStudents, 0)}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Estudiantes Inscritos
+                Enrolled Students
               </Typography>
             </CardContent>
           </Card>
@@ -340,26 +340,26 @@ const Classes: React.FC = () => {
                 {classes.reduce((acc, c) => acc + c.maxStudents, 0)}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Capacidad Total
+                Total Capacity
               </Typography>
             </CardContent>
           </Card>
         </Grid>
       </Grid>
 
-      {/* Tabs por tipo de clase */}
+      {/* Tabs by class type */}
       <Card sx={{ mb: 3 }}>
         <Tabs value={selectedTab} onChange={handleTabChange} sx={{ px: 2 }}>
-          <Tab label="Todas" />
+          <Tab label="All" />
           <Tab label="Hip Hop" />
-          <Tab label="Contemporáneo" />
+          <Tab label="Contemporary" />
           <Tab label="Ragga" />
           <Tab label="Jazz" />
           <Tab label="Ballet" />
         </Tabs>
       </Card>
 
-      {/* Lista de clases */}
+      {/* Class list */}
       <Grid container spacing={3}>
         {filteredClasses.map((classItem) => (
           <Grid item xs={12} md={6} lg={4} key={classItem.id}>
@@ -380,12 +380,12 @@ const Classes: React.FC = () => {
                       }
                       label=""
                     />
-                    <Tooltip title="Editar">
+                    <Tooltip title="Edit">
                       <IconButton size="small" onClick={() => handleOpenDialog(classItem)}>
                         <EditIcon />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Eliminar">
+                    <Tooltip title="Delete">
                       <IconButton size="small" color="error" onClick={() => handleDelete(classItem.id)}>
                         <DeleteIcon />
                       </IconButton>
@@ -453,7 +453,7 @@ const Classes: React.FC = () => {
                   <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                     <PeopleIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
                     <Typography variant="body2" color="text.secondary">
-                      {classItem.currentStudents}/{classItem.maxStudents} estudiantes
+                      {classItem.currentStudents}/{classItem.maxStudents} students
                     </Typography>
                   </Box>
                   <Box sx={{ width: '100%', backgroundColor: 'grey.200', borderRadius: 1, overflow: 'hidden' }}>
@@ -469,7 +469,7 @@ const Classes: React.FC = () => {
 
                 <Box sx={{ mb: 2 }}>
                   <Typography variant="subtitle2" gutterBottom>
-                    Horarios:
+                    Schedules:
                   </Typography>
                   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                     {classItem.schedule.map((schedule, index) => (
@@ -488,7 +488,7 @@ const Classes: React.FC = () => {
                     €{classItem.price}
                   </Typography>
                   <Typography variant="caption" color="text.secondary">
-                    por mes
+                    per month
                   </Typography>
                 </Box>
               </CardContent>
@@ -497,27 +497,27 @@ const Classes: React.FC = () => {
         ))}
       </Grid>
 
-      {/* Dialog para crear/editar clase */}
+      {/* Dialog for creating/editing class */}
       <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="md" fullWidth>
         <DialogTitle>
-          {editingClass ? 'Editar Clase' : 'Nueva Clase'}
+          {editingClass ? 'Edit Class' : 'New Class'}
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={2} sx={{ mt: 1 }}>
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="Nombre de la Clase"
+                label="Class Name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
             </Grid>
             <Grid item xs={6}>
               <FormControl fullWidth>
-                <InputLabel>Tipo de Clase</InputLabel>
+                <InputLabel>Class Type</InputLabel>
                 <Select
                   value={formData.type}
-                  label="Tipo de Clase"
+                  label="Class Type"
                   onChange={(e) => setFormData({ ...formData, type: e.target.value })}
                 >
                   {classTypes.map((type) => (
@@ -528,10 +528,10 @@ const Classes: React.FC = () => {
             </Grid>
             <Grid item xs={6}>
               <FormControl fullWidth>
-                <InputLabel>Categoría</InputLabel>
+                <InputLabel>Category</InputLabel>
                 <Select
                   value={formData.category}
-                  label="Categoría"
+                  label="Category"
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                 >
                   {categories.map((category) => (
@@ -556,10 +556,10 @@ const Classes: React.FC = () => {
             </Grid>
             <Grid item xs={6}>
               <FormControl fullWidth>
-                <InputLabel>Dificultad</InputLabel>
+                <InputLabel>Difficulty</InputLabel>
                 <Select
                   value={formData.difficulty}
-                  label="Dificultad"
+                  label="Difficulty"
                   onChange={(e) => setFormData({ ...formData, difficulty: e.target.value as any })}
                 >
                   {difficulties.map((difficulty) => (
@@ -571,7 +571,7 @@ const Classes: React.FC = () => {
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                label="Máximo de Estudiantes"
+                label="Max Students"
                 type="number"
                 value={formData.maxStudents}
                 onChange={(e) => setFormData({ ...formData, maxStudents: parseInt(e.target.value) })}
@@ -581,7 +581,7 @@ const Classes: React.FC = () => {
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                label="Duración (minutos)"
+                label="Duration (minutes)"
                 type="number"
                 value={formData.duration}
                 onChange={(e) => setFormData({ ...formData, duration: parseInt(e.target.value) })}
@@ -591,7 +591,7 @@ const Classes: React.FC = () => {
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                label="Precio (€/mes)"
+                label="Price (€/month)"
                 type="number"
                 value={formData.price}
                 onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) })}
@@ -601,7 +601,7 @@ const Classes: React.FC = () => {
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                label="Ubicación"
+                label="Location"
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
               />
@@ -609,7 +609,7 @@ const Classes: React.FC = () => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="Descripción"
+                label="Description"
                 multiline
                 rows={3}
                 value={formData.description}
@@ -618,7 +618,7 @@ const Classes: React.FC = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="subtitle2" gutterBottom>
-                Horarios Disponibles:
+                Available Schedules:
               </Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                 {scheduleOptions.map((schedule) => (
@@ -636,9 +636,9 @@ const Classes: React.FC = () => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancelar</Button>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
           <Button onClick={handleSave} variant="contained">
-            {editingClass ? 'Actualizar' : 'Crear'}
+            {editingClass ? 'Update' : 'Create'}
           </Button>
         </DialogActions>
       </Dialog>

@@ -126,7 +126,7 @@ const RealtimeCollaboration: React.FC<RealtimeCollaborationProps> = ({
       setShowCreateSession(false);
       setSessionName('');
     } catch (error) {
-      console.error('Error al crear sesión:', error);
+      console.error('Error creating session:', error);
     }
   };
 
@@ -141,7 +141,7 @@ const RealtimeCollaboration: React.FC<RealtimeCollaborationProps> = ({
         setSessionId('');
       }
     } catch (error) {
-      console.error('Error al unirse a sesión:', error);
+      console.error('Error joining session:', error);
     }
   };
 
@@ -209,7 +209,7 @@ const RealtimeCollaboration: React.FC<RealtimeCollaborationProps> = ({
           Colaboración en Tiempo Real
           <Chip
             icon={syncState.isConnected ? <Wifi /> : <WifiOff />}
-            label={syncState.isConnected ? 'Conectado' : 'Desconectado'}
+            label={syncState.isConnected ? 'Connected' : 'Disconnected'}
             color={syncState.isConnected ? 'success' : 'error'}
             size="small"
             sx={{ ml: 2 }}

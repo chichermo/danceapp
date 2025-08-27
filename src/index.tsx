@@ -9,7 +9,7 @@ import App from './App';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#FF6B9D', // Rosa vibrante para danza
+      main: '#FF6B9D', // Vibrant pink for dance
       light: '#FF8FB1',
       dark: '#E91E63',
       contrastText: '#fff',

@@ -168,7 +168,7 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
     <Box sx={{ p: 3 }}>
       <Typography variant="h4" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <ViewInAr color="primary" />
-        Reproductor de Formaciones 3D
+        Formation 3D Player
       </Typography>
 
       <Grid container spacing={3}>
@@ -177,7 +177,7 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
-                Controles de Reproducción
+                Playback Controls
               </Typography>
 
               {/* Controles de reproducción */}
@@ -245,25 +245,25 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
                 sx={{ mb: 3 }}
               />
 
-              {/* Información del frame actual */}
+              {/* Current frame information */}
               {currentFrame && (
                 <Card variant="outlined" sx={{ mb: 2 }}>
                   <CardContent>
                     <Typography variant="subtitle1" gutterBottom>
-                      Frame Actual ({formatTime(currentTime)})
+                      Current Frame ({formatTime(currentTime)})
                     </Typography>
                     <Grid container spacing={2}>
                       <Grid item xs={6}>
                         <Typography variant="body2">
-                          <strong>Bailarines:</strong> {currentFrame.dancers.length}
+                          <strong>Dancers:</strong> {currentFrame.dancers.length}
                         </Typography>
                         <Typography variant="body2">
-                          <strong>Efectos:</strong> {currentFrame.effects.length}
+                          <strong>Effects:</strong> {currentFrame.effects.length}
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <Typography variant="body2">
-                          <strong>Cámara:</strong> ({currentFrame.camera.x.toFixed(1)}, {currentFrame.camera.y.toFixed(1)}, {currentFrame.camera.z.toFixed(1)})
+                          <strong>Camera:</strong> ({currentFrame.camera.x.toFixed(1)}, {currentFrame.camera.y.toFixed(1)}, {currentFrame.camera.z.toFixed(1)})
                         </Typography>
                         <Typography variant="body2">
                           <strong>FOV:</strong> {currentFrame.camera.fov}°
@@ -282,12 +282,12 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
-                Selección de Contenido
+                Content Selection
               </Typography>
 
               {/* Selección de música */}
               <FormControl fullWidth sx={{ mb: 2 }}>
-                <InputLabel>Música</InputLabel>
+                <InputLabel>Music</InputLabel>
                 <Select
                   value={selectedMusic?.id || ''}
                   onChange={(e) => {
@@ -300,7 +300,7 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
                       <Box>
                         <Typography variant="body2">{track.title}</Typography>
                         <Typography variant="caption" color="text.secondary">
-                          {track.artist} • {track.genre} • {track.tempo} BPM
+                          {track.artist} • {track.genre} • {track.bpm} BPM
                         </Typography>
                       </Box>
                     </MenuItem>
@@ -340,7 +340,7 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
                       onChange={(e) => setShow3DView(e.target.checked)}
                     />
                   }
-                  label="Vista 3D"
+                  label="3D View"
                 />
               </Box>
 
@@ -352,7 +352,7 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
                       onChange={(e) => setAutoSync(e.target.checked)}
                     />
                   }
-                  label="Sincronización Automática"
+                  label="Automatic Synchronization"
                 />
               </Box>
 
@@ -362,14 +362,14 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
                   <CardContent>
                     <Typography variant="subtitle2" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                       <MusicNote color="primary" />
-                      Música Seleccionada
+                      Music Selected
                     </Typography>
                     <Typography variant="body2">{selectedMusic.title}</Typography>
                     <Typography variant="caption" color="text.secondary">
                       {selectedMusic.artist} • {selectedMusic.genre}
                     </Typography>
                     <Box sx={{ mt: 1 }}>
-                      <Chip label={`${selectedMusic.tempo} BPM`} size="small" />
+                      <Chip label={`${selectedMusic.bpm} BPM`} size="small" />
                       <Chip label={formatTime(selectedMusic.duration)} size="small" sx={{ ml: 1 }} />
                     </Box>
                   </CardContent>
@@ -381,7 +381,7 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
                   <CardContent>
                     <Typography variant="subtitle2" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                       <VideoLibrary color="primary" />
-                      Video Seleccionado
+                      Video Selected
                     </Typography>
                     <Typography variant="body2">{selectedVideo.title}</Typography>
                     <Typography variant="caption" color="text.secondary">
@@ -410,12 +410,12 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
       <Card sx={{ mt: 3 }}>
         <CardContent>
           <Typography variant="h6" gutterBottom>
-            Estadísticas del Sistema
+            System Statistics
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={6} md={3}>
               <Typography variant="body2" color="text.secondary">
-                Pistas de Música
+                Music Tracks
               </Typography>
               <Typography variant="h6">
                 {musicService.getMusicStats().totalTracks}
@@ -423,7 +423,7 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
             </Grid>
             <Grid item xs={6} md={3}>
               <Typography variant="body2" color="text.secondary">
-                Videos Disponibles
+                Available Videos
               </Typography>
               <Typography variant="h6">
                 {videoService.getVideoStats().totalVideos}
@@ -431,7 +431,7 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
             </Grid>
             <Grid item xs={6} md={3}>
               <Typography variant="body2" color="text.secondary">
-                Plantillas de Formación
+                Formation Templates
               </Typography>
               <Typography variant="h6">
                 {videoService.getFormationTemplates().length}
@@ -439,7 +439,7 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
             </Grid>
             <Grid item xs={6} md={3}>
               <Typography variant="body2" color="text.secondary">
-                Géneros de Música
+                Music Genres
               </Typography>
               <Typography variant="h6">
                 {Object.keys(musicService.getMusicStats().genres).length}

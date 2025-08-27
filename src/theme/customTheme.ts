@@ -357,7 +357,7 @@ export const darkTheme = createTheme({
   },
 });
 
-// Colores específicos para tipos de danza
+    // Specific colors for dance types
 export const danceColors = {
   hiphop: {
     main: colors.dance.hiphop,

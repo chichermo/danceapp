@@ -45,11 +45,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   const navigationItems = [
     { path: '/', label: 'Dashboard', icon: <DashboardIcon />, badge: null },
-    { path: '/calendar', label: 'Calendario', icon: <CalendarIcon />, badge: 3 },
-    { path: '/choreography', label: 'Coreografías', icon: <ChoreographyIcon />, badge: 5 },
-    { path: '/students', label: 'Estudiantes', icon: <StudentsIcon />, badge: 12 },
+    { path: '/calendar', label: 'Calendar', icon: <CalendarIcon />, badge: 3 },
+    { path: '/choreography', label: 'Choreographies', icon: <ChoreographyIcon />, badge: 5 },
+    { path: '/students', label: 'Students', icon: <StudentsIcon />, badge: 12 },
     { path: '/coaches', label: 'Coaches', icon: <CoachesIcon />, badge: null },
-    { path: '/classes', label: 'Clases', icon: <ClassesIcon />, badge: 8 },
+    { path: '/classes', label: 'Classes', icon: <ClassesIcon />, badge: 8 },
   ];
 
   const handleDrawerToggle = () => {
@@ -82,7 +82,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   const drawer = (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      {/* Header del drawer */}
+      {/* Drawer header */}
       <Box sx={{
         background: 'linear-gradient(135deg, #FF6B9D 0%, #4ECDC4 100%)',
         color: 'white',
@@ -91,7 +91,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         position: 'relative',
         overflow: 'hidden',
       }}>
-        {/* Elementos decorativos */}
+        {/* Decorative elements */}
         <Box sx={{
           position: 'absolute',
           top: -15,
@@ -133,7 +133,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </Typography>
       </Box>
 
-      {/* Navegación */}
+      {/* Navigation */}
       <Box sx={{ flex: 1, p: 1.5, overflow: 'auto' }}>
         <List>
           {navigationItems.map((item) => {
@@ -194,7 +194,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </List>
       </Box>
 
-      {/* Footer del drawer */}
+      {/* Drawer footer */}
       <Box sx={{ p: 1.5, borderTop: '1px solid rgba(255,255,255,0.2)' }}>
         <ListItem 
           button 
@@ -214,7 +214,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <AccountIcon />
           </ListItemIcon>
           <ListItemText 
-            primary="Mi Cuenta"
+            primary="My Account"
             sx={{ 
               '& .MuiTypography-root': { 
                 color: 'white',
@@ -323,7 +323,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </Drawer>
       </Box>
 
-      {/* Contenido principal */}
+      {/* Main content */}
       <Box
         component="main"
         sx={{
@@ -345,7 +345,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </Box>
       </Box>
 
-      {/* Menú de cuenta */}
+      {/* Account menu */}
       <Menu
         anchorEl={anchorEl}
         open={accountMenuOpen}
@@ -363,20 +363,20 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <ListItemIcon>
             <AccountIcon fontSize="small" />
           </ListItemIcon>
-          Perfil
+          Profile
         </MenuItem>
         <MenuItem onClick={handleAccountMenuClose}>
           <ListItemIcon>
             <SettingsIcon fontSize="small" />
           </ListItemIcon>
-          Configuración
+          Settings
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleAccountMenuClose}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" />
           </ListItemIcon>
-          Cerrar Sesión
+          Logout
         </MenuItem>
       </Menu>
     </Box>

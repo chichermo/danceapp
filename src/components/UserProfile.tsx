@@ -96,16 +96,16 @@ const UserProfile: React.FC<UserProfileProps> = ({ open, onClose, onLogout }) =>
       const result = await authService.updateProfile(editData);
       
       if (result.success) {
-        setSuccess('Perfil actualizado exitosamente');
+        setSuccess('Profile updated successfully');
         setIsEditing(false);
-        // Actualizar usuario local
+        // Update local user
         const updatedUser = authService.getCurrentUser();
         setUser(updatedUser);
       } else {
-        setError(result.error || 'Error al actualizar perfil');
+        setError(result.error || 'Error updating profile');
       }
     } catch (error) {
-      setError('Error de conexión');
+      setError('Connection error');
     } finally {
       setLoading(false);
     }
@@ -113,7 +113,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ open, onClose, onLogout }) =>
 
   const handleChangePassword = async () => {
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      setError('Las contraseñas no coinciden');
+      setError('Passwords do not match');
       return;
     }
 
@@ -127,14 +127,14 @@ const UserProfile: React.FC<UserProfileProps> = ({ open, onClose, onLogout }) =>
       );
 
       if (result.success) {
-        setSuccess('Contraseña cambiada exitosamente');
+        setSuccess('Password changed successfully');
         setShowChangePassword(false);
         setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
       } else {
-        setError(result.error || 'Error al cambiar contraseña');
+        setError(result.error || 'Error changing password');
       }
     } catch (error) {
-      setError('Error de conexión');
+      setError('Connection error');
     } finally {
       setLoading(false);
     }
@@ -312,7 +312,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ open, onClose, onLogout }) =>
                         native: true,
                       }}
                     >
-                      <option value="es">Español</option>
+                      <option value="en">English</option>
                       <option value="en">English</option>
                       <option value="fr">Français</option>
                     </TextField>

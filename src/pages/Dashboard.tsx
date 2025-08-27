@@ -33,7 +33,7 @@ import { motion } from 'framer-motion';
 const Dashboard: React.FC = () => {
   const stats = [
     {
-      title: 'Total Estudiantes',
+              title: 'Total Students',
       value: '156',
       icon: <PeopleIcon sx={{ fontSize: 40 }} />,
       color: '#FF6B9D',
@@ -41,7 +41,7 @@ const Dashboard: React.FC = () => {
       trendUp: true,
     },
     {
-      title: 'Coaches Activos',
+              title: 'Active Coaches',
       value: '8',
       icon: <CoachIcon sx={{ fontSize: 40 }} />,
       color: '#4ECDC4',
@@ -49,7 +49,7 @@ const Dashboard: React.FC = () => {
       trendUp: true,
     },
     {
-      title: 'Clases Esta Semana',
+              title: 'Classes This Week',
       value: '42',
       icon: <ClassIcon sx={{ fontSize: 40 }} />,
       color: '#FFD93D',
@@ -57,7 +57,7 @@ const Dashboard: React.FC = () => {
       trendUp: true,
     },
     {
-      title: 'Coreografías',
+              title: 'Choreographies',
       value: '23',
       icon: <ChoreographyIcon sx={{ fontSize: 40 }} />,
       color: '#6C5CE7',
@@ -70,26 +70,26 @@ const Dashboard: React.FC = () => {
     {
       name: 'Hip Hop Teens',
       time: '16:00',
-      coach: 'María González',
-      location: 'Sala Principal',
+              coach: 'Maria Gonzalez',
+              location: 'Main Hall',
       students: 18,
       maxStudents: 20,
       type: 'Hip Hop',
     },
     {
-      name: 'Contemporáneo Adultos',
+              name: 'Contemporary Adults',
       time: '18:00',
       coach: 'Carlos Ruiz',
-      location: 'Sala 2',
+              location: 'Hall 2',
       students: 12,
       maxStudents: 15,
-      type: 'Contemporáneo',
+              type: 'Contemporary',
     },
     {
       name: 'Ragga Mini',
       time: '15:00',
-      coach: 'Ana Martínez',
-      location: 'Sala Pequeña',
+              coach: 'Ana Martinez',
+              location: 'Small Hall',
       students: 8,
       maxStudents: 12,
       type: 'Ragga',
@@ -99,45 +99,45 @@ const Dashboard: React.FC = () => {
   const recentActivity = [
     {
       type: 'new_student',
-      message: 'Ana García se inscribió en Hip Hop Teens',
-      time: 'Hace 2 horas',
+              message: 'Ana Garcia enrolled in Hip Hop Teens',
+              time: '2 hours ago',
       icon: <PeopleIcon />,
       color: '#FF6B9D',
     },
     {
       type: 'new_choreography',
-      message: 'Se creó la coreografía "Hip Hop Fusion"',
-      time: 'Hace 4 horas',
+              message: 'Choreography "Hip Hop Fusion" was created',
+              time: '4 hours ago',
       icon: <ChoreographyIcon />,
       color: '#6C5CE7',
     },
     {
       type: 'class_completed',
-      message: 'Clase de Contemporáneo Adultos completada',
-      time: 'Hace 6 horas',
+              message: 'Contemporary Adults class completed',
+              time: '6 hours ago',
       icon: <ClassIcon />,
       color: '#4ECDC4',
     },
     {
       type: 'achievement',
-      message: 'Carlos Rodríguez alcanzó nivel Avanzado',
-      time: 'Hace 1 día',
+              message: 'Carlos Rodriguez reached Advanced level',
+              time: '1 day ago',
       icon: <TrophyIcon />,
       color: '#FFD93D',
     },
   ];
 
   const topPerformers = [
-    { name: 'Laura Martínez', level: 'Avanzado', progress: 85, category: 'Teens' },
-    { name: 'Diego Ruiz', level: 'Experto', progress: 92, category: 'Adultos' },
-    { name: 'Sofía López', level: 'Intermedio', progress: 78, category: 'Teens' },
-    { name: 'Miguel López', level: 'Principiante', progress: 65, category: 'Mini' },
+            { name: 'Laura Martinez', level: 'Advanced', progress: 85, category: 'Teens' },
+            { name: 'Diego Ruiz', level: 'Expert', progress: 92, category: 'Adults' },
+        { name: 'Sofia Lopez', level: 'Intermediate', progress: 78, category: 'Teens' },
+            { name: 'Miguel Lopez', level: 'Beginner', progress: 65, category: 'Mini' },
   ];
 
   const getTypeColor = (type: string) => {
     const colors: { [key: string]: string } = {
       'Hip Hop': '#FF6B9D',
-      'Contemporáneo': '#4ECDC4',
+              'Contemporary': '#4ECDC4',
       'Ragga': '#FFD93D',
       'Jazz': '#6C5CE7',
       'Ballet': '#A8E6CF',
@@ -165,7 +165,7 @@ const Dashboard: React.FC = () => {
             🎭 Bienvenido a Heliopsis
           </Typography>
           <Typography variant="h5" color="text.secondary" sx={{ mb: 1 }}>
-            Tu Academia de Danza de Confianza
+            Your Trusted Dance Academy
           </Typography>
           <Typography variant="body1" color="text.secondary">
             Gestiona tus clases, estudiantes y coreografías desde un solo lugar
@@ -173,7 +173,7 @@ const Dashboard: React.FC = () => {
         </motion.div>
       </Box>
 
-      {/* Estadísticas principales */}
+              {/* Main Statistics */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         {stats.map((stat, index) => (
           <Grid item xs={12} sm={6} md={3} key={stat.title}>
@@ -235,7 +235,7 @@ const Dashboard: React.FC = () => {
       </Grid>
 
       <Grid container spacing={3}>
-        {/* Próximas Clases */}
+        {/* Upcoming Classes */}
         <Grid item xs={12} md={6}>
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -252,7 +252,7 @@ const Dashboard: React.FC = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
                   <ScheduleIcon sx={{ mr: 1, color: 'primary.main' }} />
                   <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                    Próximas Clases
+                    Upcoming Classes
                   </Typography>
                 </Box>
                 <List>
@@ -296,7 +296,7 @@ const Dashboard: React.FC = () => {
           </motion.div>
         </Grid>
 
-        {/* Actividad Reciente */}
+        {/* Recent Activity */}
         <Grid item xs={12} md={6}>
           <motion.div
             initial={{ opacity: 0, x: 20 }}

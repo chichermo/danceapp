@@ -57,7 +57,7 @@ class AuthService {
         this.currentUser = JSON.parse(savedUser);
         this.validateToken();
       } catch (error) {
-        console.error('Error al cargar datos de autenticación:', error);
+        console.error('Error loading authentication data:', error);
         this.clearAuth();
       }
     }
@@ -85,7 +85,7 @@ class AuthService {
         return false;
       }
     } catch (error) {
-      console.error('Error al validar token:', error);
+      console.error('Error validating token:', error);
       this.clearAuth();
       return false;
     }
@@ -109,12 +109,12 @@ class AuthService {
               user: {
                 id: 'user-1',
                 email: 'admin@dance.com',
-                name: 'Administrador',
+                name: 'Administrator',
                 role: 'admin',
                 avatar: 'https://i.pravatar.cc/150?img=1',
                 preferences: {
                   theme: 'light',
-                  language: 'es',
+                  language: 'en',
                   notifications: true
                 },
                 permissions: ['read', 'write', 'admin'],
@@ -130,12 +130,12 @@ class AuthService {
               user: {
                 id: 'user-2',
                 email: 'teacher@dance.com',
-                name: 'Profesor de Danza',
+                name: 'Dance Teacher',
                 role: 'teacher',
                 avatar: 'https://i.pravatar.cc/150?img=2',
                 preferences: {
                   theme: 'light',
-                  language: 'es',
+                  language: 'en',
                   notifications: true
                 },
                 permissions: ['read', 'write'],
@@ -151,12 +151,12 @@ class AuthService {
               user: {
                 id: 'user-3',
                 email: 'student@dance.com',
-                name: 'Estudiante de Danza',
+                name: 'Dance Student',
                 role: 'student',
                 avatar: 'https://i.pravatar.cc/150?img=3',
                 preferences: {
                   theme: 'light',
-                  language: 'es',
+                  language: 'en',
                   notifications: true
                 },
                 permissions: ['read'],
@@ -166,10 +166,10 @@ class AuthService {
             };
           }
         }
-        return { success: false, error: 'Credenciales inválidas' };
+        return { success: false, error: 'Invalid credentials' };
 
       case '/auth/register':
-        return { success: true, message: 'Usuario registrado exitosamente' };
+        return { success: true, message: 'User registered successfully' };
 
       case '/auth/validate':
         return { valid: true };
@@ -185,7 +185,7 @@ class AuthService {
         return { success: true };
 
       default:
-        return { success: false, error: 'Endpoint no encontrado' };
+        return { success: false, error: 'Endpoint not found' };
     }
   }
 
@@ -214,11 +214,11 @@ class AuthService {
         this.notifyListeners();
         return { success: true };
       } else {
-        return { success: false, error: response.error || 'Error al iniciar sesión' };
+        return { success: false, error: response.error || 'Error logging in' };
       }
     } catch (error) {
-      console.error('Error en login:', error);
-      return { success: false, error: 'Error de conexión' };
+      console.error('Login error:', error);
+      return { success: false, error: 'Connection error' };
     }
   }
 
@@ -227,11 +227,11 @@ class AuthService {
     try {
       // Validaciones básicas
       if (data.password !== data.confirmPassword) {
-        return { success: false, error: 'Las contraseñas no coinciden' };
+        return { success: false, error: 'Passwords do not match' };
       }
 
       if (data.password.length < 6) {
-        return { success: false, error: 'La contraseña debe tener al menos 6 caracteres' };
+        return { success: false, error: 'Password must be at least 6 characters' };
       }
 
       const response = await this.simulateApiCall('/auth/register', {
@@ -245,11 +245,11 @@ class AuthService {
       if (response.success) {
         return { success: true };
       } else {
-        return { success: false, error: response.error || 'Error al registrar usuario' };
+        return { success: false, error: response.error || 'Error registering user' };
       }
     } catch (error) {
-      console.error('Error en registro:', error);
-      return { success: false, error: 'Error de conexión' };
+      console.error('Registration error:', error);
+      return { success: false, error: 'Connection error' };
     }
   }
 
@@ -266,7 +266,7 @@ class AuthService {
         });
       }
     } catch (error) {
-      console.error('Error en logout:', error);
+      console.error('Logout error:', error);
     } finally {
       this.clearAuth();
     }
@@ -310,7 +310,7 @@ class AuthService {
         return false;
       }
     } catch (error) {
-      console.error('Error al refrescar token:', error);
+      console.error('Error refreshing token:', error);
       this.clearAuth();
       return false;
     }
@@ -372,13 +372,13 @@ class AuthService {
   // Cambiar contraseña
   async changePassword(currentPassword: string, newPassword: string): Promise<{ success: boolean; error?: string }> {
     if (!this.isAuthenticated()) {
-      return { success: false, error: 'No autenticado' };
+      return { success: false, error: 'Not authenticated' };
     }
 
     try {
       // Simular validación de contraseña actual
       if (currentPassword !== 'current123') {
-        return { success: false, error: 'Contraseña actual incorrecta' };
+        return { success: false, error: 'Current password incorrect' };
       }
 
       // Simular cambio de contraseña
@@ -386,15 +386,15 @@ class AuthService {
 
       return { success: true };
     } catch (error) {
-      console.error('Error al cambiar contraseña:', error);
-      return { success: false, error: 'Error al cambiar contraseña' };
+      console.error('Error changing password:', error);
+      return { success: false, error: 'Error changing password' };
     }
   }
 
   // Actualizar perfil
   async updateProfile(updates: Partial<User>): Promise<{ success: boolean; error?: string }> {
     if (!this.isAuthenticated()) {
-      return { success: false, error: 'No autenticado' };
+      return { success: false, error: 'Not authenticated' };
     }
 
     try {
@@ -409,8 +409,8 @@ class AuthService {
 
       return { success: true };
     } catch (error) {
-      console.error('Error al actualizar perfil:', error);
-      return { success: false, error: 'Error al actualizar perfil' };
+      console.error('Error updating profile:', error);
+      return { success: false, error: 'Error updating profile' };
     }
   }
 
@@ -420,17 +420,17 @@ class AuthService {
       // Simular envío de email de restablecimiento
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      return { success: true, message: 'Se ha enviado un email con las instrucciones' };
+      return { success: true, message: 'An email with instructions has been sent' };
     } catch (error) {
-      console.error('Error al restablecer contraseña:', error);
-      return { success: false, error: 'Error al restablecer contraseña' };
+      console.error('Error resetting password:', error);
+      return { success: false, error: 'Error resetting password' };
     }
   }
 
   // Obtener usuarios (solo para admins)
   async getUsers(): Promise<{ success: boolean; users?: User[]; error?: string }> {
     if (!this.hasRole('admin')) {
-      return { success: false, error: 'No autorizado' };
+      return { success: false, error: 'Not authorized' };
     }
 
     try {
@@ -441,12 +441,12 @@ class AuthService {
         {
           id: 'user-1',
           email: 'admin@dance.com',
-          name: 'Administrador',
+          name: 'Administrator',
           role: 'admin',
           avatar: 'https://i.pravatar.cc/150?img=1',
           preferences: {
             theme: 'light',
-            language: 'es',
+            language: 'en',
             notifications: true
           },
           permissions: ['read', 'write', 'admin'],
@@ -456,12 +456,12 @@ class AuthService {
         {
           id: 'user-2',
           email: 'teacher@dance.com',
-          name: 'Profesor de Danza',
+          name: 'Dance Teacher',
           role: 'teacher',
           avatar: 'https://i.pravatar.cc/150?img=2',
           preferences: {
             theme: 'light',
-            language: 'es',
+            language: 'en',
             notifications: true
           },
           permissions: ['read', 'write'],
@@ -471,12 +471,12 @@ class AuthService {
         {
           id: 'user-3',
           email: 'student@dance.com',
-          name: 'Estudiante de Danza',
+          name: 'Dance Student',
           role: 'student',
           avatar: 'https://i.pravatar.cc/150?img=3',
           preferences: {
             theme: 'light',
-            language: 'es',
+            language: 'en',
             notifications: true
           },
           permissions: ['read'],
@@ -487,8 +487,8 @@ class AuthService {
 
       return { success: true, users };
     } catch (error) {
-      console.error('Error al obtener usuarios:', error);
-      return { success: false, error: 'Error al obtener usuarios' };
+      console.error('Error getting users:', error);
+      return { success: false, error: 'Error getting users' };
     }
   }
 }

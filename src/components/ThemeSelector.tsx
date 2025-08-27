@@ -42,23 +42,23 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ open, onClose }) => {
   const [selectedGradient, setSelectedGradient] = useState(customGradient);
 
   const danceStyles = [
-    { key: 'contemporary', name: 'Contemporáneo', icon: '🎭', color: danceColors.contemporary.main },
+    { key: 'contemporary', name: 'Contemporary', icon: '🎭', color: danceColors.contemporary.main },
     { key: 'hiphop', name: 'Hip Hop', icon: '🎵', color: danceColors.hiphop.main },
     { key: 'ballet', name: 'Ballet', icon: '🩰', color: danceColors.ballet.main },
     { key: 'jazz', name: 'Jazz', icon: '🎷', color: danceColors.jazz.main },
-    { key: 'urban', name: 'Urbano', icon: '🏙️', color: danceColors.urban.main },
-    { key: 'latin', name: 'Latino', icon: '💃', color: danceColors.latin.main },
+    { key: 'urban', name: 'Urban', icon: '🏙️', color: danceColors.urban.main },
+    { key: 'latin', name: 'Latin', icon: '💃', color: danceColors.latin.main },
   ];
 
   const gradientOptions = [
-    { name: 'Danza', value: gradients.dance, preview: 'linear-gradient(135deg, #ff6b9d 0%, #4ecdc4 100%)' },
-    { name: 'Primario', value: gradients.primary, preview: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
-    { name: 'Secundario', value: gradients.secondary, preview: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
-    { name: 'Éxito', value: gradients.success, preview: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
-    { name: 'Advertencia', value: gradients.warning, preview: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' },
-    { name: 'Atardecer', value: gradients.sunset, preview: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
-    { name: 'Océano', value: gradients.ocean, preview: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
-    { name: 'Bosque', value: gradients.forest, preview: 'linear-gradient(135deg, #134e5e 0%, #71b280 100%)' },
+    { name: 'Dance', value: gradients.dance, preview: 'linear-gradient(135deg, #ff6b9d 0%, #4ecdc4 100%)' },
+    { name: 'Primary', value: gradients.primary, preview: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
+    { name: 'Secondary', value: gradients.secondary, preview: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
+    { name: 'Success', value: gradients.success, preview: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
+    { name: 'Warning', value: gradients.warning, preview: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' },
+    { name: 'Sunset', value: gradients.sunset, preview: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
+    { name: 'Ocean', value: gradients.ocean, preview: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
+    { name: 'Forest', value: gradients.forest, preview: 'linear-gradient(135deg, #134e5e 0%, #71b280 100%)' },
   ];
 
   const handleApplyGradient = () => {
@@ -76,7 +76,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ open, onClose }) => {
       <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Palette sx={{ mr: 1, color: 'primary.main' }} />
-          Personalizar Tema
+          Customize Theme
         </Box>
         <IconButton onClick={onClose} size="small">
           <Close />
@@ -85,12 +85,12 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ open, onClose }) => {
 
       <DialogContent>
         <Box sx={{ mt: 2 }}>
-          {/* Modo de Tema */}
+          {/* Theme Mode */}
           <Card sx={{ mb: 3 }}>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                 {theme === 'light' ? <LightMode /> : <DarkMode />}
-                <Typography sx={{ ml: 1 }}>Modo de Tema</Typography>
+                <Typography sx={{ ml: 1 }}>Theme Mode</Typography>
               </Typography>
               
               <FormControlLabel
@@ -101,24 +101,24 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ open, onClose }) => {
                     color="primary"
                   />
                 }
-                label={theme === 'dark' ? 'Modo Oscuro' : 'Modo Claro'}
+                label={theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
               />
               
               <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
                 {theme === 'dark' 
-                  ? 'El modo oscuro reduce la fatiga visual en ambientes con poca luz'
-                  : 'El modo claro es ideal para ambientes bien iluminados'
+                  ? 'Dark mode reduces eye strain in low-light environments'
+                  : 'Light mode is ideal for well-lit environments'
                 }
               </Typography>
             </CardContent>
           </Card>
 
-          {/* Estilo de Danza */}
+          {/* Dance Style */}
           <Card sx={{ mb: 3 }}>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                 <DirectionsRun sx={{ mr: 1 }} />
-                Estilo de Danza
+                Dance Style
               </Typography>
               
               <Grid container spacing={2}>
@@ -165,12 +165,12 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ open, onClose }) => {
             </CardContent>
           </Card>
 
-          {/* Gradientes Personalizados */}
+          {/* Custom Gradients */}
           <Card sx={{ mb: 3 }}>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                 <Gradient sx={{ mr: 1 }} />
-                Gradientes
+                Gradients
               </Typography>
               
               <Grid container spacing={2}>
@@ -220,12 +220,12 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ open, onClose }) => {
             </CardContent>
           </Card>
 
-          {/* Vista Previa */}
+          {/* Preview */}
           <Card>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                 <ColorLens sx={{ mr: 1 }} />
-                Vista Previa
+                Preview
               </Typography>
               
               <Box
@@ -243,19 +243,19 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ open, onClose }) => {
                   mb: 2
                 }}
               >
-                Vista Previa del Tema
+                Theme Preview
               </Box>
               
               <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                 <Chip
                   icon={<MusicNote />}
-                  label={`Estilo: ${danceStyles.find(s => s.key === danceStyle)?.name}`}
+                  label={`Style: ${danceStyles.find(s => s.key === danceStyle)?.name}`}
                   color="primary"
                   variant="outlined"
                 />
                 <Chip
                   icon={theme === 'light' ? <LightMode /> : <DarkMode />}
-                  label={`Modo: ${theme === 'light' ? 'Claro' : 'Oscuro'}`}
+                  label={`Mode: ${theme === 'light' ? 'Light' : 'Dark'}`}
                   color="secondary"
                   variant="outlined"
                 />
@@ -267,13 +267,13 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ open, onClose }) => {
 
       <DialogActions sx={{ p: 3 }}>
         <Button onClick={handleReset} variant="outlined">
-          Restablecer
+          Reset
         </Button>
         <Button onClick={handleApplyGradient} variant="contained">
-          Aplicar Gradiente
+          Apply Gradient
         </Button>
         <Button onClick={onClose} variant="contained">
-          Cerrar
+          Close
         </Button>
       </DialogActions>
     </Dialog>

@@ -47,216 +47,216 @@ const TutorialGuide: React.FC<TutorialGuideProps> = ({ open, onClose }) => {
 
   const steps = [
     {
-      label: '🎭 Crear Nueva Coreografía',
+      label: '🎭 Create New Choreography',
       content: (
         <Box>
           <Typography variant="body1" sx={{ mb: 2 }}>
-            <strong>Paso 1:</strong> Comienza creando una nueva coreografía con todos los elementos necesarios.
+            <strong>Step 1:</strong> Start by creating a new choreography with all necessary elements.
           </Typography>
           <List>
             <ListItem>
               <ListItemIcon><PlayArrow color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Haz clic en 'Nueva Coreografía'" 
-                secondary="Botón verde en la parte superior de la página"
+                primary="Click on 'New Choreography'" 
+                secondary="Green button at the top of the page"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><MusicNote color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Sube tu archivo de música" 
-                secondary="MP3, WAV, AAC, OGG (máx. 50MB) - ¡OBLIGATORIO!"
+                primary="Upload your music file" 
+                secondary="MP3, WAV, AAC, OGG (max 50MB) - REQUIRED!"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><VideoLibrary color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Sube video de referencia (opcional)" 
-                secondary="MP4, MOV, AVI, MKV (máx. 500MB) para análisis"
+                primary="Upload reference video (optional)" 
+                secondary="MP4, MOV, AVI, MKV (max 500MB) for analysis"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><Group color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Selecciona estudiantes" 
-                secondary="Haz clic en los chips para seleccionar participantes"
+                primary="Select students" 
+                secondary="Click on chips to select participants"
               />
             </ListItem>
           </List>
           <Alert severity="info" sx={{ mt: 2 }}>
-            💡 <strong>Tip:</strong> La música es esencial para la sincronización del escenario 3D y timeline
+            💡 <strong>Tip:</strong> Music is essential for 3D stage synchronization and timeline
           </Alert>
         </Box>
       )
     },
     {
-      label: '🎭 Crear Escenario 3D',
+      label: '🎭 Create 3D Stage',
       content: (
         <Box>
           <Typography variant="body1" sx={{ mb: 2 }}>
-            <strong>Paso 2:</strong> Una vez creada la coreografía, ve al escenario 3D para posicionar bailarines.
+            <strong>Step 2:</strong> Once the choreography is created, go to the 3D stage to position dancers.
           </Typography>
           <List>
             <ListItem>
               <ListItemIcon><ViewInAr color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Ve a la pestaña '🎭 Escenario 3D'" 
-                secondary="Primera pestaña en la vista de coreografía"
+                primary="Go to the '🎭 3D Stage' tab" 
+                secondary="First tab in the choreography view"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><PlayArrow color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Haz clic en 'Nueva Formación'" 
-                secondary="Botón verde con gradiente en el escenario"
+                primary="Click on 'New Formation'" 
+                secondary="Green button with gradient on the stage"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><Group color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Arrastra bailarines en el canvas" 
-                secondary="Cada estudiante aparece como un círculo de color"
+                primary="Drag dancers on the canvas" 
+                secondary="Each student appears as a colored circle"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Guarda la formación" 
-                secondary="Define el nombre y timestamp en segundos"
+                primary="Save the formation" 
+                secondary="Define the name and timestamp in seconds"
               />
             </ListItem>
           </List>
           <Alert severity="success" sx={{ mt: 2 }}>
-            ✨ <strong>¡Genial!</strong> Puedes crear múltiples formaciones en diferentes tiempos
+            ✨ <strong>Great!</strong> You can create multiple formations at different times
           </Alert>
         </Box>
       )
     },
     {
-      label: '🎵 Sincronizar con Música',
+      label: '🎵 Sync with Music',
       content: (
         <Box>
           <Typography variant="body1" sx={{ mb: 2 }}>
-            <strong>Paso 3:</strong> Sincroniza tus formaciones con la música usando el timeline.
+            <strong>Step 3:</strong> Synchronize your formations with music using the timeline.
           </Typography>
           <List>
             <ListItem>
               <ListItemIcon><Timeline color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Ve a la pestaña '🎵 Timeline Musical'" 
-                secondary="Controles avanzados de música y marcadores"
+                primary="Go to the '🎵 Musical Timeline' tab" 
+                secondary="Advanced music controls and markers"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><PlayArrow color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Reproduce la música" 
-                secondary="Usa los controles de velocidad (0.25x - 2x)"
+                primary="Play the music" 
+                secondary="Use speed controls (0.25x - 2x)"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><Assessment color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Agrega marcadores" 
-                secondary="Marca momentos clave: técnica, formación, corrección"
+                primary="Add markers" 
+                secondary="Mark key moments: technique, formation, correction"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><ViewInAr color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Las formaciones cambian automáticamente" 
-                secondary="Según el tiempo actual de reproducción"
+                primary="Formations change automatically" 
+                secondary="According to the current playback time"
               />
             </ListItem>
           </List>
           <Alert severity="warning" sx={{ mt: 2 }}>
-            ⚠️ <strong>Importante:</strong> Los timestamps de formaciones deben coincidir con la música
+            ⚠️ <strong>Important:</strong> Formation timestamps must match the music
           </Alert>
         </Box>
       )
     },
     {
-      label: '🎥 Análisis de Video',
+      label: '🎥 Video Analysis',
       content: (
         <Box>
           <Typography variant="body1" sx={{ mb: 2 }}>
-            <strong>Paso 4:</strong> Analiza videos de práctica con herramientas profesionales.
+            <strong>Step 4:</strong> Analyze practice videos with professional tools.
           </Typography>
           <List>
             <ListItem>
               <ListItemIcon><Videocam color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Ve a la pestaña '🎥 Análisis de Video'" 
-                secondary="Funcionalidad estilo Coach's Eye"
+                primary="Go to the '🎥 Video Analysis' tab" 
+                secondary="Coach's Eye functionality"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><VideoLibrary color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Sube o graba video" 
-                secondary="Usa el botón de grabar o sube archivo existente"
+                primary="Upload or record video" 
+                secondary="Use the record button or upload existing file"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><Brush color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Usa herramientas de telestración" 
-                secondary="Dibuja sobre el video: líneas, círculos, flechas"
+                primary="Use telestrator tools" 
+                secondary="Draw on the video: lines, circles, arrows"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><Assessment color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Agrega marcadores de análisis" 
-                secondary="Marca errores técnicos y mejoras"
+                primary="Add analysis markers" 
+                secondary="Mark technical errors and improvements"
               />
             </ListItem>
           </List>
           <Alert severity="info" sx={{ mt: 2 }}>
-            🎬 <strong>Pro Tip:</strong> Usa cámara lenta para análisis detallado de técnica
+            🎬 <strong>Pro Tip:</strong> Use slow motion for detailed technique analysis
           </Alert>
         </Box>
       )
     },
     {
-      label: '💬 Colaboración y Compartir',
+      label: '💬 Collaboration and Sharing',
       content: (
         <Box>
           <Typography variant="body1" sx={{ mb: 2 }}>
-            <strong>Paso 5:</strong> Colabora con estudiantes y otros profesores.
+            <strong>Step 5:</strong> Collaborate with students and other teachers.
           </Typography>
           <List>
             <ListItem>
               <ListItemIcon><Group color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Ve a la pestaña '💬 Colaboración'" 
-                secondary="Sistema de comentarios en tiempo real"
+                primary="Go to the '💬 Collaboration' tab" 
+                secondary="Real-time comment system"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><Assessment color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Agrega comentarios por tipo" 
-                secondary="Instrucciones, preguntas, notas, recordatorios"
+                primary="Add comments by type" 
+                secondary="Instructions, questions, notes, reminders"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><ViewInAr color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Marca posiciones específicas" 
-                secondary="Comenta sobre posiciones exactas del escenario"
+                primary="Mark specific positions" 
+                secondary="Comment on exact stage positions"
               />
             </ListItem>
             <ListItem>
               <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
               <ListItemText 
-                primary="Comparte con estudiantes" 
-                secondary="Los estudiantes pueden ver y responder"
+                primary="Share with students" 
+                secondary="Students can view and respond"
               />
             </ListItem>
           </List>
           <Alert severity="success" sx={{ mt: 2 }}>
-            🌟 <strong>¡Perfecto!</strong> Ya dominas todas las funcionalidades de la app
+            🌟 <strong>Perfect!</strong> You now master all professional features of your dance app
           </Alert>
         </Box>
       )
@@ -296,7 +296,7 @@ const TutorialGuide: React.FC<TutorialGuideProps> = ({ open, onClose }) => {
         backdropFilter: 'blur(10px)'
       }}>
                  <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-           📚 Guía Completa - Heliopsis Dance Academy
+           📚 Complete Guide - Heliopsis Dance Academy
          </Typography>
         <IconButton onClick={onClose} sx={{ color: 'white' }}>
           <Close />
@@ -306,10 +306,10 @@ const TutorialGuide: React.FC<TutorialGuideProps> = ({ open, onClose }) => {
       <DialogContent sx={{ p: 3 }}>
         <Box sx={{ mb: 3 }}>
                    <Typography variant="h5" sx={{ mb: 1 }}>
-           Tutorial Paso a Paso: Cómo Usar Tu App de Danza Profesional
+           Step-by-Step Tutorial: How to Use Your Professional Dance App
          </Typography>
           <Typography variant="body2" sx={{ opacity: 0.9 }}>
-            Aprende a crear coreografías, escenarios 3D, análisis de video y más
+            Learn how to create choreographies, 3D stages, video analysis, and more
           </Typography>
         </Box>
 
@@ -351,7 +351,7 @@ const TutorialGuide: React.FC<TutorialGuideProps> = ({ open, onClose }) => {
                     }}
                     endIcon={activeStep === steps.length - 1 ? <CheckCircle /> : <ArrowForward />}
                   >
-                    {activeStep === steps.length - 1 ? '¡Completado!' : 'Siguiente'}
+                    {activeStep === steps.length - 1 ? '¡Completed!' : 'Next'}
                   </Button>
                   <Button
                     disabled={activeStep === 0}
@@ -359,7 +359,7 @@ const TutorialGuide: React.FC<TutorialGuideProps> = ({ open, onClose }) => {
                     sx={{ mt: 1, mr: 1, color: 'white' }}
                     startIcon={<ArrowBack />}
                   >
-                    Anterior
+                    Previous
                   </Button>
                 </Box>
               </StepContent>
@@ -381,11 +381,11 @@ const TutorialGuide: React.FC<TutorialGuideProps> = ({ open, onClose }) => {
               color: 'black'
             }}>
               <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
-                🎉 ¡Felicitaciones!
+                🎉 Congratulations!
               </Typography>
               <Typography variant="body1" sx={{ mb: 2 }}>
-                Ya conoces todas las funcionalidades profesionales de tu app de danza.
-                ¡Comienza a crear coreografías increíbles!
+                You now know all the professional features of your dance app.
+                Start creating amazing choreographies!
               </Typography>
               <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
                 <Button
@@ -393,7 +393,7 @@ const TutorialGuide: React.FC<TutorialGuideProps> = ({ open, onClose }) => {
                   variant="outlined"
                   sx={{ color: 'black', borderColor: 'black' }}
                 >
-                  Revisar Tutorial
+                  Review Tutorial
                 </Button>
                 <Button
                   onClick={onClose}
@@ -403,7 +403,7 @@ const TutorialGuide: React.FC<TutorialGuideProps> = ({ open, onClose }) => {
                     color: 'white'
                   }}
                 >
-                  ¡Empezar a Crear!
+                  ¡Start Creating!
                 </Button>
               </Box>
             </Paper>

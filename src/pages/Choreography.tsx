@@ -112,59 +112,59 @@ const Choreography: React.FC = () => {
     {
       id: '1',
       name: 'Hip Hop Fusion',
-      description: 'Coreografía moderna de Hip Hop con elementos urbanos',
+      description: 'Modern choreography of Hip Hop with urban elements',
       musicFile: 'hip-hop-fusion.mp3',
       duration: 180,
       formations: [
         {
           id: 'formation-1',
-          name: 'Formación Inicial',
+          name: 'Initial Formation',
           dancers: [
-            { id: 'dancer-1', name: 'Ana García', x: 150, y: 150, z: 0, color: '#FF6B6B', isVisible: true },
-            { id: 'dancer-2', name: 'Carlos Rodríguez', x: 300, y: 150, z: 0, color: '#4ECDC4', isVisible: true },
-            { id: 'dancer-3', name: 'Laura Martínez', x: 225, y: 250, z: 0, color: '#45B7D1', isVisible: true },
+            { id: 'dancer-1', name: 'Ana Garcia', x: 150, y: 150, z: 0, color: '#FF6B6B', isVisible: true },
+            { id: 'dancer-2', name: 'Carlos Rodriguez', x: 300, y: 150, z: 0, color: '#4ECDC4', isVisible: true },
+            { id: 'dancer-3', name: 'Laura Martinez', x: 225, y: 250, z: 0, color: '#45B7D1', isVisible: true },
           ],
           timestamp: 0,
         },
         {
           id: 'formation-2',
-          name: 'Formación Central',
+          name: 'Central Formation',
           dancers: [
-            { id: 'dancer-1', name: 'Ana García', x: 225, y: 200, z: 0, color: '#FF6B6B', isVisible: true },
-            { id: 'dancer-2', name: 'Carlos Rodríguez', x: 175, y: 300, z: 0, color: '#4ECDC4', isVisible: true },
-            { id: 'dancer-3', name: 'Laura Martínez', x: 275, y: 300, z: 0, color: '#45B7D1', isVisible: true },
+            { id: 'dancer-1', name: 'Ana Garcia', x: 225, y: 200, z: 0, color: '#FF6B6B', isVisible: true },
+            { id: 'dancer-2', name: 'Carlos Rodriguez', x: 175, y: 300, z: 0, color: '#4ECDC4', isVisible: true },
+            { id: 'dancer-3', name: 'Laura Martinez', x: 275, y: 300, z: 0, color: '#45B7D1', isVisible: true },
           ],
           timestamp: 60,
         },
       ],
-      students: ['Ana García', 'Carlos Rodríguez', 'Laura Martínez'],
-      coach: 'María González',
+      students: ['Ana Garcia', 'Carlos Rodriguez', 'Laura Martinez'],
+      coach: 'Maria Gonzalez',
       category: 'Teens',
-      difficulty: 'Intermedio',
+      difficulty: 'Intermediate',
       createdAt: new Date('2024-01-15'),
     },
     {
       id: '2',
-      name: 'Contemporáneo Expressivo',
-      description: 'Danza contemporánea con énfasis en expresión corporal',
+      name: 'Contemporary Expressive',
+      description: 'Contemporary dance with emphasis on body expression',
       musicFile: 'contemporaneo-expressivo.mp3',
       duration: 240,
       formations: [
         {
           id: 'formation-3',
-          name: 'Apertura',
+          name: 'Opening',
           dancers: [
-            { id: 'dancer-4', name: 'Sofía López', x: 100, y: 200, z: 0, color: '#96CEB4', isVisible: true },
+            { id: 'dancer-4', name: 'Sofia Lopez', x: 100, y: 200, z: 0, color: '#96CEB4', isVisible: true },
             { id: 'dancer-5', name: 'Diego Ruiz', x: 250, y: 150, z: 0, color: '#FFEAA7', isVisible: true },
             { id: 'dancer-6', name: 'Carmen Vega', x: 400, y: 200, z: 0, color: '#DDA0DD', isVisible: true },
           ],
           timestamp: 0,
         },
       ],
-      students: ['Sofía López', 'Diego Ruiz', 'Carmen Vega'],
+      students: ['Sofia Lopez', 'Diego Ruiz', 'Carmen Vega'],
       coach: 'Carlos Ruiz',
-      category: 'Adultos',
-      difficulty: 'Avanzado',
+      category: 'Adults',
+      difficulty: 'Advanced',
       createdAt: new Date('2024-01-10'),
     }
     ];
@@ -217,14 +217,14 @@ const Choreography: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>();
 
-  // Obtener estudiantes reales del servicio y deduplicar por nombre completo
+  // Get real students from service and deduplicate by full name
   const allStudents = studentService.getAllStudents();
   const students = allStudents.filter((student, index, self) => 
     index === self.findIndex(s => s.fullName === student.fullName)
   );
-  const categories = ['Mini', 'Teens', 'Adultos', 'High Level'];
-  const difficulties = ['Principiante', 'Intermedio', 'Avanzado', 'Experto'];
-  const coaches = ['María González', 'Carlos Ruiz', 'Ana Martínez', 'Luis Pérez'];
+  const categories = ['Mini', 'Teens', 'Adults', 'High Level'];
+  const difficulties = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
+  const coaches = ['Maria Gonzalez', 'Carlos Ruiz', 'Ana Martinez', 'Luis Perez'];
 
   const dancerColors = [
     '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', 
@@ -320,17 +320,17 @@ const Choreography: React.FC = () => {
 
   const handleSave = () => {
     if (!formData.name.trim()) {
-      alert('Por favor ingresa un nombre para la coreografía');
+      alert('Please enter a name for the choreography');
       return;
     }
 
     if (!selectedMusicId) {
-      alert('Por favor selecciona una pista de música');
+      alert('Please select a music track');
       return;
     }
 
     if (selectedStudents.length === 0) {
-      alert('Por favor selecciona al menos un estudiante');
+      alert('Please select at least one student');
       return;
     }
 
@@ -351,14 +351,14 @@ const Choreography: React.FC = () => {
       const newChoreography: Choreography = {
         id: Date.now().toString(),
         name: formData.name,
-        description: formData.description || 'Nueva coreografía',
+        description: formData.description || 'New choreography',
         musicFile: selectedMusicId,
-        duration: 180, // Duración por defecto
+        duration: 180, // Default duration
         formations: [],
         students: selectedStudents,
-        coach: 'María González',
+        coach: 'Maria Gonzalez',
         category: formData.category || 'Teens',
-        difficulty: 'Intermedio',
+        difficulty: 'Intermediate',
         createdAt: new Date(),
       };
       setChoreographies([...choreographies, newChoreography]);
@@ -400,7 +400,7 @@ const Choreography: React.FC = () => {
     } else {
       const newFormation: Formation = {
         id: Date.now().toString(),
-        name: `Formación ${(selectedChoreography?.formations.length || 0) + 1}`,
+        name: `Formation ${(selectedChoreography?.formations.length || 0) + 1}`,
         dancers: selectedChoreography?.students.map((student, index) => ({
           id: `dancer-${index}`,
           name: student,
@@ -492,7 +492,7 @@ const Choreography: React.FC = () => {
 
   const handlePositionComment = (x: number, y: number, z: number) => {
     // Función para posicionar comentarios en el escenario
-    console.log('Comentario posicionado en:', x, y, z);
+    console.log('Comment positioned at:', x, y, z);
   };
 
   return (
@@ -529,12 +529,12 @@ const Choreography: React.FC = () => {
               mb: 1,
               fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
             }}>
-              🎭 Coreografías
+              🎭 Choreographies
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{
               fontSize: { xs: '0.875rem', sm: '1rem' },
             }}>
-              Crea, edita y sincroniza tus coreografías con música
+              Create, edit and sync your choreographies with music
             </Typography>
           </Box>
           <Box sx={{ 
@@ -586,7 +586,7 @@ const Choreography: React.FC = () => {
                     }
                   }}
                 >
-                  {authService.getCurrentUser()?.name || 'Perfil'}
+                  {authService.getCurrentUser()?.name || 'Profile'}
                 </Button>
                 <Button
                   variant="outlined"
@@ -601,7 +601,7 @@ const Choreography: React.FC = () => {
                     fontWeight: 'bold'
                   }}
                 >
-                  Salir
+                  Logout
                 </Button>
               </>
             ) : (
@@ -622,7 +622,7 @@ const Choreography: React.FC = () => {
                   }
                 }}
               >
-                Iniciar Sesión
+                Login
               </Button>
             )}
             <Button
@@ -643,7 +643,7 @@ const Choreography: React.FC = () => {
                 }
               }}
             >
-              Nueva Coreografía
+              New Choreography
             </Button>
             <Button
               variant="outlined"
@@ -664,7 +664,7 @@ const Choreography: React.FC = () => {
                 }
               }}
             >
-              📊 Métricas
+              📊 Metrics
             </Button>
             <Button
               variant="outlined"
@@ -684,7 +684,7 @@ const Choreography: React.FC = () => {
                 }
               }}
             >
-              🤖 IA Assistant
+              🤖 AI Assistant
             </Button>
             <Button
               variant="outlined"
@@ -704,7 +704,7 @@ const Choreography: React.FC = () => {
                 }
               }}
             >
-              🌟 Comunidad
+              🌟 Community
             </Button>
             <Button
               variant="outlined"
@@ -744,7 +744,7 @@ const Choreography: React.FC = () => {
                 }
               }}
             >
-              ⚡ Rendimiento
+              ⚡ Performance
             </Button>
             <Button
               variant="outlined"
@@ -764,7 +764,7 @@ const Choreography: React.FC = () => {
                 }
               }}
             >
-              🔄 Tiempo Real
+              🔄 Real Time
             </Button>
             <Button
               variant="outlined"
@@ -784,7 +784,7 @@ const Choreography: React.FC = () => {
                 }
               }}
             >
-              🎨 Tema
+              🎨 Theme
             </Button>
           </Box>
         </Box>
@@ -812,16 +812,16 @@ const Choreography: React.FC = () => {
               }
             }}
           >
-                             <Tab label="🎭 Escenario 3D" />
-                 <Tab label="🎬 Reproductor 3D" />
-                 <Tab label="🎵 Timeline Musical" />
-                 <Tab label="💬 Colaboración" />
-                 <Tab label="🎥 Análisis de Video" />
-                 <Tab label="📋 Lista de Coreografías" />
+                             <Tab label="🎭 3D Stage" />
+                 <Tab label="🎬 3D Player" />
+                 <Tab label="🎵 Music Timeline" />
+                 <Tab label="💬 Collaboration" />
+                 <Tab label="🎥 Video Analysis" />
+                 <Tab label="📋 Choreography List" />
           </Tabs>
         </Box>
 
-        {/* Contenido según el Tab Activo */}
+        {/* Content according to Active Tab */}
         {activeTab === 0 && (
           // Tab: Escenario 3D
           <Box>
@@ -839,7 +839,7 @@ const Choreography: React.FC = () => {
             ) : (
               <Paper sx={{ p: 4, textAlign: 'center' }}>
                 <Typography variant="h6" color="text.secondary">
-                  Selecciona una coreografía para ver el escenario 3D
+                  Select a choreography to see the 3D stage
                 </Typography>
               </Paper>
             )}
@@ -895,7 +895,7 @@ const Choreography: React.FC = () => {
             ) : (
               <Paper sx={{ p: 4, textAlign: 'center' }}>
                 <Typography variant="h6" color="text.secondary">
-                  Selecciona una coreografía para ver el timeline musical
+                  Select a choreography to see the music timeline
                 </Typography>
               </Paper>
             )}
@@ -906,7 +906,7 @@ const Choreography: React.FC = () => {
            // Tab: Colaboración
            <Box>
              <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', textAlign: 'center' }}>
-               💬 Colaboración en Tiempo Real
+               💬 Real Time Collaboration
              </Typography>
              {selectedChoreography ? (
                <CollaborationPanel
@@ -918,7 +918,7 @@ const Choreography: React.FC = () => {
              ) : (
                <Paper sx={{ p: 4, textAlign: 'center' }}>
                  <Typography variant="h6" color="text.secondary">
-                   Selecciona una coreografía para acceder a la colaboración
+                   Select a choreography to access collaboration
                  </Typography>
                </Paper>
              )}
@@ -929,18 +929,18 @@ const Choreography: React.FC = () => {
            // Tab: Colaboración
            <Box>
              <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', textAlign: 'center' }}>
-               💬 Colaboración en Tiempo Real
+               💬 Real Time Collaboration
              </Typography>
              {selectedChoreography ? (
                <CollaborationPanel
                  choreographyId={selectedChoreography.id}
                  currentTime={currentTime}
-                 onPositionComment={(comment) => console.log('Comentario de posición:', comment)}
+                 onPositionComment={(comment) => console.log('Position comment:', comment)}
                />
              ) : (
                <Paper sx={{ p: 4, textAlign: 'center' }}>
                  <Typography variant="h6" color="text.secondary">
-                   Selecciona una coreografía para acceder a la colaboración
+                   Select a choreography to access collaboration
                  </Typography>
                </Paper>
              )}
@@ -958,12 +958,12 @@ const Choreography: React.FC = () => {
                  choreographyId={selectedChoreography.id}
                  currentTime={currentTime}
                  onTimeChange={handleTimeChange}
-                 onSaveAnalysis={(analysis) => console.log('Análisis guardado:', analysis)}
+                 onSaveAnalysis={(analysis) => console.log('Analysis saved:', analysis)}
                />
              ) : (
                <Paper sx={{ p: 4, textAlign: 'center' }}>
                  <Typography variant="h6" color="text.secondary">
-                   Selecciona una coreografía para acceder al análisis de video
+                   Select a choreography to access video analysis
                  </Typography>
                </Paper>
              )}
@@ -982,7 +982,7 @@ const Choreography: React.FC = () => {
               }}>
                 <CardContent>
                   <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
-                    📋 Mis Coreografías
+                    📋 My Choreographies
                   </Typography>
                   <List>
                     {choreographies.map((choreography) => (
@@ -1000,7 +1000,7 @@ const Choreography: React.FC = () => {
                       >
                         <ListItemText
                           primary={choreography.name}
-                          secondary={`${choreography.students.length} estudiantes • ${choreography.difficulty}`}
+                          secondary={`${choreography.students.length} students • ${choreography.difficulty}`}
                         />
                         <ListItemSecondaryAction>
                           <IconButton size="small" onClick={() => handleOpenDialog(choreography)}>
@@ -1050,7 +1050,7 @@ const Choreography: React.FC = () => {
                     <CardContent>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
                         <MusicIcon color="primary" />
-                        <Typography variant="h6">Controles de Música</Typography>
+                        <Typography variant="h6">Music Controls</Typography>
                       </Box>
                       
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
@@ -1093,7 +1093,7 @@ const Choreography: React.FC = () => {
                 <Card sx={{ mb: 3, borderRadius: 3 }}>
                   <CardContent>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                      <Typography variant="h6">Escenario</Typography>
+                      <Typography variant="h6">Stage</Typography>
                       <Box sx={{ display: 'flex', gap: 1 }}>
                         <Button
                           variant="contained"
@@ -1108,7 +1108,7 @@ const Choreography: React.FC = () => {
                             }
                           }}
                         >
-                          Nueva Formación
+                          New Formation
                         </Button>
                         <Button
                           variant="outlined"
@@ -1116,7 +1116,7 @@ const Choreography: React.FC = () => {
                           onClick={() => setActiveTab(1)}
                           sx={{ borderRadius: 2 }}
                         >
-                          Ver Timeline
+                          See Timeline
                         </Button>
                       </Box>
                     </Box>
@@ -1196,9 +1196,9 @@ const Choreography: React.FC = () => {
                 <Card sx={{ borderRadius: 3 }}>
                   <CardContent>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                      <Typography variant="h6">Timeline de Formaciones</Typography>
+                      <Typography variant="h6">Formation Timeline</Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Haz clic para saltar al tiempo de la formación
+                        Click to jump to formation time
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
@@ -1241,7 +1241,7 @@ const Choreography: React.FC = () => {
                 <Box sx={{ textAlign: 'center' }}>
                   <GroupIcon sx={{ fontSize: 80, color: '#ccc', mb: 2 }} />
                   <Typography variant="h6" color="text.secondary">
-                    Selecciona una coreografía para comenzar
+                    Select a choreography to begin
                   </Typography>
                 </Box>
               </Card>
@@ -1261,14 +1261,14 @@ const Choreography: React.FC = () => {
           disablePortal
         >
           <DialogTitle>
-            {editingChoreography ? 'Editar Coreografía' : 'Nueva Coreografía'}
+            {editingChoreography ? 'Edit Choreography' : 'New Choreography'}
           </DialogTitle>
           <DialogContent>
             <Grid container spacing={2} sx={{ mt: 1 }}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Nombre de la Coreografía"
+                  label="Choreography Name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 />
@@ -1277,7 +1277,7 @@ const Choreography: React.FC = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Categoría"
+                  label="Category"
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                   select
@@ -1291,7 +1291,7 @@ const Choreography: React.FC = () => {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Descripción"
+                  label="Description"
                   multiline
                   rows={3}
                   value={formData.description}
@@ -1302,7 +1302,7 @@ const Choreography: React.FC = () => {
               {/* Selección de Música Simulada */}
               <Grid item xs={12} sm={6}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  <Typography variant="subtitle2">🎵 Música de Coreografía</Typography>
+                  <Typography variant="subtitle2">🎵 Choreography Music</Typography>
                   <TextField
                     fullWidth
                     select
@@ -1312,11 +1312,11 @@ const Choreography: React.FC = () => {
                       const selectedMusic = musicService.getMusicTracks().find(m => m.id === e.target.value);
                       if (selectedMusic) {
                         setFormData({ ...formData, musicFile: selectedMusic.title });
-                        console.log('🎵 Música seleccionada:', selectedMusic);
+                        console.log('🎵 Music selected:', selectedMusic);
                       }
                     }}
                     variant="outlined"
-                    placeholder="Seleccionar música..."
+                    placeholder="Select music..."
                     sx={{ 
                       '& .MuiOutlinedInput-root': {
                         borderStyle: 'dashed',
@@ -1325,7 +1325,7 @@ const Choreography: React.FC = () => {
                     }}
                   >
                     <MenuItem value="">
-                      <em>Seleccionar música...</em>
+                      <em>Select music...</em>
                     </MenuItem>
                     {musicService.getMusicTracks().map((music) => (
                       <MenuItem key={music.id} value={music.id}>
@@ -1334,14 +1334,14 @@ const Choreography: React.FC = () => {
                             {music.title}
                           </Typography>
                           <Typography variant="caption" color="text.secondary">
-                            {music.duration}s • {music.genre} • {music.tempo} BPM
+                            {music.duration}s • {music.genre} • {music.bpm} BPM
                           </Typography>
                         </Box>
                       </MenuItem>
                     ))}
                   </TextField>
                   <Typography variant="caption" color="text.secondary">
-                    🎶 16 pistas de música simulada con diferentes géneros y tempos
+                    🎶 16 simulated music tracks with different genres and tempos
                   </Typography>
                 </Box>
               </Grid>
@@ -1349,7 +1349,7 @@ const Choreography: React.FC = () => {
               {/* Selección de Video Simulado */}
               <Grid item xs={12} sm={6}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  <Typography variant="subtitle2">🎥 Video de Formación 3D (Opcional)</Typography>
+                  <Typography variant="subtitle2">🎥 Formation 3D Video (Optional)</Typography>
                   <TextField
                     fullWidth
                     select
@@ -1359,11 +1359,11 @@ const Choreography: React.FC = () => {
                       const selectedVideo = videoService.getVideoTracks().find(v => v.id === e.target.value);
                       if (selectedVideo) {
                         setFormData({ ...formData, videoFile: selectedVideo.title });
-                        console.log('🎥 Video seleccionado:', selectedVideo);
+                        console.log('🎥 Video selected:', selectedVideo);
                       }
                     }}
                     variant="outlined"
-                    placeholder="Seleccionar video de formación..."
+                    placeholder="Select formation video..."
                     sx={{ 
                       '& .MuiOutlinedInput-root': {
                         borderStyle: 'dashed',
@@ -1372,7 +1372,7 @@ const Choreography: React.FC = () => {
                     }}
                   >
                     <MenuItem value="">
-                      <em>Seleccionar video de formación...</em>
+                      <em>Select formation video...</em>
                     </MenuItem>
                     {videoService.getVideoTracks().map((video) => (
                       <MenuItem key={video.id} value={video.id}>
@@ -1388,14 +1388,14 @@ const Choreography: React.FC = () => {
                     ))}
                   </TextField>
                   <Typography variant="caption" color="text.secondary">
-                    🎬 Videos simulados con formaciones 3D generadas automáticamente
+                    🎬 Simulated videos with generated 3D formations
                   </Typography>
                 </Box>
               </Grid>
 
               <Grid item xs={12}>
                 <Typography variant="subtitle2" gutterBottom>
-                  👥 Estudiantes Participantes:
+                  👥 Participating Students:
                 </Typography>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, maxHeight: 200, overflow: 'auto' }}>
                   {students.map((student) => (
@@ -1414,15 +1414,15 @@ const Choreography: React.FC = () => {
                   ))}
                 </Box>
                 <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-                  Seleccionados: {selectedStudents.length} estudiantes
+                  Selected: {selectedStudents.length} students
                 </Typography>
               </Grid>
             </Grid>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseDialog}>Cancelar</Button>
+            <Button onClick={handleCloseDialog}>Cancel</Button>
             <Button onClick={handleSave} variant="contained">
-              {editingChoreography ? 'Actualizar' : 'Crear'}
+              {editingChoreography ? 'Update' : 'Create'}
             </Button>
           </DialogActions>
         </Dialog>
@@ -1438,7 +1438,7 @@ const Choreography: React.FC = () => {
           disablePortal
         >
           <DialogTitle>
-            {editingFormation ? 'Editar Formación' : 'Nueva Formación'}
+            {editingFormation ? 'Edit Formation' : 'New Formation'}
           </DialogTitle>
           <DialogContent>
             <Grid container spacing={3}>
@@ -1446,7 +1446,7 @@ const Choreography: React.FC = () => {
                 <Box sx={{ mb: 2 }}>
                   <TextField
                     fullWidth
-                    label="Nombre de la Formación"
+                    label="Formation Name"
                     value={editingFormation?.name || ''}
                     onChange={(e) => setEditingFormation(prev => prev ? { ...prev, name: e.target.value } : null)}
                   />
@@ -1455,7 +1455,7 @@ const Choreography: React.FC = () => {
                 <Box sx={{ mb: 2 }}>
                   <TextField
                     fullWidth
-                    label="Tiempo (segundos)"
+                    label="Time (seconds)"
                     type="number"
                     value={editingFormation?.timestamp || 0}
                     onChange={(e) => setEditingFormation(prev => prev ? { ...prev, timestamp: parseFloat(e.target.value) } : null)}
@@ -1526,7 +1526,7 @@ const Choreography: React.FC = () => {
               </Grid>
 
               <Grid item xs={12} md={4}>
-                <Typography variant="h6" gutterBottom>Bailarines</Typography>
+                <Typography variant="h6" gutterBottom>Dancers</Typography>
                 <List>
                   {editingFormation?.dancers.map((dancer) => (
                     <ListItem key={dancer.id}>
@@ -1552,9 +1552,9 @@ const Choreography: React.FC = () => {
             </Grid>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setShowFormationEditor(false)}>Cancelar</Button>
+            <Button onClick={() => setShowFormationEditor(false)}>Cancel</Button>
             <Button onClick={handleFormationSave} variant="contained">
-              Guardar Formación
+              Save Formation
             </Button>
           </DialogActions>
         </Dialog>
@@ -1618,15 +1618,15 @@ const Choreography: React.FC = () => {
           onClose={() => setShowRealtime(false)}
           onFormationUpdate={(data) => {
             // Manejar actualización de formación desde tiempo real
-            console.log('Formación actualizada desde tiempo real:', data);
+            console.log('Formation updated from real-time:', data);
           }}
           onDancerMove={(dancerId, position) => {
             // Manejar movimiento de bailarín desde tiempo real
-            console.log('Bailarín movido desde tiempo real:', dancerId, position);
+            console.log('Dancer moved from real-time:', dancerId, position);
           }}
           onComment={(comment) => {
             // Manejar comentario desde tiempo real
-            console.log('Comentario recibido desde tiempo real:', comment);
+            console.log('Comment received from real-time:', comment);
           }}
         />
         
