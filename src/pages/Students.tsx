@@ -487,7 +487,7 @@ const Students: React.FC = () => {
         )}
       </Paper>
 
-      {/* Lista de estudiantes */}
+      {/* Enhanced Student List */}
       <Grid container spacing={3}>
         <AnimatePresence>
           {filteredStudents.map((student, index) => (
@@ -500,29 +500,36 @@ const Students: React.FC = () => {
               >
                 <Card sx={{ 
                   height: '100%',
-                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  borderRadius: 3,
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  border: '1px solid rgba(0, 0, 0, 0.06)',
                   '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: 8
+                    transform: 'translateY(-8px)',
+                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
+                    border: '1px solid rgba(102, 126, 234, 0.2)',
                   }
                 }}>
-                  <CardContent>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                  <CardContent sx={{ p: 3 }}>
+                    {/* Header with Avatar and Name */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
                       <Avatar
                         sx={{ 
-                          width: 56, 
-                          height: 56, 
+                          width: 64, 
+                          height: 64, 
                           mr: 2,
-                          background: 'linear-gradient(45deg, #FF6B9D, #4ECDC4)'
+                          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                          fontSize: '1.5rem',
+                          fontWeight: 700,
+                          boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)',
                         }}
                       >
                         {student.firstName.charAt(0)}{student.lastName.charAt(0)}
                       </Avatar>
                       <Box sx={{ flex: 1 }}>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                        <Typography variant="h6" sx={{ fontWeight: 700, mb: 0.5 }}>
                           {student.fullName}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
                           {student.age} years • {student.gender}
                         </Typography>
                       </Box>
@@ -530,63 +537,157 @@ const Students: React.FC = () => {
                         <Chip
                           label={student.level}
                           size="small"
-                          color={
-                            student.level === 'Beginner' ? 'default' :
-                            student.level === 'Intermediate' ? 'primary' :
-                            student.level === 'Advanced' ? 'secondary' : 'success'
-                          }
+                          sx={{
+                            fontWeight: 600,
+                            background: 
+                              student.level === 'Beginner' ? 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' :
+                              student.level === 'Intermediate' ? 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' :
+                              student.level === 'Advanced' ? 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' :
+                              'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                            color: 'white',
+                            '&:hover': {
+                              transform: 'scale(1.05)',
+                            },
+                            transition: 'all 0.2s ease-in-out',
+                          }}
                         />
                       </Box>
                     </Box>
 
-                    <Box sx={{ mb: 2 }}>
-                      {student.danceGroups.map((groupId) => {
-                        const group = danceGroups.find(g => g.id === groupId);
-                        return group ? (
-                          <Chip
-                            key={groupId}
-                            label={group.name}
-                            size="small"
-                            variant="outlined"
-                            sx={{ mr: 1, mb: 1 }}
-                          />
-                        ) : null;
-                      })}
+                    {/* Dance Groups */}
+                    <Box sx={{ mb: 3 }}>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, fontWeight: 600 }}>
+                        Dance Groups:
+                      </Typography>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                        {student.danceGroups.map((groupId) => {
+                          const group = danceGroups.find(g => g.id === groupId);
+                          return group ? (
+                            <Chip
+                              key={groupId}
+                              label={group.name}
+                              size="small"
+                              variant="outlined"
+                              sx={{ 
+                                fontWeight: 500,
+                                borderColor: 'rgba(102, 126, 234, 0.3)',
+                                color: 'rgba(102, 126, 234, 0.8)',
+                                '&:hover': {
+                                  background: 'rgba(102, 126, 234, 0.08)',
+                                  borderColor: 'rgba(102, 126, 234, 0.5)',
+                                },
+                                transition: 'all 0.2s ease-in-out',
+                              }}
+                            />
+                          ) : null;
+                        })}
+                      </Box>
                     </Box>
 
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                      <Email sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
-                      <Typography variant="body2" color="text.secondary">
-                        {student.email || 'No email'}
-                      </Typography>
+                    {/* Contact Information */}
+                    <Box sx={{ mb: 3 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
+                        <Box
+                          sx={{
+                            width: 32,
+                            height: 32,
+                            borderRadius: 1,
+                            background: 'rgba(102, 126, 234, 0.1)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            mr: 1.5,
+                          }}
+                        >
+                          <Email sx={{ fontSize: 16, color: 'rgba(102, 126, 234, 0.7)' }} />
+                        </Box>
+                        <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
+                          {student.email || 'No email'}
+                        </Typography>
+                      </Box>
+
+                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
+                        <Box
+                          sx={{
+                            width: 32,
+                            height: 32,
+                            borderRadius: 1,
+                            background: 'rgba(102, 126, 234, 0.1)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            mr: 1.5,
+                          }}
+                        >
+                          <Phone sx={{ fontSize: 16, color: 'rgba(102, 126, 234, 0.7)' }} />
+                        </Box>
+                        <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
+                          {student.phone || 'No phone'}
+                        </Typography>
+                      </Box>
+
+                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
+                        <Box
+                          sx={{
+                            width: 32,
+                            height: 32,
+                            borderRadius: 1,
+                            background: 'rgba(102, 126, 234, 0.1)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            mr: 1.5,
+                          }}
+                        >
+                          <LocationOn sx={{ fontSize: 16, color: 'rgba(102, 126, 234, 0.7)' }} />
+                        </Box>
+                        <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
+                          {student.address.city}, {student.address.state}
+                        </Typography>
+                      </Box>
+
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Box
+                          sx={{
+                            width: 32,
+                            height: 32,
+                            borderRadius: 1,
+                            background: 'rgba(102, 126, 234, 0.1)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            mr: 1.5,
+                          }}
+                        >
+                          <Group sx={{ fontSize: 16, color: 'rgba(102, 126, 234, 0.7)' }} />
+                        </Box>
+                        <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
+                          {student.danceGroups.length} group(s)
+                        </Typography>
+                      </Box>
                     </Box>
 
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                      <Phone sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
-                      <Typography variant="body2" color="text.secondary">
-                        {student.phone || 'No phone'}
-                      </Typography>
-                    </Box>
-
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <LocationOn sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
-                      <Typography variant="body2" color="text.secondary">
-                        {student.address.city}, {student.address.state}
-                      </Typography>
-                    </Box>
-
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <Group sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
-                      <Typography variant="body2" color="text.secondary">
-                        {student.danceGroups.length} group(s)
-                      </Typography>
-                    </Box>
-
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <TrendingUp sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
-                      <Typography variant="body2" color="text.secondary">
-                        {Math.round(student.attendanceRate * 100)}% attendance
-                      </Typography>
+                    {/* Enrollment Info */}
+                    <Box sx={{ mb: 3 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
+                        <Box
+                          sx={{
+                            width: 32,
+                            height: 32,
+                            borderRadius: 1,
+                            background: 'rgba(102, 126, 234, 0.1)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            mr: 1.5,
+                          }}
+                        >
+                          <CalendarIcon sx={{ fontSize: 16, color: 'rgba(102, 126, 234, 0.7)' }} />
+                        </Box>
+                        <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
+                          Enrolled: {student.joinDate.toLocaleDateString()}
+                        </Typography>
+                      </Box>
                     </Box>
 
                     <Divider sx={{ my: 2 }} />

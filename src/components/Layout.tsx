@@ -230,38 +230,65 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-      {/* AppBar */}
+      {/* Enhanced AppBar */}
       <AppBar
         position="fixed"
         sx={{
           width: { md: `calc(100% - ${drawerWidth}px)` },
           ml: { md: `${drawerWidth}px` },
-          background: 'linear-gradient(135deg, #FF6B9D 0%, #4ECDC4 100%)',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
           zIndex: theme.zIndex.drawer + 1,
         }}
       >
-        <Toolbar sx={{ justifyContent: 'space-between', minHeight: '64px !important' }}>
+        <Toolbar sx={{ justifyContent: 'space-between', minHeight: '72px !important', px: 3 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 0, flex: 1 }}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { md: 'none' } }}
+              sx={{ 
+                mr: 2, 
+                display: { md: 'none' },
+                color: 'rgba(0,0,0,0.7)',
+                '&:hover': {
+                  background: 'rgba(102, 126, 234, 0.08)',
+                },
+              }}
             >
               <MenuIcon />
             </IconButton>
             <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
-              <HomeIcon sx={{ mr: 1, fontSize: { xs: 24, sm: 28 }, flexShrink: 0 }} />
+              <Box
+                sx={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 2,
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mr: 2,
+                  boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)',
+                }}
+              >
+                <HomeIcon sx={{ fontSize: 20, color: 'white' }} />
+              </Box>
               <Typography 
-                variant="h6" 
+                variant="h5" 
                 sx={{ 
-                  fontWeight: 'bold',
-                  fontSize: { xs: '1rem', sm: '1.25rem' },
+                  fontWeight: 800,
+                  fontSize: { xs: '1.1rem', sm: '1.4rem' },
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                 }}
               >
                 {getPageTitle()}
@@ -272,23 +299,63 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <Box sx={{ 
             display: 'flex', 
             alignItems: 'center', 
-            gap: { xs: 0.5, sm: 1 },
+            gap: { xs: 0.5, sm: 1.5 },
             flexShrink: 0,
           }}>
-            <IconButton color="inherit" sx={{ position: 'relative' }}>
-              <Badge badgeContent={4} color="error">
+            <IconButton 
+              color="inherit" 
+              sx={{ 
+                position: 'relative',
+                color: 'rgba(0,0,0,0.7)',
+                '&:hover': {
+                  background: 'rgba(102, 126, 234, 0.08)',
+                  transform: 'scale(1.1)',
+                },
+                transition: 'all 0.2s ease-in-out',
+              }}
+            >
+              <Badge 
+                badgeContent={4} 
+                color="error"
+                sx={{
+                  '& .MuiBadge-badge': {
+                    background: 'linear-gradient(135deg, #ff6b9d 0%, #ff8fb1 100%)',
+                    color: 'white',
+                    fontWeight: 600,
+                  }
+                }}
+              >
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton color="inherit" sx={{ display: { xs: 'none', sm: 'flex' } }}>
+            <IconButton 
+              color="inherit" 
+              sx={{ 
+                display: { xs: 'none', sm: 'flex' },
+                color: 'rgba(0,0,0,0.7)',
+                '&:hover': {
+                  background: 'rgba(102, 126, 234, 0.08)',
+                  transform: 'scale(1.1)',
+                },
+                transition: 'all 0.2s ease-in-out',
+              }}
+            >
               <SettingsIcon />
             </IconButton>
             <IconButton
               color="inherit"
               onClick={handleAccountMenuOpen}
               sx={{
-                background: 'rgba(255,255,255,0.1)',
-                '&:hover': { background: 'rgba(255,255,255,0.2)' },
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                width: 40,
+                height: 40,
+                '&:hover': { 
+                  background: 'linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%)',
+                  transform: 'scale(1.05)',
+                  boxShadow: '0 6px 20px rgba(102, 126, 234, 0.4)',
+                },
+                transition: 'all 0.2s ease-in-out',
               }}
             >
               <AccountIcon />
