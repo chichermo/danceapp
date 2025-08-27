@@ -312,20 +312,9 @@ const Dashboard: React.FC = () => {
                           </ListItemAvatar>
                           <ListItemText
                             primary={
-                              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                                  {classItem.name}
-                                </Typography>
-                                <Chip
-                                  label={classItem.type}
-                                  size="small"
-                                  sx={{
-                                    background: classItem.color,
-                                    color: 'white',
-                                    fontWeight: 600,
-                                  }}
-                                />
-                              </Box>
+                              <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                                {classItem.name}
+                              </Typography>
                             }
                             secondary={
                               <Box sx={{ mt: 1 }}>
@@ -336,12 +325,12 @@ const Dashboard: React.FC = () => {
                                       {classItem.time}
                                     </Typography>
                                   </Box>
-                                                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                                     <LocationIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
-                                     <Typography variant="body2" color="text.secondary">
-                                       {classItem.location}
-                                     </Typography>
-                                   </Box>
+                                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                    <LocationIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
+                                    <Typography variant="body2" color="text.secondary">
+                                      {classItem.location}
+                                    </Typography>
+                                  </Box>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                   <Typography variant="body2" color="text.secondary">
@@ -368,6 +357,17 @@ const Dashboard: React.FC = () => {
                               </Box>
                             }
                           />
+                          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 1 }}>
+                            <Chip
+                              label={classItem.type}
+                              size="small"
+                              sx={{
+                                background: classItem.color,
+                                color: 'white',
+                                fontWeight: 600,
+                              }}
+                            />
+                          </Box>
                         </ListItem>
                         {index < upcomingClasses.length - 1 && <Divider sx={{ my: 1 }} />}
                       </React.Fragment>
