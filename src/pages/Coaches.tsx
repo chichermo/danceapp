@@ -215,132 +215,302 @@ const Coaches: React.FC = () => {
   };
 
   return (
-    <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-        <Typography variant="h4" component="h1">
-          Coaches
-        </Typography>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => handleOpenDialog()}
+    <Box sx={{ p: 4 }}>
+      {/* Enhanced Header */}
+      <Box sx={{ mb: 4, textAlign: 'center' }}>
+        <Typography
+          variant="h3"
+          sx={{
+            fontWeight: 800,
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            mb: 2,
+          }}
         >
-          Nuevo Coach
-        </Button>
+          🎯 Coach Management
+        </Typography>
+        <Typography variant="h6" color="text.secondary" sx={{ mb: 1 }}>
+          Manage your dance academy instructors and their profiles
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Track performance, manage schedules, and monitor coach development
+        </Typography>
       </Box>
 
-      {/* Estadísticas */}
+      {/* Enhanced Statistics */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" color="primary.main" sx={{ fontWeight: 'bold' }}>
+          <Card sx={{ 
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            color: 'white',
+            position: 'relative',
+            overflow: 'hidden',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: -20,
+              right: -20,
+              width: 60,
+              height: 60,
+              borderRadius: '50%',
+              background: 'rgba(255, 255, 255, 0.1)',
+            },
+          }}>
+            <CardContent sx={{ position: 'relative', zIndex: 1 }}>
+              <Typography variant="h3" sx={{ fontWeight: 800, mb: 1 }}>
                 {coaches.length}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body1" sx={{ fontWeight: 600, opacity: 0.9 }}>
                 Total Coaches
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" color="success.main" sx={{ fontWeight: 'bold' }}>
+          <Card sx={{ 
+            background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+            color: 'white',
+            position: 'relative',
+            overflow: 'hidden',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: -20,
+              right: -20,
+              width: 60,
+              height: 60,
+              borderRadius: '50%',
+              background: 'rgba(255, 255, 255, 0.1)',
+            },
+          }}>
+            <CardContent sx={{ position: 'relative', zIndex: 1 }}>
+              <Typography variant="h3" sx={{ fontWeight: 800, mb: 1 }}>
                 {coaches.filter(c => c.status === 'active').length}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Active
+              <Typography variant="body1" sx={{ fontWeight: 600, opacity: 0.9 }}>
+                Active Coaches
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" color="warning.main" sx={{ fontWeight: 'bold' }}>
-                {coaches.reduce((acc, c) => acc + c.totalStudents, 0)}
+          <Card sx={{ 
+            background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+            color: 'white',
+            position: 'relative',
+            overflow: 'hidden',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: -20,
+              right: -20,
+              width: 60,
+              height: 60,
+              borderRadius: '50%',
+              background: 'rgba(255, 255, 255, 0.1)',
+            },
+          }}>
+            <CardContent sx={{ position: 'relative', zIndex: 1 }}>
+              <Typography variant="h3" sx={{ fontWeight: 800, mb: 1 }}>
+                {coaches.reduce((sum, coach) => sum + coach.totalStudents, 0)}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Total Estudiantes
+              <Typography variant="body1" sx={{ fontWeight: 600, opacity: 0.9 }}>
+                Total Students
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" color="info.main" sx={{ fontWeight: 'bold' }}>
-                {coaches.reduce((acc, c) => acc + c.activeClasses, 0)}
+          <Card sx={{ 
+            background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+            color: 'white',
+            position: 'relative',
+            overflow: 'hidden',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: -20,
+              right: -20,
+              width: 60,
+              height: 60,
+              borderRadius: '50%',
+              background: 'rgba(255, 255, 255, 0.1)',
+            },
+          }}>
+            <CardContent sx={{ position: 'relative', zIndex: 1 }}>
+              <Typography variant="h3" sx={{ fontWeight: 800, mb: 1 }}>
+                {coaches.reduce((sum, coach) => sum + coach.activeClasses, 0)}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Clases Activas
+              <Typography variant="body1" sx={{ fontWeight: 600, opacity: 0.9 }}>
+                Active Classes
               </Typography>
             </CardContent>
           </Card>
         </Grid>
       </Grid>
 
-      {/* Lista de coaches */}
+      {/* Enhanced Toolbar */}
+      <Box sx={{ mb: 3, display: 'flex', justifyContent: 'flex-end' }}>
+        <Button
+          variant="contained"
+          startIcon={<AddIcon />}
+          onClick={() => setOpenDialog(true)}
+          sx={{
+            borderRadius: 2,
+            fontWeight: 600,
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            '&:hover': {
+              background: 'linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%)',
+              transform: 'translateY(-1px)',
+              boxShadow: '0 8px 25px rgba(102, 126, 234, 0.3)',
+            },
+            transition: 'all 0.2s ease-in-out',
+          }}
+        >
+          Add Coach
+        </Button>
+      </Box>
+
+      {/* Enhanced Coach Cards */}
       <Grid container spacing={3}>
         {coaches.map((coach) => (
           <Grid item xs={12} md={6} key={coach.id}>
-            <Card sx={{ height: '100%' }}>
-              <CardContent>
+            <Card sx={{ 
+              height: '100%',
+              borderRadius: 3,
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              '&:hover': {
+                transform: 'translateY(-8px)',
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
+                border: '1px solid rgba(102, 126, 234, 0.2)',
+              }
+            }}>
+              <CardContent sx={{ p: 3 }}>
+                {/* Header with Avatar and Actions */}
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Avatar sx={{ mr: 2, bgcolor: 'primary.main', width: 60, height: 60 }}>
+                    <Avatar 
+                      sx={{ 
+                        mr: 2, 
+                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        width: 64, 
+                        height: 64,
+                        fontSize: '1.5rem',
+                        fontWeight: 700,
+                        boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)',
+                      }}
+                    >
                       {coach.name.charAt(0)}
                     </Avatar>
                     <Box>
-                      <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
+                      <Typography variant="h5" component="h2" sx={{ fontWeight: 700, mb: 0.5 }}>
                         {coach.name}
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                        <Rating value={coach.rating} precision={0.1} readOnly size="small" />
-                        <Typography variant="body2" sx={{ ml: 1 }}>
-                          {coach.rating} ({coach.totalStudents} estudiantes)
+                        <Rating 
+                          value={coach.rating} 
+                          precision={0.1} 
+                          readOnly 
+                          size="small"
+                          sx={{
+                            '& .MuiRating-iconFilled': {
+                              color: '#FFD93D',
+                            },
+                          }}
+                        />
+                        <Typography variant="body2" sx={{ ml: 1, fontWeight: 500 }}>
+                          {coach.rating} ({coach.totalStudents} students)
                         </Typography>
                       </Box>
                       <Chip
                         label={getStatusText(coach.status)}
                         size="small"
-                        color={getStatusColor(coach.status) as any}
+                        sx={{
+                          fontWeight: 600,
+                          background: 
+                            coach.status === 'active' ? 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' :
+                            coach.status === 'inactive' ? 'linear-gradient(135deg, #ff6b9d 0%, #ff8fb1 100%)' :
+                            'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                          color: 'white',
+                          '&:hover': {
+                            transform: 'scale(1.05)',
+                          },
+                          transition: 'all 0.2s ease-in-out',
+                        }}
                       />
                     </Box>
                   </Box>
                   <Box>
-                    <Tooltip title="Editar">
-                      <IconButton size="small" onClick={() => handleOpenDialog(coach)}>
+                    <Tooltip title="Edit">
+                      <IconButton 
+                        size="small" 
+                        onClick={() => handleOpenDialog(coach)}
+                        sx={{
+                          background: 'rgba(102, 126, 234, 0.1)',
+                          color: 'rgba(102, 126, 234, 0.8)',
+                          '&:hover': {
+                            background: 'rgba(102, 126, 234, 0.2)',
+                            transform: 'scale(1.1)',
+                          },
+                          transition: 'all 0.2s ease-in-out',
+                        }}
+                      >
                         <EditIcon />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Eliminar">
-                      <IconButton size="small" color="error" onClick={() => handleDelete(coach.id)}>
+                    <Tooltip title="Delete">
+                      <IconButton 
+                        size="small" 
+                        color="error" 
+                        onClick={() => handleDelete(coach.id)}
+                        sx={{
+                          background: 'rgba(239, 68, 68, 0.1)',
+                          color: 'rgba(239, 68, 68, 0.8)',
+                          '&:hover': {
+                            background: 'rgba(239, 68, 68, 0.2)',
+                            transform: 'scale(1.1)',
+                          },
+                          transition: 'all 0.2s ease-in-out',
+                        }}
+                      >
                         <DeleteIcon />
                       </IconButton>
                     </Tooltip>
                   </Box>
                 </Box>
 
+                {/* Bio Section */}
                 <Box sx={{ mb: 3 }}>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2, lineHeight: 1.6 }}>
                     {coach.bio}
                   </Typography>
                 </Box>
 
+                {/* Specialties Section */}
                 <Box sx={{ mb: 3 }}>
-                  <Typography variant="subtitle2" gutterBottom>
-                    Especialidades:
+                  <Typography variant="subtitle2" gutterBottom sx={{ fontWeight: 600, mb: 1.5 }}>
+                    Specialties:
                   </Typography>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                     {coach.specialties.map((specialty, index) => (
                       <Chip
                         key={index}
                         label={specialty}
                         size="small"
                         variant="outlined"
-                        sx={{ backgroundColor: 'primary.light', color: 'white' }}
+                        sx={{ 
+                          fontWeight: 500,
+                          borderColor: 'rgba(102, 126, 234, 0.3)',
+                          color: 'rgba(102, 126, 234, 0.8)',
+                          '&:hover': {
+                            background: 'rgba(102, 126, 234, 0.08)',
+                            borderColor: 'rgba(102, 126, 234, 0.5)',
+                          },
+                          transition: 'all 0.2s ease-in-out',
+                        }}
                       />
                     ))}
                   </Box>
@@ -348,42 +518,89 @@ const Coaches: React.FC = () => {
 
                 <Divider sx={{ my: 2 }} />
 
+                {/* Stats Grid */}
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                      <SchoolIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
-                      <Typography variant="body2" color="text.secondary">
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
+                      <Box
+                        sx={{
+                          width: 32,
+                          height: 32,
+                          borderRadius: 1,
+                          background: 'rgba(102, 126, 234, 0.1)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          mr: 1.5,
+                        }}
+                      >
+                        <SchoolIcon sx={{ fontSize: 16, color: 'rgba(102, 126, 234, 0.7)' }} />
+                      </Box>
+                      <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
                         {coach.experience} years exp.
                       </Typography>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                      <FitnessCenter sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
-                      <Typography variant="body2" color="text.secondary">
-                        {coach.activeClasses} clases
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
+                      <Box
+                        sx={{
+                          width: 32,
+                          height: 32,
+                          borderRadius: 1,
+                          background: 'rgba(102, 126, 234, 0.1)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          mr: 1.5,
+                        }}
+                      >
+                        <FitnessCenter sx={{ fontSize: 16, color: 'rgba(102, 126, 234, 0.7)' }} />
+                      </Box>
+                      <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
+                        {coach.activeClasses} classes
                       </Typography>
                     </Box>
                   </Grid>
                   <Grid item xs={6}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                      <EmailIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
-                      <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
+                      <Box
+                        sx={{
+                          width: 32,
+                          height: 32,
+                          borderRadius: 1,
+                          background: 'rgba(102, 126, 234, 0.1)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          mr: 1.5,
+                        }}
+                      >
+                        <EmailIcon sx={{ fontSize: 16, color: 'rgba(102, 126, 234, 0.7)' }} />
+                      </Box>
+                      <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem', fontWeight: 500 }}>
                         {coach.email}
                       </Typography>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                      <PhoneIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
-                      <Typography variant="body2" color="text.secondary">
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
+                      <Box
+                        sx={{
+                          width: 32,
+                          height: 32,
+                          borderRadius: 1,
+                          background: 'rgba(102, 126, 234, 0.1)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          mr: 1.5,
+                        }}
+                      >
+                        <PhoneIcon sx={{ fontSize: 16, color: 'rgba(102, 126, 234, 0.7)' }} />
+                      </Box>
+                      <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
                         {coach.phone}
                       </Typography>
                     </Box>
                   </Grid>
                 </Grid>
-
-                <Box sx={{ mt: 2 }}>
-                  <Typography variant="caption" color="text.secondary">
-                    Miembro desde: {coach.joinDate.toLocaleDateString('es-ES')}
-                  </Typography>
-                </Box>
               </CardContent>
             </Card>
           </Grid>

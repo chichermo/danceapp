@@ -179,51 +179,129 @@ const Calendar: React.FC = () => {
   };
 
   return (
-    <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-        <Typography variant="h4" component="h1">
-          Calendar of Classes
+    <Box sx={{ p: 4 }}>
+      {/* Enhanced Header */}
+      <Box sx={{ mb: 4, textAlign: 'center' }}>
+        <Typography
+          variant="h3"
+          sx={{
+            fontWeight: 800,
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            mb: 2,
+          }}
+        >
+          📅 Class Calendar
+        </Typography>
+        <Typography variant="h6" color="text.secondary" sx={{ mb: 1 }}>
+          Manage your dance academy class schedule and events
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Plan classes, track attendance, and organize your dance academy activities
+        </Typography>
+      </Box>
+
+      {/* Enhanced Toolbar */}
+      <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h5" sx={{ fontWeight: 600, color: 'text.primary' }}>
+          Upcoming Classes
         </Typography>
         <Button
           variant="contained"
           startIcon={<AddIcon />}
           onClick={() => handleOpenDialog()}
+          sx={{
+            borderRadius: 2,
+            fontWeight: 600,
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            '&:hover': {
+              background: 'linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%)',
+              transform: 'translateY(-1px)',
+              boxShadow: '0 8px 25px rgba(102, 126, 234, 0.3)',
+            },
+            transition: 'all 0.2s ease-in-out',
+          }}
         >
-          New Class
+          Schedule Class
         </Button>
       </Box>
 
+      {/* Enhanced Class Cards */}
       <Grid container spacing={3}>
         {classes.map((classItem) => (
           <Grid item xs={12} md={6} lg={4} key={classItem.id}>
-            <Card sx={{ height: '100%' }}>
-              <CardContent>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-                  <Typography variant="h6" component="h2" sx={{ fontWeight: 'bold' }}>
+            <Card sx={{ 
+              height: '100%',
+              borderRadius: 3,
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              '&:hover': {
+                transform: 'translateY(-8px)',
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
+                border: '1px solid rgba(102, 126, 234, 0.2)',
+              }
+            }}>
+              <CardContent sx={{ p: 3 }}>
+                {/* Header with Title and Actions */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
+                  <Typography variant="h6" component="h2" sx={{ fontWeight: 700, mb: 0.5 }}>
                     {classItem.name}
                   </Typography>
                   <Box>
                     <Tooltip title="Edit">
-                      <IconButton size="small" onClick={() => handleOpenDialog(classItem)}>
+                      <IconButton 
+                        size="small" 
+                        onClick={() => handleOpenDialog(classItem)}
+                        sx={{
+                          background: 'rgba(102, 126, 234, 0.1)',
+                          color: 'rgba(102, 126, 234, 0.8)',
+                          '&:hover': {
+                            background: 'rgba(102, 126, 234, 0.2)',
+                            transform: 'scale(1.1)',
+                          },
+                          transition: 'all 0.2s ease-in-out',
+                        }}
+                      >
                         <EditIcon />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">
-                      <IconButton size="small" color="error" onClick={() => handleDelete(classItem.id)}>
+                      <IconButton 
+                        size="small" 
+                        color="error" 
+                        onClick={() => handleDelete(classItem.id)}
+                        sx={{
+                          background: 'rgba(239, 68, 68, 0.1)',
+                          color: 'rgba(239, 68, 68, 0.8)',
+                          '&:hover': {
+                            background: 'rgba(239, 68, 68, 0.2)',
+                            transform: 'scale(1.1)',
+                          },
+                          transition: 'all 0.2s ease-in-out',
+                        }}
+                      >
                         <DeleteIcon />
                       </IconButton>
                     </Tooltip>
                   </Box>
                 </Box>
 
-                <Box sx={{ mb: 2 }}>
+                {/* Type and Category Chips */}
+                <Box sx={{ mb: 3 }}>
                   <Chip
                     label={classItem.type}
                     size="small"
                     sx={{ 
                       mr: 1, 
                       backgroundColor: getTypeColor(classItem.type), 
-                      color: 'white' 
+                      color: 'white',
+                      fontWeight: 600,
+                      '&:hover': {
+                        transform: 'scale(1.05)',
+                      },
+                      transition: 'all 0.2s ease-in-out',
                     }}
                   />
                   <Chip
@@ -231,70 +309,141 @@ const Calendar: React.FC = () => {
                     size="small"
                     sx={{ 
                       backgroundColor: getCategoryColor(classItem.category), 
-                      color: 'white' 
+                      color: 'white',
+                      fontWeight: 600,
+                      '&:hover': {
+                        transform: 'scale(1.05)',
+                      },
+                      transition: 'all 0.2s ease-in-out',
                     }}
                   />
                 </Box>
 
-                <Box sx={{ mb: 2 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                    <ScheduleIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
-                    <Typography variant="body2" color="text.secondary">
-                      {classItem.date.toLocaleDateString('es-ES', { 
-                        weekday: 'long', 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
-                      })}
-                    </Typography>
-                  </Box>
-                  <Typography variant="body2" color="text.secondary">
-                    {classItem.startTime} - {classItem.endTime}
-                  </Typography>
-                </Box>
-
-                <Box sx={{ mb: 2 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                    <LocationIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
-                    <Typography variant="body2" color="text.secondary">
-                      {classItem.location}
-                    </Typography>
-                  </Box>
-                  <Typography variant="body2" color="text.secondary">
-                    Coach: {classItem.coach}
-                  </Typography>
-                </Box>
-
-                <Box sx={{ mb: 2 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                    <PeopleIcon sx={{ mr: 1, fontSize: 16, color: 'text.secondary' }} />
-                    <Typography variant="body2" color="text.secondary">
-                      {classItem.currentStudents}/{classItem.maxStudents} students
-                    </Typography>
-                  </Box>
-                  <Box sx={{ width: '100%', backgroundColor: 'grey.200', borderRadius: 1, overflow: 'hidden' }}>
+                {/* Schedule Information */}
+                <Box sx={{ mb: 3 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
                     <Box
                       sx={{
-                        width: `${(classItem.currentStudents / classItem.maxStudents) * 100}%`,
-                        height: 8,
-                        backgroundColor: 'primary.main',
+                        width: 32,
+                        height: 32,
+                        borderRadius: 1,
+                        background: 'rgba(102, 126, 234, 0.1)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        mr: 1.5,
                       }}
-                    />
+                    >
+                      <ScheduleIcon sx={{ fontSize: 16, color: 'rgba(102, 126, 234, 0.7)' }} />
+                    </Box>
+                    <Box>
+                      <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500, mb: 0.5 }}>
+                        {classItem.date.toLocaleDateString('en-US', { 
+                          weekday: 'long', 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600 }}>
+                        {classItem.startTime} - {classItem.endTime}
+                      </Typography>
+                    </Box>
                   </Box>
                 </Box>
 
+                {/* Location and Coach */}
+                <Box sx={{ mb: 3 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
+                    <Box
+                      sx={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: 1,
+                        background: 'rgba(102, 126, 234, 0.1)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        mr: 1.5,
+                      }}
+                    >
+                      <LocationIcon sx={{ fontSize: 16, color: 'rgba(102, 126, 234, 0.7)' }} />
+                    </Box>
+                    <Box>
+                      <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500, mb: 0.5 }}>
+                        {classItem.location}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600 }}>
+                        Coach: {classItem.coach}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+
+                {/* Student Capacity */}
+                <Box sx={{ mb: 3 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
+                    <Box
+                      sx={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: 1,
+                        background: 'rgba(102, 126, 234, 0.1)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        mr: 1.5,
+                      }}
+                    >
+                      <PeopleIcon sx={{ fontSize: 16, color: 'rgba(102, 126, 234, 0.7)' }} />
+                    </Box>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500, mb: 1 }}>
+                        {classItem.currentStudents}/{classItem.maxStudents} students
+                      </Typography>
+                      <Box sx={{ 
+                        width: '100%', 
+                        backgroundColor: 'rgba(0, 0, 0, 0.08)', 
+                        borderRadius: 2, 
+                        overflow: 'hidden',
+                        height: 8,
+                      }}>
+                        <Box
+                          sx={{
+                            width: `${(classItem.currentStudents / classItem.maxStudents) * 100}%`,
+                            height: '100%',
+                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                            borderRadius: 2,
+                          }}
+                        />
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+
+                {/* Enrolled Students */}
                 {classItem.students.length > 0 && (
                   <Box>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5, fontWeight: 600 }}>
                       Students enrolled:
                     </Typography>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                       {classItem.students.map((student, index) => (
                         <Chip
                           key={index}
                           label={student}
                           size="small"
                           variant="outlined"
+                          sx={{ 
+                            fontWeight: 500,
+                            borderColor: 'rgba(102, 126, 234, 0.3)',
+                            color: 'rgba(102, 126, 234, 0.8)',
+                            '&:hover': {
+                              background: 'rgba(102, 126, 234, 0.08)',
+                              borderColor: 'rgba(102, 126, 234, 0.5)',
+                            },
+                            transition: 'all 0.2s ease-in-out',
+                          }}
                         />
                       ))}
                     </Box>
