@@ -14,15 +14,13 @@ import {
   IconButton,
   Switch,
   FormControlLabel,
-  Divider,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
   Chip,
   Alert,
-  Grid,
-  Paper
+  Grid
 } from '@mui/material';
 import {
   Edit,
@@ -31,15 +29,12 @@ import {
   Person,
   Email,
   Security,
-  Notifications,
   Palette,
-  Language,
   Logout,
   AdminPanelSettings,
   School,
   PersonPin
 } from '@mui/icons-material';
-import { motion } from 'framer-motion';
 import authService, { User } from '../services/AuthService';
 
 interface UserProfileProps {

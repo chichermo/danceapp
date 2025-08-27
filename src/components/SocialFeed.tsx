@@ -18,12 +18,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Divider,
   Badge,
-  Tooltip,
-  Menu,
-  MenuItem,
-  Alert,
   Grid,
   Paper
 } from '@mui/material';
@@ -37,14 +32,10 @@ import {
   Search,
   TrendingUp,
   Notifications,
-  PersonAdd,
-  PersonRemove,
-  PlayArrow,
-  Image,
-  VideoLibrary
+  PlayArrow
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
-import socialService, { Post, User, Comment as SocialComment } from '../services/SocialService';
+import socialService, { Post } from '../services/SocialService';
 
 interface SocialFeedProps {
   open: boolean;

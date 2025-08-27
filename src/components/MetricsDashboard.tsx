@@ -18,14 +18,7 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper
+  DialogActions
 } from '@mui/material';
 import {
   TrendingUp,
@@ -34,12 +27,10 @@ import {
   Timer,
   People,
   MusicNote,
-  Star,
   Assessment,
   Download,
   Refresh,
   Person,
-  Group,
   Schedule,
   EmojiEvents
 } from '@mui/icons-material';

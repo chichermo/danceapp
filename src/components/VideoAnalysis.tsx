@@ -1,12 +1,10 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Box,
   Paper,
   Typography,
   IconButton,
   Button,
-  Slider,
-  Tooltip,
   Chip,
   Grid,
   Card,
@@ -15,7 +13,6 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  Divider,
   TextField,
   Dialog,
   DialogTitle,
@@ -32,30 +29,19 @@ import {
   Stop,
   SkipNext,
   SkipPrevious,
-  Speed,
   ZoomIn,
   ZoomOut,
   Brush,
   Undo,
-  Redo,
-  Save,
-  Share,
-  CameraAlt,
   Videocam,
   VideocamOff,
-  SlowMotionVideo,
   Timeline,
-  Flag,
   Edit,
   Delete,
   Add,
-  Visibility,
-  VisibilityOff,
-  GridOn,
-  GridOff,
   VideoLibrary
 } from '@mui/icons-material';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 interface VideoAnalysisProps {
   choreographyId: string;

@@ -5,17 +5,10 @@ import {
   Typography,
   TextField,
   Button,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
-  Avatar,
   Chip,
   IconButton,
-  Divider,
   Tabs,
   Tab,
-  Badge,
   Tooltip,
   Dialog,
   DialogTitle,
@@ -34,11 +27,7 @@ import {
   VideoCall,
   ScreenShare,
   Notifications,
-  NotificationsOff,
-  Group,
-  Timeline,
-  Bookmark,
-  Flag
+  NotificationsOff
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -317,9 +306,10 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
                 }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
-                  <Avatar sx={{ bgcolor: getPriorityColor(comment.priority) }}>
-                    {comment.author.charAt(0)}
-                  </Avatar>
+                  <Chip 
+                    label={comment.author.charAt(0)}
+                    sx={{ bgcolor: getPriorityColor(comment.priority) }}
+                  />
                   
                   <Box sx={{ flex: 1 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
@@ -420,9 +410,10 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
                         {comment.replies.map((reply) => (
                           <Paper key={reply.id} sx={{ p: 1, mb: 1, background: '#f9f9f9' }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
-                              <Avatar sx={{ width: 20, height: 20, fontSize: '10px' }}>
-                                {reply.author.charAt(0)}
-                              </Avatar>
+                              <Chip 
+                                label={reply.author.charAt(0)}
+                                sx={{ bgcolor: getPriorityColor(reply.priority) }}
+                              />
                               <Typography variant="caption" sx={{ fontWeight: 'bold' }}>
                                 {reply.author}
                               </Typography>

@@ -21,17 +21,14 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   Chip,
   Alert,
   IconButton,
-  Tooltip,
-  Divider
+  Tooltip
 } from '@mui/material';
 import {
   Analytics,
   TrendingUp,
-  TrendingDown,
   People,
   Timer,
   Speed,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Card,
@@ -10,8 +10,6 @@ import {
   Slider,
   Grid,
   LinearProgress,
-  Alert,
-  Chip,
   List,
   ListItem,
   ListItemText,
@@ -31,11 +29,9 @@ import {
   Settings,
   PlayArrow,
   Pause,
-  Stop,
   Refresh,
   CheckCircle,
   Warning,
-  Error,
   Info,
   Tune
 } from '@mui/icons-material';
