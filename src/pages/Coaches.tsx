@@ -209,7 +209,7 @@ const Coaches: React.FC = () => {
     const texts: { [key: string]: string } = {
               'active': 'Active',
         'inactive': 'Inactive',
-      'on_leave': 'De Permiso',
+      'on_leave': 'On Leave',
     };
     return texts[status] || status;
   };

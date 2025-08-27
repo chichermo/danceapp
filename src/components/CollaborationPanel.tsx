@@ -289,9 +289,9 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
             }
           }}
         >
-          <Tab label="Todos" />
-          <Tab label="Instrucciones" />
-          <Tab label="Preguntas" />
+                          <Tab label="All" />
+                      <Tab label="Instructions" />
+            <Tab label="Questions" />
                           <Tab label="Notes" />
         </Tabs>
       </Box>
