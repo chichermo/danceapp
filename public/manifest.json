@@ -1,0 +1,19 @@
+{
+  "short_name": "Heliopsis",
+  "name": "Heliopsis Dance Academy",
+  "description": "Aplicación profesional para la escuela de danza Heliopsis",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#FF6B9D",
+  "background_color": "#FAFAFA",
+  "orientation": "portrait-primary",
+  "categories": ["education", "productivity"],
+  "lang": "es"
+}
