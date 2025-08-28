@@ -224,7 +224,7 @@ const Choreography: React.FC = () => {
   );
   const categories = ['Mini', 'Teens', 'Adults', 'High Level'];
   const difficulties = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
-  const coaches = ['Maria Gonzalez', 'Carlos Ruiz', 'Ana Martinez', 'Luis Perez'];
+  const coaches = ['Liesbeth Kreps', 'Giulia', 'Miet', 'Aline', 'Erien', 'Britt', 'Anaïs', 'Naëlle', 'Eline', 'Marc'];
 
   const dancerColors = [
     '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', 

@@ -95,7 +95,7 @@ const Calendar: React.FC = () => {
 
   const classTypes = ['Hip Hop', 'Contemporary', 'Ragga', 'Jazz', 'Ballet'];
   const categories = ['Mini', 'Teens', 'Adults', 'High Level'];
-  const coaches = ['Maria Gonzalez', 'Carlos Ruiz', 'Ana Martinez', 'Luis Perez'];
+  const coaches = ['Liesbeth Kreps', 'Giulia', 'Miet', 'Aline', 'Erien', 'Britt', 'Anaïs', 'Naëlle', 'Eline', 'Marc'];
 
   const handleOpenDialog = (classItem?: Class) => {
     if (classItem) {

@@ -145,7 +145,7 @@ const Classes: React.FC = () => {
 
   const classTypes = ['Hip Hop', 'Contemporary', 'Ragga', 'Jazz', 'Ballet', 'Urban Dance'];
   const categories = ['Mini', 'Teens', 'Adults', 'High Level'];
-  const coaches = ['Maria Gonzalez', 'Carlos Ruiz', 'Ana Martinez', 'Luis Perez'];
+  const coaches = ['Liesbeth Kreps', 'Giulia', 'Miet', 'Aline', 'Erien', 'Britt', 'Anaïs', 'Naëlle', 'Eline', 'Marc'];
   const difficulties = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
   const scheduleOptions = [
     'Monday 15:00', 'Monday 16:00', 'Monday 17:00', 'Monday 18:00',
