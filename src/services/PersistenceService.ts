@@ -2,6 +2,7 @@ export interface PersistenceData {
   choreographies: any[];
   students: any[];
   formations: any[];
+  coaches: any[];
   settings: any;
   lastSaved: string;
 }
@@ -55,6 +56,7 @@ class PersistenceService {
       choreographies: [],
       students: [],
       formations: [],
+      coaches: [],
       settings: {},
       lastSaved: new Date().toISOString()
     };
@@ -91,6 +93,17 @@ class PersistenceService {
   loadFormations(): any[] {
     const data = this.loadData();
     return data.formations || [];
+  }
+
+  // Save coaches
+  saveCoaches(coaches: any[]): void {
+    this.saveData({ coaches });
+  }
+
+  // Load coaches
+  loadCoaches(): any[] {
+    const data = this.loadData();
+    return data.coaches || [];
   }
 
   // Save settings
