@@ -43,13 +43,13 @@ class AIService {
     this.initializePostureModels();
   }
 
-  // Inicializar plantillas de formaciones
+  // Initialize formation templates
   private initializeFormationTemplates(): void {
     this.formationTemplates = [
       {
         id: 'formation-line',
-        name: 'Línea Frontal',
-        description: 'Formación clásica en línea horizontal',
+        name: 'Front Line',
+        description: 'Classic formation in horizontal line',
         dancers: [
           { id: 'dancer-1', x: 200, y: 300, z: 0 },
           { id: 'dancer-2', x: 300, y: 300, z: 0 },
@@ -62,8 +62,8 @@ class AIService {
       },
       {
         id: 'formation-circle',
-        name: 'Círculo',
-        description: 'Formación circular para movimientos grupales',
+        name: 'Circle',
+        description: 'Circular formation for group movements',
         dancers: [
           { id: 'dancer-1', x: 350, y: 200, z: 0 },
           { id: 'dancer-2', x: 450, y: 250, z: 0 },
@@ -77,8 +77,8 @@ class AIService {
       },
       {
         id: 'formation-diamond',
-        name: 'Diamante',
-        description: 'Formación en diamante para movimientos dinámicos',
+        name: 'Diamond',
+        description: 'Diamond formation for dynamic movements',
         dancers: [
           { id: 'dancer-1', x: 400, y: 200, z: 0 },
           { id: 'dancer-2', x: 500, y: 300, z: 0 },
@@ -91,8 +91,8 @@ class AIService {
       },
       {
         id: 'formation-v',
-        name: 'Formación V',
-        description: 'Formación en V para entradas dramáticas',
+        name: 'V Formation',
+        description: 'V formation for dramatic entrances',
         dancers: [
           { id: 'dancer-1', x: 400, y: 150, z: 0 },
           { id: 'dancer-2', x: 350, y: 250, z: 0 },
@@ -107,7 +107,7 @@ class AIService {
     ];
   }
 
-  // Inicializar modelos de postura (simulado)
+  // Initialize posture models (simulated)
   private initializePostureModels(): void {
     this.postureModels = {
       alignment: {
@@ -129,7 +129,7 @@ class AIService {
     };
   }
 
-  // Sugerir formaciones basadas en contexto
+  // Suggest formations based on context
   suggestFormations(context: {
     dancerCount: number;
     style: string;
@@ -184,48 +184,48 @@ class AIService {
       suggestion: string;
     }> = [];
 
-    // Análisis de alineación
+    // Alignment analysis
     const alignmentScore = this.analyzeAlignment(dancer);
     if (alignmentScore < this.postureModels.alignment.threshold) {
       issues.push({
         type: 'alignment',
         severity: alignmentScore < 0.6 ? 'high' : alignmentScore < 0.8 ? 'medium' : 'low',
-        description: 'Problemas de alineación corporal',
-        suggestion: 'Mantén la columna vertebral alineada y los hombros nivelados'
+        description: 'Body alignment problems',
+        suggestion: 'Keep your spine aligned and shoulders level'
       });
     }
 
-    // Análisis de balance
+    // Balance analysis
     const balanceScore = this.analyzeBalance(dancer);
     if (balanceScore < this.postureModels.balance.threshold) {
       issues.push({
         type: 'balance',
         severity: balanceScore < 0.5 ? 'high' : balanceScore < 0.7 ? 'medium' : 'low',
-        description: 'Problemas de equilibrio',
-        suggestion: 'Centra tu peso y mantén una base estable'
+        description: 'Balance problems',
+        suggestion: 'Center your weight and maintain a stable base'
       });
     }
 
-    // Análisis de espaciado
+    // Spacing analysis
     const spacingScore = this.analyzeSpacing(dancer, allDancers);
     if (spacingScore < this.postureModels.spacing.threshold) {
       issues.push({
         type: 'spacing',
         severity: spacingScore < 0.6 ? 'high' : spacingScore < 0.8 ? 'medium' : 'low',
-        description: 'Espaciado incorrecto con otros bailarines',
-        suggestion: 'Mantén la distancia adecuada con tus compañeros'
+        description: 'Incorrect spacing with other dancers',
+        suggestion: 'Maintain proper distance with your partners'
       });
     }
 
-    // Análisis de timing (si hay música)
+    // Timing analysis (if there is music)
     if (musicTempo) {
       const timingScore = this.analyzeTiming(dancer, musicTempo);
       if (timingScore < this.postureModels.timing.threshold) {
         issues.push({
           type: 'timing',
           severity: timingScore < 0.7 ? 'high' : timingScore < 0.9 ? 'medium' : 'low',
-          description: 'Problemas de sincronización con la música',
-          suggestion: 'Escucha el ritmo y mantén el tempo'
+                  description: 'Music synchronization problems',
+        suggestion: 'Listen to the rhythm and maintain tempo'
         });
       }
     }
@@ -233,18 +233,18 @@ class AIService {
     return issues;
   }
 
-  // Análisis de alineación (simulado)
+  // Alignment analysis (simulated)
   private analyzeAlignment(dancer: any): number {
-    // Simular análisis de alineación basado en posición y rotación
+    // Simulate alignment analysis based on position and rotation
     const baseScore = 0.8;
     const rotationPenalty = Math.abs(dancer.rotation || 0) * 0.1;
     return Math.max(0, baseScore - rotationPenalty);
   }
 
-  // Análisis de balance (simulado)
+  // Balance analysis (simulated)
   private analyzeBalance(dancer: any): number {
-    // Simular análisis de balance basado en posición
-    const centerX = 400; // Centro del escenario
+    // Simulate balance analysis based on position
+    const centerX = 400; // Stage center
     const centerY = 300;
     const distanceFromCenter = Math.sqrt(
       Math.pow(dancer.x - centerX, 2) + Math.pow(dancer.y - centerY, 2)
@@ -253,7 +253,7 @@ class AIService {
     return Math.max(0, 1 - (distanceFromCenter / maxDistance));
   }
 
-  // Análisis de espaciado (simulado)
+  // Spacing analysis (simulated)
   private analyzeSpacing(dancer: any, allDancers: any[]): number {
     const minDistance = 50;
     const optimalDistance = 100;
@@ -268,11 +268,11 @@ class AIService {
         );
         
         if (distance < minDistance) {
-          totalScore += 0.3; // Muy cerca
+          totalScore += 0.3; // Too close
         } else if (distance > optimalDistance * 2) {
-          totalScore += 0.6; // Muy lejos
+          totalScore += 0.6; // Too far
         } else {
-          totalScore += 0.9; // Distancia óptima
+          totalScore += 0.9; // Optimal distance
         }
         count++;
       }
@@ -281,15 +281,15 @@ class AIService {
     return count > 0 ? totalScore / count : 1;
   }
 
-  // Análisis de timing (simulado)
+  // Timing analysis (simulated)
   private analyzeTiming(dancer: any, musicTempo: number): number {
-    // Simular análisis de timing basado en posición y tempo
+    // Simulate timing analysis based on position and tempo
     const baseScore = 0.85;
-    const tempoVariation = Math.random() * 0.2; // Simular variación
+    const tempoVariation = Math.random() * 0.2; // Simulate variation
     return Math.max(0, baseScore - tempoVariation);
   }
 
-  // Calcular puntuación general
+  // Calculate overall score
   private calculateOverallScore(issues: Array<{
     type: 'alignment' | 'balance' | 'timing' | 'spacing';
     severity: 'low' | 'medium' | 'high';
@@ -306,7 +306,7 @@ class AIService {
     return Math.max(0, 100 - (totalPenalty * 100));
   }
 
-  // Optimizar coreografía
+  // Optimize choreography
   optimizeChoreography(choreography: {
     formations: any[];
     musicTempo: number;
@@ -320,38 +320,38 @@ class AIService {
     }> = [];
     let overallImprovement = 0;
 
-    // Analizar formaciones
+    // Analyze formations
     const formationAnalysis = this.analyzeFormations(choreography.formations);
     if (formationAnalysis.score < 0.8) {
       suggestions.push({
         type: 'formation',
-        description: 'Mejorar transiciones entre formaciones',
+        description: 'Improve transitions between formations',
         impact: 'high',
-        implementation: 'Agregar formaciones intermedias para transiciones más suaves'
+        implementation: 'Add intermediate formations for smoother transitions'
       });
       overallImprovement += 15;
     }
 
-    // Analizar timing
+    // Analyze timing
     const timingAnalysis = this.analyzeChoreographyTiming(choreography);
     if (timingAnalysis.score < 0.9) {
       suggestions.push({
         type: 'timing',
-        description: 'Optimizar sincronización con la música',
+        description: 'Optimize music synchronization',
         impact: 'medium',
-        implementation: 'Ajustar timestamps de formaciones para mejor sincronización'
+        implementation: 'Adjust formation timestamps for better synchronization'
       });
       overallImprovement += 10;
     }
 
-    // Analizar espaciado
+    // Analyze spacing
     const spacingAnalysis = this.analyzeChoreographySpacing(choreography.formations);
     if (spacingAnalysis.score < 0.8) {
       suggestions.push({
         type: 'spacing',
-        description: 'Mejorar distribución espacial de bailarines',
+        description: 'Improve spatial distribution of dancers',
         impact: 'medium',
-        implementation: 'Ajustar posiciones para mejor uso del espacio'
+        implementation: 'Adjust positions for better space usage'
       });
       overallImprovement += 8;
     }
@@ -362,23 +362,23 @@ class AIService {
     };
   }
 
-  // Analizar formaciones (simulado)
+  // Analyze formations (simulated)
   private analyzeFormations(formations: any[]): { score: number; issues: string[] } {
     const issues = [];
     let score = 1;
 
     if (formations.length < 2) {
-      issues.push('Muy pocas formaciones');
+      issues.push('Too few formations');
       score -= 0.3;
     }
 
-    // Verificar transiciones
+    // Check transitions
     for (let i = 1; i < formations.length; i++) {
       const prev = formations[i - 1];
       const curr = formations[i];
       
       if (curr.timestamp - prev.timestamp < 5) {
-        issues.push('Transiciones muy rápidas');
+        issues.push('Transitions too fast');
         score -= 0.1;
       }
     }
@@ -386,29 +386,29 @@ class AIService {
     return { score: Math.max(0, score), issues };
   }
 
-  // Analizar timing de coreografía (simulado)
+  // Analyze choreography timing (simulated)
   private analyzeChoreographyTiming(choreography: any): { score: number; issues: string[] } {
     const issues: string[] = [];
     let score = 0.9;
 
-    // Simular análisis de timing
+    // Simulate timing analysis
     if (choreography.musicTempo < 80 || choreography.musicTempo > 140) {
-      issues.push('Tempo fuera del rango óptimo');
+      issues.push('Tempo outside optimal range');
       score -= 0.2;
     }
 
     return { score: Math.max(0, score), issues };
   }
 
-  // Analizar espaciado de coreografía (simulado)
+  // Analyze choreography spacing (simulated)
   private analyzeChoreographySpacing(formations: any[]): { score: number; issues: string[] } {
     const issues: string[] = [];
     let score = 0.85;
 
-    // Simular análisis de espaciado
+    // Simulate spacing analysis
     formations.forEach(formation => {
       if (formation.dancers.length > 8) {
-        issues.push('Demasiados bailarines en una formación');
+        issues.push('Too many dancers in one formation');
         score -= 0.1;
       }
     });
@@ -416,7 +416,7 @@ class AIService {
     return { score: Math.max(0, score), issues };
   }
 
-  // Generar sugerencias inteligentes
+  // Generate smart suggestions
   generateSmartSuggestions(context: {
     currentFormation: any;
     musicStyle: string;
@@ -446,10 +446,10 @@ class AIService {
             // Generate warnings
     const warnings = [];
     if (previousFormations.length > 5) {
-      warnings.push('Demasiadas formaciones pueden confundir a la audiencia');
+      warnings.push('Too many formations can confuse the audience');
     }
     if (dancerCount > 10) {
-      warnings.push('Con muchos bailarines, considera formaciones más simples');
+      warnings.push('With many dancers, consider simpler formations');
     }
 
     return {
@@ -460,6 +460,6 @@ class AIService {
   }
 }
 
-// Instancia singleton
+// Singleton instance
 const aiService = new AIService();
 export default aiService;

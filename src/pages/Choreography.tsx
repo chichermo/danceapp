@@ -101,7 +101,7 @@ interface Choreography {
 
 const Choreography: React.FC = () => {
   const [choreographies, setChoreographies] = useState<Choreography[]>(() => {
-    // Cargar coreografías desde localStorage al inicializar
+    // Load choreographies from localStorage on initialization
     const savedChoreographies = persistenceService.loadChoreographies();
     if (savedChoreographies.length > 0) {
       return savedChoreographies;
@@ -250,7 +250,7 @@ const Choreography: React.FC = () => {
           }
           return newTime;
         });
-        // Solo continuar si aún está reproduciendo
+        // Only continue if still playing
         if (isPlaying) {
           animationRef.current = requestAnimationFrame(animate);
         }
@@ -277,7 +277,7 @@ const Choreography: React.FC = () => {
     }
   }, [currentTime, selectedChoreography]);
 
-  // Guardar automáticamente cuando cambien las coreografías (con debounce)
+  // Auto-save when choreographies change (with debounce)
   useEffect(() => {
     if (choreographies.length > 0) {
       // Use debounce to avoid excessive saves
@@ -289,7 +289,7 @@ const Choreography: React.FC = () => {
     }
   }, [choreographies]);
 
-  // Verificar autenticación
+  // Check authentication
   useEffect(() => {
     const checkAuth = () => {
       setIsAuthenticated(authService.isAuthenticated());
@@ -297,7 +297,7 @@ const Choreography: React.FC = () => {
     
     checkAuth();
     
-    // Suscribirse a cambios de autenticación
+    // Subscribe to authentication changes
     const unsubscribe = authService.subscribe((authState) => {
       setIsAuthenticated(authState.isAuthenticated);
     });
@@ -504,7 +504,7 @@ const Choreography: React.FC = () => {
   };
 
   const handlePositionComment = (x: number, y: number, z: number) => {
-    // Función para posicionar comentarios en el escenario
+    // Function to position comments on stage
     console.log('Comment positioned at:', x, y, z);
   };
 
@@ -802,7 +802,7 @@ const Choreography: React.FC = () => {
           </Box>
         </Box>
 
-        {/* Tabs de Navegación */}
+        {/* Navigation Tabs */}
         <Box sx={{ 
           borderBottom: 1, 
           borderColor: 'divider', 
@@ -836,10 +836,10 @@ const Choreography: React.FC = () => {
 
         {/* Content according to Active Tab */}
         {activeTab === 0 && (
-          // Tab: Escenario 3D
+          // Tab: 3D Stage
           <Box>
             <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', textAlign: 'center' }}>
-              🎭 Escenario 3D - Vista Tridimensional
+              🎭 3D Stage - Three-Dimensional View
             </Typography>
             {selectedChoreography ? (
               <Stage3D
@@ -860,11 +860,11 @@ const Choreography: React.FC = () => {
         )}
 
         {activeTab === 1 && (
-          // Tab: Reproductor 3D
+          // Tab: 3D Player
           <Formation3DPlayer 
             onFormationUpdate={(frame) => {
               setCurrentFormationFrame(frame);
-              // Actualizar el escenario 3D con la formación actual
+              // Update the 3D stage with the current formation
               if (frame && frame.dancers) {
                 const updatedDancers = frame.dancers.map(dancer => ({
                   id: dancer.id,
@@ -875,7 +875,7 @@ const Choreography: React.FC = () => {
                   color: dancer.color,
                   isVisible: dancer.isVisible
                 }));
-                // Actualizar bailarines en el estado local
+                // Update dancers in local state
                 setDancers(updatedDancers);
               }
             }}
@@ -883,10 +883,10 @@ const Choreography: React.FC = () => {
         )}
 
         {activeTab === 2 && (
-          // Tab: Timeline Musical
+          // Tab: Music Timeline
           <Box>
             <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', textAlign: 'center' }}>
-              🎵 Timeline Musical - Sincronización Avanzada
+              🎵 Music Timeline - Advanced Synchronization
             </Typography>
             {selectedChoreography ? (
               <MusicTimeline
@@ -939,7 +939,7 @@ const Choreography: React.FC = () => {
          )}
 
          {activeTab === 3 && (
-           // Tab: Colaboración
+           // Tab: Collaboration
            <Box>
              <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', textAlign: 'center' }}>
                💬 Real Time Collaboration
@@ -961,10 +961,10 @@ const Choreography: React.FC = () => {
          )}
 
          {activeTab === 4 && (
-           // Tab: Análisis de Video
+           // Tab: Video Analysis
            <Box>
              <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', textAlign: 'center' }}>
-               🎥 Análisis de Video - Coach's Eye Style
+               🎥 Video Analysis - Coach's Eye Style
              </Typography>
              {selectedChoreography ? (
                <VideoAnalysis
@@ -984,7 +984,7 @@ const Choreography: React.FC = () => {
          )}
 
                  {activeTab === 5 && (
-           // Tab: Lista de Coreografías
+           // Tab: Choreography List
           <Grid container spacing={3}>
             <Grid item xs={12} md={4}>
               <Card sx={{ 
@@ -1030,11 +1030,11 @@ const Choreography: React.FC = () => {
               </Card>
             </Grid>
 
-            {/* Editor de coreografía */}
+            {/* Choreography Editor */}
             <Grid item xs={12} md={8}>
               {selectedChoreography ? (
                 <Box>
-                  {/* Header de la coreografía */}
+                  {/* Choreography Header */}
                   <Card sx={{ 
                     mb: 3,
                     background: 'linear-gradient(135deg, #667eea, #764ba2)',
@@ -1058,7 +1058,7 @@ const Choreography: React.FC = () => {
                     </CardContent>
                   </Card>
 
-                  {/* Controles de música */}
+                  {/* Music Controls */}
                   <Card sx={{ mb: 3, borderRadius: 3 }}>
                     <CardContent>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
@@ -1102,7 +1102,7 @@ const Choreography: React.FC = () => {
                     </CardContent>
                   </Card>
 
-                {/* Canvas del escenario */}
+                {/* Stage Canvas */}
                 <Card sx={{ mb: 3, borderRadius: 3 }}>
                   <CardContent>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>

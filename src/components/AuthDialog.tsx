@@ -67,7 +67,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
     role: 'student'
   });
 
-  // Limpiar estados cuando se cierra el diálogo
+  // Clear states when dialog closes
   useEffect(() => {
     if (!open) {
       setError(null);
@@ -235,7 +235,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
 
                 <TextField
                   fullWidth
-                  label="Contraseña"
+                  label="Password"
                   type={showPassword ? 'text' : 'password'}
                   value={loginData.password}
                   onChange={(e) => setLoginData(prev => ({ ...prev, password: e.target.value }))}
@@ -266,7 +266,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
                         onChange={(e) => setRememberMe(e.target.checked)}
                       />
                     }
-                    label="Recordarme"
+                    label="Remember me"
                   />
                   <Link
                     component="button"
@@ -274,14 +274,14 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
                     onClick={handleForgotPassword}
                     sx={{ textDecoration: 'none' }}
                   >
-                    ¿Olvidaste tu contraseña?
+                    Forgot your password?
                   </Link>
                 </Box>
               </Box>
             </motion.div>
           )}
 
-          {/* Formulario de Registro */}
+          {/* Registration Form */}
           {activeTab === 1 && (
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -320,7 +320,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
 
                 <TextField
                   fullWidth
-                  label="Contraseña"
+                  label="Password"
                   type={showPassword ? 'text' : 'password'}
                   value={registerData.password}
                   onChange={(e) => setRegisterData(prev => ({ ...prev, password: e.target.value }))}
@@ -345,14 +345,14 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
 
                 <TextField
                   fullWidth
-                  label="Confirmar contraseña"
+                  label="Confirm password"
                   type={showConfirmPassword ? 'text' : 'password'}
                   value={registerData.confirmPassword}
                   onChange={(e) => setRegisterData(prev => ({ ...prev, confirmPassword: e.target.value }))}
                   error={registerData.password !== registerData.confirmPassword && registerData.confirmPassword !== ''}
                   helperText={
                     registerData.password !== registerData.confirmPassword && registerData.confirmPassword !== ''
-                      ? 'Las contraseñas no coinciden'
+                      ? 'Passwords do not match'
                       : ''
                   }
                   InputProps={{
@@ -381,7 +381,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
           <Box sx={{ mt: 3 }}>
             <Divider sx={{ mb: 2 }}>
               <Typography variant="body2" color="text.secondary">
-                O continúa con
+                Or continue with
               </Typography>
             </Divider>
             
@@ -416,7 +416,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, onClose, onLoginSuccess }
           {/* Credenciales de demo */}
           <Box sx={{ mt: 3, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
             <Typography variant="subtitle2" gutterBottom>
-              Credenciales de Demo:
+              Demo Credentials:
             </Typography>
             <Typography variant="body2" color="text.secondary">
               <strong>Admin:</strong> admin@dance.com / admin123<br />

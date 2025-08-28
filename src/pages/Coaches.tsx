@@ -719,17 +719,17 @@ const Coaches: React.FC = () => {
         ))}
       </Grid>
 
-      {/* Dialog para crear/editar coach */}
+      {/* Dialog to create/edit coach */}
       <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="md" fullWidth>
         <DialogTitle>
-          {editingCoach ? 'Editar Coach' : 'Nuevo Coach'}
+          {editingCoach ? 'Edit Coach' : 'New Coach'}
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={2} sx={{ mt: 1 }}>
             <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
-                label="Nombre Completo"
+                label="Full Name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
@@ -746,7 +746,7 @@ const Coaches: React.FC = () => {
             <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
-                label="Teléfono"
+                label="Phone"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               />
@@ -764,7 +764,7 @@ const Coaches: React.FC = () => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="Biografía"
+                label="Biography"
                 multiline
                 rows={4}
                 value={formData.bio}
@@ -774,7 +774,7 @@ const Coaches: React.FC = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="subtitle2" gutterBottom>
-                Especialidades:
+                Specialties:
               </Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                 {allSpecialties.map((specialty) => (
@@ -792,9 +792,9 @@ const Coaches: React.FC = () => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancelar</Button>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
           <Button onClick={handleSave} variant="contained">
-            {editingCoach ? 'Actualizar' : 'Crear'}
+            {editingCoach ? 'Update' : 'Create'}
           </Button>
         </DialogActions>
       </Dialog>

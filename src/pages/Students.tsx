@@ -284,7 +284,7 @@ const Students: React.FC = () => {
         👥 Student Management
       </Typography>
 
-      {/* Estadísticas */}
+      {/* Statistics */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
           <Card sx={{ 
@@ -340,7 +340,7 @@ const Students: React.FC = () => {
         </Grid>
       </Grid>
 
-      {/* Barra de herramientas */}
+      {/* Toolbar */}
       <Paper sx={{ p: 2, mb: 3 }}>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} md={6}>
@@ -721,7 +721,7 @@ const Students: React.FC = () => {
         </AnimatePresence>
       </Grid>
 
-      {/* Diálogo de estudiante */}
+      {/* Student Dialog */}
       <Dialog
         open={openDialog}
         onClose={handleCloseDialog}
@@ -1068,7 +1068,7 @@ const Students: React.FC = () => {
         </DialogActions>
       </Dialog>
 
-      {/* Diálogo de importación */}
+      {/* Import Dialog */}
       <Dialog
         open={showImportDialog}
         onClose={() => setShowImportDialog(false)}
@@ -1089,7 +1089,7 @@ const Students: React.FC = () => {
         </DialogActions>
       </Dialog>
 
-      {/* Snackbar para notificaciones */}
+      {/* Snackbar for notifications */}
       <Snackbar
         open={snackbar.open}
         autoHideDuration={6000}

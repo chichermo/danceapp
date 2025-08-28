@@ -70,9 +70,9 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
   const analyzeCurrentState = useCallback(async () => {
     setLoading(true);
     
-    // Simular análisis con delay
+    // Simulate analysis with delay
     setTimeout(() => {
-      // Obtener sugerencias de formaciones
+      // Get formation suggestions
       const formationSuggestions = aiService.suggestFormations({
         dancerCount: dancers.length,
         style: musicStyle,
@@ -80,13 +80,13 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
       });
       setSuggestions(formationSuggestions);
 
-      // Analizar postura
+      // Analyze posture
       if (dancers.length > 0) {
         const posture = aiService.analyzePosture(dancers, musicTempo);
         setPostureAnalysis(posture);
       }
 
-      // Optimizar coreografía
+      // Optimize choreography
       if (choreography) {
         const opt = aiService.optimizeChoreography({
           formations: choreography.formations || [],
@@ -167,7 +167,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
           </Box>
         )}
 
-        {/* Tabs de navegación */}
+        {/* Navigation Tabs */}
         <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 2 }}>
           <Box sx={{ display: 'flex', gap: 1 }}>
             {tabs.map((tab, index) => (
@@ -189,7 +189,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
         </Box>
 
         <AnimatePresence mode="wait">
-          {/* Tab 1: Sugerencias de Formaciones */}
+          {/* Tab 1: Formation Suggestions */}
           {activeTab === 0 && (
             <motion.div
               key="suggestions"
@@ -273,7 +273,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
             </motion.div>
           )}
 
-          {/* Tab 2: Análisis de Postura */}
+          {/* Tab 2: Posture Analysis */}
           {activeTab === 1 && (
             <motion.div
               key="posture"
@@ -346,7 +346,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({
             </motion.div>
           )}
 
-          {/* Tab 3: Optimización */}
+          {/* Tab 3: Optimization */}
           {activeTab === 2 && (
             <motion.div
               key="optimization"

@@ -215,10 +215,10 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
       }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
           <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-            🎭 Colaboración en Tiempo Real
+            🎭 Real-Time Collaboration
           </Typography>
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <Tooltip title="Llamada de Video">
+            <Tooltip title="Video Call">
               <IconButton 
                 size="small" 
                 onClick={() => setIsVideoCall(!isVideoCall)}
@@ -227,12 +227,12 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
                 <VideoCall />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Compartir Pantalla">
+            <Tooltip title="Share Screen">
               <IconButton size="small" sx={{ color: 'white' }}>
                 <ScreenShare />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Notificaciones">
+            <Tooltip title="Notifications">
               <IconButton 
                 size="small" 
                 onClick={() => setNotifications(!notifications)}
@@ -244,27 +244,27 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
           </Box>
         </Box>
 
-        {/* Estadísticas Rápidas */}
+        {/* Quick Statistics */}
         <Box sx={{ display: 'flex', gap: 2 }}>
           <Chip 
-            label={`${comments.length} comentarios`}
+            label={`${comments.length} comments`}
             size="small"
             sx={{ background: 'rgba(255,255,255,0.2)', color: 'white' }}
           />
           <Chip 
-            label={`${comments.filter(c => !c.isResolved).length} pendientes`}
+            label={`${comments.filter(c => !c.isResolved).length} pending`}
             size="small"
             sx={{ background: 'rgba(255,255,255,0.2)', color: 'white' }}
           />
           <Chip 
-            label={`${currentFormation || 'Sin formación'}`}
+            label={`${currentFormation || 'No formation'}`}
             size="small"
             sx={{ background: 'rgba(255,255,255,0.2)', color: 'white' }}
           />
         </Box>
       </Paper>
 
-      {/* Tabs de Navegación */}
+      {/* Navigation Tabs */}
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs 
           value={activeTab} 
@@ -285,7 +285,7 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
         </Tabs>
       </Box>
 
-      {/* Lista de Comentarios */}
+      {/* Comments List */}
       <Box sx={{ flex: 1, overflow: 'auto', p: 2 }}>
         <AnimatePresence>
           {filteredComments.map((comment) => (
@@ -445,10 +445,10 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
             onChange={(e) => setCommentType(e.target.value as any)}
             sx={{ minWidth: 120 }}
           >
-            <option value="comment">💬 Comentario</option>
-            <option value="instruction">📋 Instrucción</option>
-            <option value="note">📝 Nota</option>
-            <option value="question">❓ Pregunta</option>
+            <option value="comment">💬 Comment</option>
+            <option value="instruction">📋 Instruction</option>
+            <option value="note">📝 Note</option>
+            <option value="question">❓ Question</option>
           </TextField>
           
           <TextField
@@ -458,10 +458,10 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
             onChange={(e) => setPriority(e.target.value as any)}
             sx={{ minWidth: 100 }}
           >
-            <option value="low">🟢 Baja</option>
-            <option value="medium">🔵 Media</option>
-            <option value="high">🟠 Alta</option>
-            <option value="urgent">🔴 Urgente</option>
+            <option value="low">🟢 Low</option>
+            <option value="medium">🔵 Medium</option>
+            <option value="high">🟠 High</option>
+            <option value="urgent">🔴 Urgent</option>
           </TextField>
         </Box>
 
@@ -469,7 +469,7 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
           <TextField
             fullWidth
             size="small"
-            placeholder="Escribe tu comentario..."
+            placeholder="Write your comment..."
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             multiline
@@ -477,7 +477,7 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
           />
           
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-            <Tooltip title="Grabar Audio">
+            <Tooltip title="Record Audio">
               <IconButton 
                 size="small" 
                 onClick={() => setIsRecording(!isRecording)}
@@ -487,7 +487,7 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
               </IconButton>
             </Tooltip>
             
-            <Tooltip title="Adjuntar Archivo">
+            <Tooltip title="Attach File">
               <IconButton size="small">
                 <AttachFile />
               </IconButton>
@@ -505,15 +505,15 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
                 }
               }}
             >
-              Enviar
+              Send
             </Button>
           </Box>
         </Box>
       </Paper>
 
-      {/* Dialog para Editar Comentario */}
+      {/* Dialog to Edit Comment */}
       <Dialog open={!!editingComment} onClose={() => setEditingComment(null)} maxWidth="sm" fullWidth>
-        <DialogTitle>Editar Comentario</DialogTitle>
+        <DialogTitle>Edit Comment</DialogTitle>
         <DialogContent>
           <TextField
             fullWidth
