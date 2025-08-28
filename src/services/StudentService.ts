@@ -417,15 +417,19 @@ class StudentService {
 
       // Import ALL Belgian students from CSV
   importAllBelgiumStudents(): void {
+    // Check if already imported
+    if (this.students.length > 0) {
+      console.log('📚 Students already imported, skipping...');
+      return;
+    }
+    
     console.log('🚀 === IMPORTING ALL BELGIUM STUDENTS ===');
     
     // Import directly from real CSV
     const belgiumStudents = this.generateAllBelgiumStudents();
     
-    // Add all students to the system
-    belgiumStudents.forEach(student => {
-      this.students.push(student);
-    });
+    // Add all students to the system in batch
+    this.students.push(...belgiumStudents);
     
     console.log(`✅ ${belgiumStudents.length} Belgium students imported successfully`);
     console.log(`📊 Total students in the system: ${this.students.length}`);

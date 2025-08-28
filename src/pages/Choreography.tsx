@@ -277,10 +277,15 @@ const Choreography: React.FC = () => {
     }
   }, [currentTime, selectedChoreography]);
 
-  // Guardar automáticamente cuando cambien las coreografías
+  // Guardar automáticamente cuando cambien las coreografías (con debounce)
   useEffect(() => {
     if (choreographies.length > 0) {
-      persistenceService.saveChoreographies(choreographies);
+      // Use debounce to avoid excessive saves
+      const timeoutId = setTimeout(() => {
+        persistenceService.saveChoreographies(choreographies);
+      }, 1000); // Wait 1 second before saving
+      
+      return () => clearTimeout(timeoutId);
     }
   }, [choreographies]);
 
