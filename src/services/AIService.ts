@@ -429,18 +429,18 @@ class AIService {
   } {
     const { currentFormation, musicStyle, dancerCount, previousFormations } = context;
     
-    // Sugerir siguiente formación
+    // Suggest next formation
     const nextFormation = this.suggestFormations({
       dancerCount,
       style: musicStyle,
       difficulty: 'medium'
     })[0] || null;
 
-    // Generar mejoras
+    // Generate improvements
     const improvements = [
-      'Considera agregar una transición más suave',
-      'El espaciado actual es óptimo',
-      'La sincronización con la música es buena'
+      'Consider adding a smoother transition',
+      'Current spacing is optimal',
+      'Music synchronization is good'
     ];
 
             // Generate warnings

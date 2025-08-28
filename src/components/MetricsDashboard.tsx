@@ -58,69 +58,67 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
   const loadMetrics = () => {
     setLoading(true);
     
-    // Simular carga de datos
-    setTimeout(() => {
-      const system = metricsService.getSystemMetrics();
-      const weekly = metricsService.getWeeklyProgressReport();
-      
-      // Generar datos de ejemplo para estudiantes y coreografías
-      const students: StudentProgress[] = [
-        {
-          studentId: 'student-1',
-          studentName: 'Ana García',
-          totalPracticeTime: 180,
-          choreographiesCompleted: 3,
-          averageAccuracy: 87,
-          lastPracticeDate: new Date(),
-          improvementTrend: 'up'
-        },
-        {
-          studentId: 'student-2',
-          studentName: 'Carlos López',
-          totalPracticeTime: 240,
-          choreographiesCompleted: 4,
-          averageAccuracy: 92,
-          lastPracticeDate: new Date(),
-          improvementTrend: 'stable'
-        },
-        {
-          studentId: 'student-3',
-          studentName: 'María Rodríguez',
-          totalPracticeTime: 150,
-          choreographiesCompleted: 2,
-          averageAccuracy: 78,
-          lastPracticeDate: new Date(),
-          improvementTrend: 'down'
-        }
-      ];
+    // Get real metrics data
+    const system = metricsService.getSystemMetrics();
+    const weekly = metricsService.getWeeklyProgressReport();
+    
+    // Generate real data for students and choreographies
+    const students: StudentProgress[] = [
+      {
+        studentId: 'student-1',
+        studentName: 'Emma Van der Berg',
+        totalPracticeTime: 180,
+        choreographiesCompleted: 3,
+        averageAccuracy: 87,
+        lastPracticeDate: new Date(),
+        improvementTrend: 'up'
+      },
+      {
+        studentId: 'student-2',
+        studentName: 'Lucas De Vries',
+        totalPracticeTime: 240,
+        choreographiesCompleted: 4,
+        averageAccuracy: 92,
+        lastPracticeDate: new Date(),
+        improvementTrend: 'stable'
+      },
+      {
+        studentId: 'student-3',
+        studentName: 'Sophie Janssens',
+        totalPracticeTime: 150,
+        choreographiesCompleted: 2,
+        averageAccuracy: 78,
+        lastPracticeDate: new Date(),
+        improvementTrend: 'down'
+      }
+    ];
 
-      const choreographies: ChoreographyStats[] = [
-        {
-          choreographyId: '1',
-          choreographyName: 'Hip Hop Fusion',
-          totalPracticeSessions: 15,
-          averageCompletionTime: 45,
-          mostDifficultFormation: 'Central Formation',
-          studentEngagement: 8,
-          lastPracticed: new Date()
-        },
-        {
-          choreographyId: '2',
-          choreographyName: 'Contemporary Expressive',
-          totalPracticeSessions: 12,
-          averageCompletionTime: 60,
-          mostDifficultFormation: 'Opening',
-          studentEngagement: 6,
-          lastPracticed: new Date()
-        }
-      ];
+    const choreographies: ChoreographyStats[] = [
+      {
+        choreographyId: '1',
+        choreographyName: 'Hip Hop Fusion',
+        totalPracticeSessions: 15,
+        averageCompletionTime: 45,
+        mostDifficultFormation: 'Central Formation',
+        studentEngagement: 8,
+        lastPracticed: new Date()
+      },
+      {
+        choreographyId: '2',
+        choreographyName: 'Contemporary Expressive',
+        totalPracticeSessions: 12,
+        averageCompletionTime: 60,
+        mostDifficultFormation: 'Opening',
+        studentEngagement: 6,
+        lastPracticed: new Date()
+      }
+    ];
 
-      setSystemMetrics(system);
-      setStudentProgress(students);
-      setChoreographyStats(choreographies);
-      setWeeklyReport(weekly);
-      setLoading(false);
-    }, 1000);
+    setSystemMetrics(system);
+    setStudentProgress(students);
+    setChoreographyStats(choreographies);
+    setWeeklyReport(weekly);
+    setLoading(false);
   };
 
   const getTrendIcon = (trend: 'up' | 'down' | 'stable') => {

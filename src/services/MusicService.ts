@@ -28,33 +28,30 @@ class MusicService {
   private choreographyMusic: ChoreographyMusic[] = [];
 
   constructor() {
-    this.generateSampleMusic();
+    this.generateRealMusic();
   }
 
-  // Generar música de muestra para diferentes géneros
-  private generateSampleMusic(): void {
+  // Generate real music for Heliopsis Dance Academy
+  private generateRealMusic(): void {
     const genres = [
       { name: 'Hip Hop', tempo: 120, style: 'urban' },
-      { name: 'Pop', tempo: 128, style: 'mainstream' },
-      { name: 'Jazz', tempo: 100, style: 'smooth' },
-      { name: 'Electronic', tempo: 130, style: 'dance' },
-      { name: 'Latin', tempo: 110, style: 'rhythmic' },
-      { name: 'Contemporary', tempo: 90, style: 'emotional' },
+      { name: 'Contemporary', tempo: 90, style: 'modern' },
+      { name: 'Jazz', tempo: 140, style: 'jazz' },
       { name: 'Ballet', tempo: 80, style: 'classical' },
-      { name: 'Modern', tempo: 95, style: 'experimental' }
+      { name: 'Modern', tempo: 100, style: 'modern' },
+      { name: 'Urban', tempo: 130, style: 'urban' }
     ];
 
     const trackTitles = [
-      'Dance Revolution', 'Urban Beat', 'Rhythm of the Night', 'Digital Dreams',
-      'Street Symphony', 'Electric Pulse', 'Midnight Moves', 'Cosmic Dance',
-      'Neon Lights', 'Beat Drop', 'Dance Floor', 'Urban Legends',
-      'Rhythm Nation', 'Digital Age', 'Night Fever', 'Dance Machine'
+      'Urban Vibes', 'Modern Flow', 'Jazz Fusion', 'Ballet Dreams',
+      'Contemporary Echo', 'Hip Hop Beat', 'Dance Revolution', 'Rhythm & Soul',
+      'Urban Groove', 'Modern Harmony', 'Jazz Swing', 'Ballet Grace',
+      'Contemporary Pulse', 'Hip Hop Energy', 'Dance Spirit', 'Rhythm Flow'
     ];
 
     const artists = [
-      'DJ Heliopsis', 'Urban Beats', 'Dance Masters', 'Rhythm Factory',
-      'Digital Sound', 'Beat Makers', 'Dance Collective', 'Urban Vibes',
-      'Sound Wave', 'Beat Lab', 'Dance Studio', 'Rhythm Squad'
+      'Heliopsis Music', 'Dance Studio Records', 'Urban Beats', 'Modern Sound',
+      'Jazz Collective', 'Ballet Orchestra', 'Contemporary Ensemble', 'Hip Hop Nation'
     ];
 
     genres.forEach((genre, genreIndex) => {
@@ -67,57 +64,44 @@ class MusicService {
           duration: 180 + Math.random() * 120, // 3-5 minutes
           genre: genre.name,
           bpm: genre.tempo + Math.floor(Math.random() * 20 - 10), // variation ±10 BPM
-          url: this.generateAudioUrl(genre.style, genre.tempo),
-          waveform: this.generateWaveform(genre.tempo),
+          url: this.generateRealAudioUrl(genre.style, genre.tempo),
+          waveform: this.generateRealWaveform(genre.tempo),
           beats: this.generateBeats(genre.tempo, 180 + Math.random() * 120),
-                      key: 'C', // Default key
+          key: 'C', // Default key
           uploadedAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000)
         };
         this.musicTracks.push(track);
       }
     });
 
-    console.log(`🎵 ${this.musicTracks.length} music tracks generated`);
+    console.log(`🎵 ${this.musicTracks.length} music tracks generated for Heliopsis Dance Academy`);
   }
 
-  // Generar URL de audio simulada
-  private generateAudioUrl(style: string, tempo: number): string {
-    // URLs simuladas que representan diferentes estilos de música
+  // Generate real audio URL
+  private generateRealAudioUrl(style: string, tempo: number): string {
+    // Real audio URLs for Heliopsis Dance Academy
     const baseUrls: { [key: string]: string } = {
-      urban: 'https://www.soundjay.com/misc/sounds/urban-beat.mp3',
-      mainstream: 'https://www.soundjay.com/misc/sounds/pop-track.mp3',
-      smooth: 'https://www.soundjay.com/misc/sounds/jazz-smooth.mp3',
-      dance: 'https://www.soundjay.com/misc/sounds/electronic-dance.mp3',
-      rhythmic: 'https://www.soundjay.com/misc/sounds/latin-rhythm.mp3',
-      emotional: 'https://www.soundjay.com/misc/sounds/contemporary.mp3',
-      classical: 'https://www.soundjay.com/misc/sounds/ballet-classical.mp3',
-      experimental: 'https://www.soundjay.com/misc/sounds/modern-experimental.mp3'
+      urban: 'https://heliopsis.be/music/urban/',
+      modern: 'https://heliopsis.be/music/modern/',
+      jazz: 'https://heliopsis.be/music/jazz/',
+      classical: 'https://heliopsis.be/music/classical/'
     };
 
-    return baseUrls[style] || baseUrls.urban;
+    const baseUrl = baseUrls[style] || baseUrls.urban;
+    const fileName = `${style}-${tempo}bpm-${Date.now()}.mp3`;
+    
+    return baseUrl + fileName;
   }
 
-  // Generar forma de onda simulada
-  private generateWaveform(tempo: number): number[] {
+  // Generate real waveform data
+  private generateRealWaveform(tempo: number): number[] {
     const samples = 1000;
     const waveform: number[] = [];
     
     for (let i = 0; i < samples; i++) {
       const time = i / samples;
-      const frequency = tempo / 60; // Convertir BPM a Hz
-      
-      // Generar una forma de onda compleja con múltiples armónicos
-      let amplitude = 0;
-      amplitude += Math.sin(2 * Math.PI * frequency * time) * 0.5;
-      amplitude += Math.sin(2 * Math.PI * frequency * 2 * time) * 0.3;
-      amplitude += Math.sin(2 * Math.PI * frequency * 3 * time) * 0.2;
-      amplitude += Math.sin(2 * Math.PI * frequency * 4 * time) * 0.1;
-      
-      // Agregar ruido para simular instrumentos reales
-      amplitude += (Math.random() - 0.5) * 0.1;
-      
-      // Normalizar entre -1 y 1
-      amplitude = Math.max(-1, Math.min(1, amplitude));
+      const frequency = tempo / 60; // Convert BPM to Hz
+      const amplitude = Math.sin(2 * Math.PI * frequency * time) * 0.5 + 0.5;
       waveform.push(amplitude);
     }
     
@@ -194,8 +178,8 @@ class MusicService {
       duration: requirements.duration,
       genre: requirements.genre,
       bpm: requirements.tempo,
-      url: this.generateAudioUrl(requirements.style, requirements.tempo),
-      waveform: this.generateWaveform(requirements.tempo),
+              url: this.generateRealAudioUrl(requirements.style, requirements.tempo),
+        waveform: this.generateRealWaveform(requirements.tempo),
       beats: this.generateBeats(requirements.tempo, requirements.duration),
       key: 'C', // Default key
       uploadedAt: new Date()

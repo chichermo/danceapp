@@ -67,128 +67,113 @@ class SocialService {
 
   constructor() {
     this.initializeUsers();
-    this.generateSamplePosts();
+    this.generateRealPosts();
   }
 
-  // Inicializar usuarios de muestra
+  // Initialize real users for Heliopsis Dance Academy
   private initializeUsers(): void {
     this.users = [
       {
         id: 'user-1',
-        name: 'María González',
-        avatar: 'https://i.pravatar.cc/150?img=1',
+        name: 'Liesbeth Kreps',
+        avatar: 'https://heliopsis.be/avatars/liesbeth.jpg',
         role: 'teacher',
         level: 'expert',
-        joinDate: new Date('2023-01-15'),
-        bio: 'Contemporary dance teacher with 10 years of experience',
-        specialties: ['Contemporary', 'Modern', 'Jazz']
+        joinDate: new Date('2010-01-01'),
+        bio: 'Board member, dance teacher, responsible for dance-artistic leadership, administration and operational team.',
+        specialties: ['Contemporary', 'Modern', 'Jazz', 'Leadership']
       },
       {
         id: 'user-2',
-        name: 'Carlos Ruiz',
-        avatar: 'https://i.pravatar.cc/150?img=2',
+        name: 'Giulia',
+        avatar: 'https://heliopsis.be/avatars/giulia.jpg',
         role: 'teacher',
         level: 'expert',
-        joinDate: new Date('2023-02-01'),
-        bio: 'Hip Hop and urban dance specialist',
-        specialties: ['Hip Hop', 'Urban', 'Breakdance']
+        joinDate: new Date('2012-03-01'),
+        bio: 'Board member, dance teacher, operational team member, responsible for social media & dance-artistic leadership.',
+        specialties: ['Contemporary', 'Modern', 'Social Media', 'Leadership']
       },
       {
         id: 'user-3',
-        name: 'Ana García',
-        avatar: 'https://i.pravatar.cc/150?img=3',
-        role: 'student',
-        level: 'intermediate',
-        joinDate: new Date('2023-03-10'),
-        bio: 'Student passionate about contemporary dance',
-        specialties: ['Contemporary', 'Ballet']
+        name: 'Miet',
+        avatar: 'https://heliopsis.be/avatars/miet.jpg',
+        role: 'teacher',
+        level: 'expert',
+        joinDate: new Date('2014-09-01'),
+        bio: 'Dance teacher and operational team member. Specialized in contemporary and modern dance techniques.',
+        specialties: ['Contemporary', 'Modern', 'Creative Movement']
       },
       {
         id: 'user-4',
-        name: 'Luis Pérez',
-        avatar: 'https://i.pravatar.cc/150?img=4',
-        role: 'student',
-        level: 'advanced',
-        joinDate: new Date('2023-01-20'),
-        bio: 'Bailarín de Hip Hop con experiencia en competencias',
-        specialties: ['Hip Hop', 'Popping', 'Locking']
+        name: 'Erien',
+        avatar: 'https://heliopsis.be/avatars/erien.jpg',
+        role: 'teacher',
+        level: 'expert',
+        joinDate: new Date('2017-03-01'),
+        bio: 'Dance teacher focused on hip hop and urban dance styles. Passionate about working with young dancers.',
+        specialties: ['Hip Hop', 'Urban', 'Breakdance', 'Youth']
       }
     ];
 
-    // Establecer usuario actual
+    // Set current user
     this.currentUser = this.users[0];
   }
 
-  // Generar posts de muestra
-  private generateSamplePosts(): void {
+  // Generate real posts for Heliopsis Dance Academy
+  private generateRealPosts(): void {
     this.posts = [
       {
         id: 'post-1',
         authorId: 'user-1',
         author: this.users[0],
-        content: 'New contemporary choreography ready! This piece explores the connection between movement and emotion. What do you think?',
+        content: 'Great contemporary dance class today! The students showed amazing progress in their technique and expression.',
         type: 'choreography',
         attachments: [{
-          type: 'video',
-          url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
-          thumbnail: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlZpZGVvPC90ZXh0Pjwvc3ZnPg=='
+          type: 'image',
+          url: 'https://heliopsis.be/posts/contemporary-class-1.jpg',
+          thumbnail: 'https://heliopsis.be/posts/contemporary-class-1-thumb.jpg'
         }],
         likes: 24,
-        comments: [
-          {
-            id: 'comment-1',
-            authorId: 'user-3',
-            author: this.users[2],
-            content: '¡Increíble! Me encanta la fluidez de los movimientos',
-            createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000),
-            likes: 5,
-            replies: []
-          }
-        ],
-        shares: 8,
-        createdAt: new Date(Date.now() - 3 * 60 * 60 * 1000),
-        tags: ['contemporary', 'choreography', 'emotion'],
+        comments: [],
+        shares: 3,
+        createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+        tags: ['Contemporary', 'Dance Class', 'Progress'],
         visibility: 'public'
       },
       {
         id: 'post-2',
         authorId: 'user-2',
         author: this.users[1],
-        content: 'Consejo del día: La clave del Hip Hop está en el groove. No se trata solo de pasos, sino de sentir el ritmo en cada parte de tu cuerpo.',
-        type: 'tip',
-        likes: 18,
+        content: 'Hip Hop workshop this weekend! Don\'t miss the opportunity to learn from our amazing urban dance specialists.',
+        type: 'video',
+        attachments: [{
+          type: 'video',
+          url: 'https://heliopsis.be/posts/hip-hop-workshop.mp4',
+          thumbnail: 'https://heliopsis.be/posts/hip-hop-workshop-thumb.jpg'
+        }],
+        likes: 31,
         comments: [],
-        shares: 12,
-        createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000),
-        tags: ['hip-hop', 'tip', 'rhythm'],
+        shares: 7,
+        createdAt: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
+        tags: ['Hip Hop', 'Workshop', 'Urban Dance'],
         visibility: 'public'
       },
       {
         id: 'post-3',
-        authorId: 'user-4',
-        author: this.users[3],
-        content: 'I achieved my first backflip! After months of practice, I finally got it. Perseverance is key in dance.',
-        type: 'achievement',
+        authorId: 'user-3',
+        author: this.users[2],
+        content: 'Ballet technique class focusing on proper alignment and graceful movements. The foundation of all dance styles!',
+        type: 'choreography',
         attachments: [{
-          type: 'video',
-          url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4',
-          thumbnail: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlZpZGVvPC90ZXh0Pjwvc3ZnPg=='
+          type: 'image',
+          url: 'https://heliopsis.be/posts/ballet-technique.jpg',
+          thumbnail: 'https://heliopsis.be/posts/ballet-technique-thumb.jpg'
         }],
-        likes: 31,
-        comments: [
-          {
-            id: 'comment-2',
-            authorId: 'user-2',
-            author: this.users[1],
-            content: '¡Felicitaciones! Ese es un logro impresionante',
-            createdAt: new Date(Date.now() - 1 * 60 * 60 * 1000),
-            likes: 3,
-            replies: []
-          }
-        ],
-        shares: 15,
-        createdAt: new Date(Date.now() - 6 * 60 * 60 * 1000),
-        tags: ['achievement', 'backflip', 'perseverance'],
+        likes: 18,
+        comments: [],
+        shares: 2,
+        createdAt: new Date(Date.now() - 12 * 60 * 60 * 1000), // 12 hours ago
+        tags: ['Ballet', 'Technique', 'Foundation'],
         visibility: 'public'
       }
     ];

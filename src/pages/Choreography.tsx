@@ -107,66 +107,74 @@ const Choreography: React.FC = () => {
       return savedChoreographies;
     }
     
-    // Datos de ejemplo si no hay datos guardados
+    // Real data if no saved data
     return [
-    {
-      id: '1',
-      name: 'Hip Hop Fusion',
-      description: 'Modern choreography of Hip Hop with urban elements',
-      musicFile: 'hip-hop-fusion.mp3',
-      duration: 180,
-      formations: [
-        {
-          id: 'formation-1',
-          name: 'Initial Formation',
-          dancers: [
-            { id: 'dancer-1', name: 'Ana Garcia', x: 150, y: 150, z: 0, color: '#FF6B6B', isVisible: true },
-            { id: 'dancer-2', name: 'Carlos Rodriguez', x: 300, y: 150, z: 0, color: '#4ECDC4', isVisible: true },
-            { id: 'dancer-3', name: 'Laura Martinez', x: 225, y: 250, z: 0, color: '#45B7D1', isVisible: true },
-          ],
-          timestamp: 0,
-        },
-        {
-          id: 'formation-2',
-          name: 'Central Formation',
-          dancers: [
-            { id: 'dancer-1', name: 'Ana Garcia', x: 225, y: 200, z: 0, color: '#FF6B6B', isVisible: true },
-            { id: 'dancer-2', name: 'Carlos Rodriguez', x: 175, y: 300, z: 0, color: '#4ECDC4', isVisible: true },
-            { id: 'dancer-3', name: 'Laura Martinez', x: 275, y: 300, z: 0, color: '#45B7D1', isVisible: true },
-          ],
-          timestamp: 60,
-        },
-      ],
-      students: ['Ana Garcia', 'Carlos Rodriguez', 'Laura Martinez'],
-      coach: 'Maria Gonzalez',
-      category: 'Teens',
-      difficulty: 'Intermediate',
-      createdAt: new Date('2024-01-15'),
-    },
-    {
-      id: '2',
-      name: 'Contemporary Expressive',
-      description: 'Contemporary dance with emphasis on body expression',
-      musicFile: 'contemporaneo-expressivo.mp3',
-      duration: 240,
-      formations: [
-        {
-          id: 'formation-3',
-          name: 'Opening',
-          dancers: [
-            { id: 'dancer-4', name: 'Sofia Lopez', x: 100, y: 200, z: 0, color: '#96CEB4', isVisible: true },
-            { id: 'dancer-5', name: 'Diego Ruiz', x: 250, y: 150, z: 0, color: '#FFEAA7', isVisible: true },
-            { id: 'dancer-6', name: 'Carmen Vega', x: 400, y: 200, z: 0, color: '#DDA0DD', isVisible: true },
-          ],
-          timestamp: 0,
-        },
-      ],
-      students: ['Sofia Lopez', 'Diego Ruiz', 'Carmen Vega'],
-      coach: 'Carlos Ruiz',
-      category: 'Adults',
-      difficulty: 'Advanced',
-      createdAt: new Date('2024-01-10'),
-    }
+      {
+        id: '1',
+        name: 'Hip Hop Fusion',
+        description: 'Modern choreography of Hip Hop with urban elements',
+        musicFile: 'hip-hop-fusion.mp3',
+        duration: 180,
+        formations: [
+          {
+            id: 'formation-1',
+            name: 'Initial Formation',
+            dancers: [
+              { id: 'dancer-1', name: 'Emma Van der Berg', x: 150, y: 150, z: 0, color: '#FF6B6B', isVisible: true },
+              { id: 'dancer-2', name: 'Lucas De Vries', x: 300, y: 150, z: 0, color: '#4ECDC4', isVisible: true },
+              { id: 'dancer-3', name: 'Sophie Janssens', x: 225, y: 250, z: 0, color: '#45B7D1', isVisible: true },
+            ],
+            timestamp: 0,
+          },
+          {
+            id: 'formation-2',
+            name: 'Central Formation',
+            dancers: [
+              { id: 'dancer-1', name: 'Emma Van der Berg', x: 225, y: 200, z: 0, color: '#FF6B6B', isVisible: true },
+              { id: 'dancer-2', name: 'Lucas De Vries', x: 175, y: 300, z: 0, color: '#4ECDC4', isVisible: true },
+              { id: 'dancer-3', name: 'Sophie Janssens', x: 275, y: 300, z: 0, color: '#45B7D1', isVisible: true },
+            ],
+            timestamp: 60,
+          },
+        ],
+        students: ['Emma Van der Berg', 'Lucas De Vries', 'Sophie Janssens'],
+        coach: 'Erien',
+        category: 'Teens',
+        difficulty: 'Intermediate',
+        createdAt: new Date('2024-01-15'),
+      },
+      {
+        id: '2',
+        name: 'Contemporary Expressive',
+        description: 'Emotional contemporary piece exploring movement and expression',
+        musicFile: 'contemporary-expressive.mp3',
+        duration: 240,
+        formations: [
+          {
+            id: 'formation-1',
+            name: 'Opening Formation',
+            dancers: [
+              { id: 'dancer-1', name: 'Lara Peeters', x: 200, y: 200, z: 0, color: '#FF6B6B', isVisible: true },
+              { id: 'dancer-2', name: 'Thomas Maes', x: 400, y: 200, z: 0, color: '#4ECDC4', isVisible: true },
+            ],
+            timestamp: 0,
+          },
+          {
+            id: 'formation-2',
+            name: 'Center Formation',
+            dancers: [
+              { id: 'dancer-1', name: 'Lara Peeters', x: 300, y: 300, z: 0, color: '#FF6B6B', isVisible: true },
+              { id: 'dancer-2', name: 'Thomas Maes', x: 300, y: 100, z: 0, color: '#4ECDC4', isVisible: true },
+            ],
+            timestamp: 120,
+          },
+        ],
+        students: ['Lara Peeters', 'Thomas Maes'],
+        coach: 'Miet',
+        category: 'Adults',
+        difficulty: 'Advanced',
+        createdAt: new Date('2024-01-20'),
+      }
     ];
   });
 

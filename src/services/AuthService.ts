@@ -91,27 +91,27 @@ class AuthService {
     }
   }
 
-  // Simular llamada a API
+  // Simulate API call
   private async simulateApiCall(endpoint: string, options: any): Promise<any> {
-    // Simular delay de red
+    // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // Simular respuestas basadas en el endpoint
+    // Simulate responses based on endpoint
     switch (endpoint) {
       case '/auth/login':
         if (options.body) {
           const { email, password } = JSON.parse(options.body);
-          if (email === 'admin@dance.com' && password === 'admin123') {
+          if (email === 'admin@heliopsis.be' && password === 'admin123') {
             return {
               success: true,
-              token: 'mock-jwt-token-' + Date.now(),
-              refreshToken: 'mock-refresh-token-' + Date.now(),
+              token: 'heliopsis-jwt-token-' + Date.now(),
+              refreshToken: 'heliopsis-refresh-token-' + Date.now(),
               user: {
                 id: 'user-1',
-                email: 'admin@dance.com',
+                email: 'admin@heliopsis.be',
                 name: 'Administrator',
                 role: 'admin',
-                avatar: 'https://i.pravatar.cc/150?img=1',
+                avatar: 'https://heliopsis.be/avatars/admin.jpg',
                 preferences: {
                   theme: 'light',
                   language: 'en',
@@ -122,17 +122,17 @@ class AuthService {
                 createdAt: new Date('2023-01-01')
               }
             };
-          } else if (email === 'teacher@dance.com' && password === 'teacher123') {
+          } else if (email === 'teacher@heliopsis.be' && password === 'teacher123') {
             return {
               success: true,
-              token: 'mock-jwt-token-teacher-' + Date.now(),
-              refreshToken: 'mock-refresh-token-teacher-' + Date.now(),
+              token: 'heliopsis-jwt-token-teacher-' + Date.now(),
+              refreshToken: 'heliopsis-refresh-token-teacher-' + Date.now(),
               user: {
                 id: 'user-2',
-                email: 'teacher@dance.com',
+                email: 'teacher@heliopsis.be',
                 name: 'Dance Teacher',
                 role: 'teacher',
-                avatar: 'https://i.pravatar.cc/150?img=2',
+                avatar: 'https://heliopsis.be/avatars/teacher.jpg',
                 preferences: {
                   theme: 'light',
                   language: 'en',
@@ -140,33 +140,33 @@ class AuthService {
                 },
                 permissions: ['read', 'write'],
                 lastLogin: new Date(),
-                createdAt: new Date('2023-01-15')
+                createdAt: new Date('2023-02-01')
               }
             };
-          } else if (email === 'student@dance.com' && password === 'student123') {
+          } else if (email === 'student@heliopsis.be' && password === 'student123') {
             return {
               success: true,
-              token: 'mock-jwt-token-student-' + Date.now(),
-              refreshToken: 'mock-refresh-token-student-' + Date.now(),
+              token: 'heliopsis-jwt-token-student-' + Date.now(),
+              refreshToken: 'heliopsis-refresh-token-student-' + Date.now(),
               user: {
                 id: 'user-3',
-                email: 'student@dance.com',
+                email: 'student@heliopsis.be',
                 name: 'Dance Student',
                 role: 'student',
-                avatar: 'https://i.pravatar.cc/150?img=3',
+                avatar: 'https://heliopsis.be/avatars/student.jpg',
                 preferences: {
                   theme: 'light',
                   language: 'en',
-                  notifications: true
+                  notifications: false
                 },
                 permissions: ['read'],
                 lastLogin: new Date(),
-                createdAt: new Date('2023-02-01')
+                createdAt: new Date('2023-03-01')
               }
             };
           }
         }
-        return { success: false, error: 'Invalid credentials' };
+        return { success: false, message: 'Invalid credentials' };
 
       case '/auth/register':
         return { success: true, message: 'User registered successfully' };
@@ -177,15 +177,15 @@ class AuthService {
       case '/auth/refresh':
         return {
           success: true,
-          token: 'mock-refreshed-token-' + Date.now(),
-          refreshToken: 'mock-refreshed-refresh-token-' + Date.now()
+          token: 'heliopsis-refreshed-token-' + Date.now(),
+          refreshToken: 'heliopsis-refreshed-refresh-token-' + Date.now()
         };
 
       case '/auth/logout':
         return { success: true };
 
       default:
-        return { success: false, error: 'Endpoint not found' };
+        return { success: false, message: 'Endpoint not found' };
     }
   }
 
@@ -214,7 +214,7 @@ class AuthService {
         this.notifyListeners();
         return { success: true };
       } else {
-        return { success: false, error: response.error || 'Error logging in' };
+        return { success: false, error: response.message || 'Error logging in' };
       }
     } catch (error) {
       console.error('Login error:', error);
@@ -245,7 +245,7 @@ class AuthService {
       if (response.success) {
         return { success: true };
       } else {
-        return { success: false, error: response.error || 'Error registering user' };
+        return { success: false, error: response.message || 'Error registering user' };
       }
     } catch (error) {
       console.error('Registration error:', error);
@@ -440,10 +440,10 @@ class AuthService {
       const users: User[] = [
         {
           id: 'user-1',
-          email: 'admin@dance.com',
+          email: 'admin@heliopsis.be',
           name: 'Administrator',
           role: 'admin',
-          avatar: 'https://i.pravatar.cc/150?img=1',
+          avatar: 'https://heliopsis.be/avatars/admin.jpg',
           preferences: {
             theme: 'light',
             language: 'en',
@@ -455,10 +455,10 @@ class AuthService {
         },
         {
           id: 'user-2',
-          email: 'teacher@dance.com',
+          email: 'teacher@heliopsis.be',
           name: 'Dance Teacher',
           role: 'teacher',
-          avatar: 'https://i.pravatar.cc/150?img=2',
+          avatar: 'https://heliopsis.be/avatars/teacher.jpg',
           preferences: {
             theme: 'light',
             language: 'en',
@@ -466,22 +466,22 @@ class AuthService {
           },
           permissions: ['read', 'write'],
           lastLogin: new Date(),
-          createdAt: new Date('2023-01-15')
+          createdAt: new Date('2023-02-01')
         },
         {
           id: 'user-3',
-          email: 'student@dance.com',
+          email: 'student@heliopsis.be',
           name: 'Dance Student',
           role: 'student',
-          avatar: 'https://i.pravatar.cc/150?img=3',
+          avatar: 'https://heliopsis.be/avatars/student.jpg',
           preferences: {
             theme: 'light',
             language: 'en',
-            notifications: true
+            notifications: false
           },
           permissions: ['read'],
           lastLogin: new Date(),
-          createdAt: new Date('2023-02-01')
+          createdAt: new Date('2023-03-01')
         }
       ];
 

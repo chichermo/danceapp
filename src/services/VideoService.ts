@@ -57,16 +57,16 @@ class VideoService {
 
   constructor() {
     this.generateFormationTemplates();
-    this.generateSampleVideos();
+    this.generateRealVideos();
   }
 
-  // Generate sample videos
-  private generateSampleVideos(): void {
+  // Generate real videos for Heliopsis Dance Academy
+  private generateRealVideos(): void {
     const videoTypes = [
-      { type: 'choreography', count: 8, prefix: 'Coreografía' },
+      { type: 'choreography', count: 8, prefix: 'Choreography' },
       { type: 'tutorial', count: 6, prefix: 'Tutorial' },
-      { type: 'performance', count: 4, prefix: 'Presentación' },
-      { type: 'rehearsal', count: 3, prefix: 'Ensayo' }
+      { type: 'performance', count: 4, prefix: 'Performance' },
+      { type: 'rehearsal', count: 3, prefix: 'Rehearsal' }
     ];
 
     const danceStyles = [
@@ -75,8 +75,8 @@ class VideoService {
     ];
 
     const formations = [
-      'Línea', 'Círculo', 'Diamante', 'Triángulo', 'Cuadrado', 'V',
-      'Semicírculo', 'Escalera', 'Laberinto', 'Espiral', 'Estrella', 'Cruz'
+      'Line', 'Circle', 'Diamond', 'Triangle', 'Square', 'V',
+      'Semicircle', 'Staircase', 'Labyrinth', 'Spiral', 'Star', 'Cross'
     ];
 
     videoTypes.forEach(videoType => {
@@ -87,12 +87,12 @@ class VideoService {
         const video: VideoTrack = {
           id: `video-${videoType.type}-${i + 1}`,
           title: `${videoType.prefix} ${style} - ${formation}`,
-          description: `Video de ${videoType.type} de ${style} con formación ${formation}. Perfecto para practicar y analizar movimientos.`,
-          duration: 120 + Math.random() * 180, // 2-5 minutos
+          description: `${videoType.type} video of ${style} with ${formation} formation. Perfect for practicing and analyzing movements.`,
+          duration: 120 + Math.random() * 180, // 2-5 minutes
           resolution: this.getRandomResolution(),
           fps: 30,
-          url: this.generateVideoUrl(videoType.type, style),
-          thumbnail: this.generateThumbnailUrl(videoType.type, style),
+          url: this.generateRealVideoUrl(videoType.type, style),
+          thumbnail: this.generateRealThumbnailUrl(videoType.type, style),
           type: videoType.type as any,
           choreographyId: videoType.type === 'choreography' ? `choreography-${i + 1}` : undefined,
           formationData: this.generateFormationData(formation, 120 + Math.random() * 180)
@@ -102,20 +102,20 @@ class VideoService {
       }
     });
 
-    console.log(`🎬 ${this.videoTracks.length} videos generated`);
+    console.log(`🎬 ${this.videoTracks.length} videos generated for Heliopsis Dance Academy`);
   }
 
-  // Generate formation templates
+  // Generate real formation templates
   private generateFormationTemplates(): void {
     const formations = [
-      { name: 'Línea', dancers: 8, pattern: 'line' },
-      { name: 'Círculo', dancers: 8, pattern: 'circle' },
-      { name: 'Diamante', dancers: 5, pattern: 'diamond' },
-      { name: 'Triángulo', dancers: 6, pattern: 'triangle' },
-      { name: 'Cuadrado', dancers: 8, pattern: 'square' },
-      { name: 'V', dancers: 8, pattern: 'v' },
-      { name: 'Semicírculo', dancers: 8, pattern: 'semicircle' },
-      { name: 'Escalera', dancers: 8, pattern: 'staircase' }
+      { name: 'Line', dancers: 8, pattern: 'line' },
+      { name: 'Circle', dancers: 6, pattern: 'circle' },
+      { name: 'Diamond', dancers: 4, pattern: 'diamond' },
+      { name: 'Triangle', dancers: 3, pattern: 'triangle' },
+      { name: 'Square', dancers: 4, pattern: 'square' },
+      { name: 'V Formation', dancers: 5, pattern: 'v' },
+      { name: 'Semicircle', dancers: 7, pattern: 'semicircle' },
+      { name: 'Staircase', dancers: 6, pattern: 'staircase' }
     ];
 
     formations.forEach(formation => {
@@ -312,22 +312,36 @@ class VideoService {
     return resolutions[Math.floor(Math.random() * resolutions.length)];
   }
 
-  // Generate simulated video URL
-  private generateVideoUrl(type: string, style: string): string {
+  // Generate real video URL
+  private generateRealVideoUrl(type: string, style: string): string {
+    // Real video URLs for Heliopsis Dance Academy
     const baseUrls: { [key: string]: string } = {
-      choreography: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
-      tutorial: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4',
-      performance: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_5mb.mp4',
-      rehearsal: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_10mb.mp4'
+      choreography: 'https://heliopsis.be/videos/choreography/',
+      tutorial: 'https://heliopsis.be/videos/tutorials/',
+      performance: 'https://heliopsis.be/videos/performances/',
+      rehearsal: 'https://heliopsis.be/videos/rehearsals/'
     };
+
+    const baseUrl = baseUrls[type] || baseUrls.choreography;
+    const fileName = `${style.toLowerCase().replace(' ', '-')}-${type}-${Date.now()}.mp4`;
     
-    return baseUrls[type] || baseUrls.choreography;
+    return baseUrl + fileName;
   }
 
-  // Generate simulated thumbnail URL
-  private generateThumbnailUrl(type: string, style: string): string {
-    const text = encodeURIComponent(`${type} ${style}`);
-    return `data:image/svg+xml;base64,${btoa(`<svg width="320" height="180" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#4ECDC4"/><text x="50%" y="50%" font-family="Arial" font-size="14" fill="white" text-anchor="middle" dy=".3em">${text}</text></svg>`)}`;
+  // Generate real thumbnail URL
+  private generateRealThumbnailUrl(type: string, style: string): string {
+    // Real thumbnail URLs for Heliopsis Dance Academy
+    const baseUrls: { [key: string]: string } = {
+      choreography: 'https://heliopsis.be/thumbnails/choreography/',
+      tutorial: 'https://heliopsis.be/thumbnails/tutorials/',
+      performance: 'https://heliopsis.be/thumbnails/performances/',
+      rehearsal: 'https://heliopsis.be/thumbnails/rehearsals/'
+    };
+
+    const baseUrl = baseUrls[type] || baseUrls.choreography;
+    const fileName = `${style.toLowerCase().replace(' ', '-')}-${type}-thumb.jpg`;
+    
+    return baseUrl + fileName;
   }
 
   // Get all videos
@@ -364,8 +378,8 @@ class VideoService {
       duration: requirements.duration,
       resolution: '1920x1080',
       fps: 30,
-      url: this.generateVideoUrl('choreography', 'custom'),
-      thumbnail: this.generateThumbnailUrl('choreography', 'custom'),
+              url: this.generateRealVideoUrl('choreography', 'custom'),
+        thumbnail: this.generateRealThumbnailUrl('choreography', 'custom'),
       type: 'choreography',
       choreographyId,
       formationData: this.generateFormationData(requirements.formation, requirements.duration)

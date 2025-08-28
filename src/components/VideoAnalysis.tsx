@@ -96,7 +96,7 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
   const [currentDrawing, setCurrentDrawing] = useState<string>('');
 
   // Simulación de video (en una implementación real sería un archivo real)
-  const mockVideoUrl = 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4';
+  const realVideoUrl = 'https://heliopsis.be/videos/analysis/contemporary-performance.mp4';
 
   const handlePlayPause = () => {
     if (videoRef.current) {

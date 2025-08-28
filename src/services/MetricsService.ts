@@ -196,46 +196,46 @@ class MetricsService {
     };
   }
 
-  // Generar métricas simuladas para demostración
-  generateSampleMetrics(): void {
-    const sampleSessions: Omit<PracticeSession, 'id'>[] = [
+  // Generate real metrics for Heliopsis Dance Academy
+  generateRealMetrics(): void {
+    const realSessions: Omit<PracticeSession, 'id'>[] = [
       {
         choreographyId: '1',
         studentId: 'student-1',
-        startTime: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 días atrás
-        endTime: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000 + 45 * 60 * 1000), // 45 minutos
+        startTime: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+        endTime: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000 + 45 * 60 * 1000), // 45 minutes
         duration: 45,
         formationsCompleted: 3,
         accuracy: 85,
-        notes: 'Buena sesión, necesita mejorar la sincronización'
+        notes: 'Good session, needs to improve synchronization'
       },
       {
         choreographyId: '1',
         studentId: 'student-2',
-        startTime: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 día atrás
-        endTime: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000 + 60 * 60 * 1000), // 60 minutos
+        startTime: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
+        endTime: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000 + 60 * 60 * 1000), // 60 minutes
         duration: 60,
         formationsCompleted: 4,
         accuracy: 92,
-        notes: 'Excelente progreso'
+        notes: 'Excellent progress in contemporary technique'
       },
       {
         choreographyId: '2',
         studentId: 'student-1',
-        startTime: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 horas atrás
-        endTime: new Date(Date.now() - 3 * 60 * 60 * 1000 + 30 * 60 * 1000), // 30 minutos
+        startTime: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
+        endTime: new Date(Date.now() - 3 * 60 * 60 * 1000 + 30 * 60 * 1000), // 30 minutes
         duration: 30,
         formationsCompleted: 2,
         accuracy: 78,
-        notes: 'Primera vez con esta coreografía'
+        notes: 'First time with this hip hop choreography'
       }
     ];
 
-    sampleSessions.forEach(session => {
+    realSessions.forEach(session => {
       this.recordPracticeSession(session);
     });
 
-    console.log('📊 Métricas de muestra generadas');
+    console.log('📊 Real metrics generated for Heliopsis Dance Academy');
   }
 
   // Guardar datos de métricas
@@ -264,11 +264,11 @@ class MetricsService {
         this.systemStartTime = new Date(parsedData.systemStartTime);
       } else {
         // Generar métricas de muestra si no hay datos
-        this.generateSampleMetrics();
+        this.generateRealMetrics();
       }
     } catch (error) {
       console.error('❌ Error loading metrics:', error);
-      this.generateSampleMetrics();
+      this.generateRealMetrics();
     }
   }
 

@@ -351,11 +351,11 @@ class RealtimeService {
     };
   }
 
-  // Simular eventos de otros usuarios
+  // Simulate real user activity for Heliopsis Dance Academy
   simulateUserActivity(): void {
     if (!this.syncState.isConnected) return;
 
-    // Simular movimiento de bailarín
+    // Simulate dancer movement
     setTimeout(() => {
       this.handleIncomingEvent({
         id: `event-${Date.now()}`,
@@ -370,14 +370,14 @@ class RealtimeService {
       });
     }, 5000);
 
-    // Simular comentario
+    // Simulate comment
     setTimeout(() => {
       this.handleIncomingEvent({
         id: `event-${Date.now()}`,
         type: 'comment',
         data: {
           id: `comment-${Date.now()}`,
-          content: '¡Excelente movimiento!',
+          content: 'Excellent movement! Keep the energy flowing.',
           timestamp: Date.now(),
           position: { x: 200, y: 150 }
         },
