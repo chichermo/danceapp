@@ -129,24 +129,10 @@ const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ open, onClose }) =>
     }
   };
 
-  const getTrendColor = (trend: 'up' | 'down' | 'stable') => {
-    switch (trend) {
-      case 'up': return 'success';
-      case 'down': return 'error';
-      default: return 'warning';
-    }
-  };
-
   const formatTime = (minutes: number) => {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
-  };
-
-  const formatUptime = (ms: number) => {
-    const hours = Math.floor(ms / (1000 * 60 * 60));
-    const days = Math.floor(hours / 24);
-    return days > 0 ? `${days}d ${hours % 24}h` : `${hours}h`;
   };
 
   const exportMetrics = () => {

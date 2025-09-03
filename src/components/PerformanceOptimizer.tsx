@@ -1,41 +1,56 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Box,
+  Typography,
   Card,
   CardContent,
-  Typography,
-  Button,
-  Switch,
-  FormControlLabel,
-  Slider,
-  Grid,
   LinearProgress,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
+  Chip,
+  IconButton,
+  Grid,
+  Paper,
+  Divider,
+  Alert,
+  Button,
+  Slider,
+  FormControlLabel,
+  Switch,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Tooltip,
+  Badge,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
-  IconButton,
-  Tooltip,
-  Divider
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText
 } from '@mui/material';
 import {
-  Speed,
-  Memory,
-  NetworkCheck,
-  Settings,
-  PlayArrow,
-  Pause,
-  Refresh,
-  CheckCircle,
-  Warning,
-  Info,
-  Tune
+  Speed as SpeedIcon,
+  Memory as MemoryIcon,
+  Storage as StorageIcon,
+  NetworkCheck as NetworkIcon,
+  Settings as SettingsIcon,
+  PlayArrow as PlayIcon,
+  Pause as PauseIcon,
+  Stop as StopIcon,
+  Refresh as RefreshIcon,
+  TrendingUp as TrendingUpIcon,
+  TrendingDown as TrendingDownIcon,
+  Warning as WarningIcon,
+  CheckCircle as CheckCircleIcon,
+  Error as ErrorIcon,
+  Info as InfoIcon,
+  ExpandMore as ExpandMoreIcon,
+  Tune as TuneIcon,
+  AutoFixHigh as AutoFixHighIcon,
+  Analytics as AnalyticsIcon,
+  Timeline as TimelineIcon
 } from '@mui/icons-material';
-import { motion } from 'framer-motion';
 import usePerformanceOptimization from '../hooks/usePerformanceOptimization';
 
 interface PerformanceOptimizerProps {
@@ -59,10 +74,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
   });
 
   const {
-    collectPerformanceMetrics,
-    cleanupMemory,
-    debounce,
-    throttle
+    collectPerformanceMetrics
   } = usePerformanceOptimization(settings);
 
   // Simular optimización de rendimiento
@@ -132,10 +144,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
     }));
   };
 
-  const getPerformanceColor = (value: number, threshold: number, reverse = false) => {
-    const isGood = reverse ? value < threshold : value > threshold;
-    return isGood ? 'success' : 'warning';
-  };
+
 
   const formatBytes = (bytes: number) => {
     if (bytes === 0) return '0 Bytes';
@@ -153,13 +162,13 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Speed sx={{ mr: 1, color: 'primary.main' }} />
+          <SpeedIcon sx={{ mr: 1, color: 'primary.main' }} />
           Performance Optimizer
         </Box>
         <Box>
           <Tooltip title="Collect Metrics">
             <IconButton onClick={collectMetrics} color="primary">
-              <Refresh />
+              <RefreshIcon />
             </IconButton>
           </Tooltip>
         </Box>
@@ -172,7 +181,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
             <Card sx={{ mb: 3 }}>
               <CardContent>
                 <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-                  <Speed sx={{ mr: 1 }} />
+                  <SpeedIcon sx={{ mr: 1 }} />
                   Current Metrics
                 </Typography>
                 <Grid container spacing={2}>
@@ -180,7 +189,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                     <>
                       <Grid item xs={12} md={4}>
                         <Box sx={{ textAlign: 'center' }}>
-                          <Memory sx={{ fontSize: 40, color: 'primary.main', mb: 1 }} />
+                          <MemoryIcon sx={{ fontSize: 40, color: 'primary.main', mb: 1 }} />
                           <Typography variant="h6">
                             {formatBytes(performanceMetrics.memory.used)}
                           </Typography>
@@ -215,7 +224,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                     <>
                       <Grid item xs={12} md={6}>
                         <Box sx={{ textAlign: 'center' }}>
-                          <NetworkCheck sx={{ fontSize: 40, color: 'success.main', mb: 1 }} />
+                          <NetworkIcon sx={{ fontSize: 40, color: 'success.main', mb: 1 }} />
                           <Typography variant="h6">
                             {formatTime(performanceMetrics.timing.loadTime)}
                           </Typography>
@@ -245,7 +254,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
           <Card sx={{ mb: 3 }}>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-                <Settings sx={{ mr: 1 }} />
+                <SettingsIcon sx={{ mr: 1 }} />
                 Optimization Configuration
               </Typography>
               <Grid container spacing={2}>
@@ -346,7 +355,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
             <Card sx={{ mb: 3 }}>
               <CardContent>
                 <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-                  <PlayArrow sx={{ mr: 1 }} />
+                  <PlayIcon sx={{ mr: 1 }} />
                   Optimizing Application...
                 </Typography>
                 <LinearProgress sx={{ mb: 2 }} />
@@ -362,7 +371,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
             <Card sx={{ mb: 3 }}>
               <CardContent>
                 <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-                  <CheckCircle sx={{ mr: 1, color: 'success.main' }} />
+                  <CheckCircleIcon sx={{ mr: 1, color: 'success.main' }} />
                   Optimization Results
                 </Typography>
                 <Grid container spacing={2}>
@@ -411,14 +420,14 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                 {optimizationResults.recommendations.length > 0 && (
                   <Box sx={{ mt: 3 }}>
                     <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-                      <Info sx={{ mr: 1 }} />
+                      <InfoIcon sx={{ mr: 1 }} />
                       Recommendations
                     </Typography>
                     <List>
                       {optimizationResults.recommendations.map((recommendation: string, index: number) => (
                         <ListItem key={index}>
                           <ListItemIcon>
-                            <Warning color="warning" />
+                            <WarningIcon color="warning" />
                           </ListItemIcon>
                           <ListItemText primary={recommendation} />
                         </ListItem>
@@ -434,13 +443,13 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
           <Card>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-                <Tune sx={{ mr: 1 }} />
+                <TuneIcon sx={{ mr: 1 }} />
                 Optimization Tips
               </Typography>
               <List>
                 <ListItem>
                   <ListItemIcon>
-                    <CheckCircle color="success" />
+                    <CheckCircleIcon color="success" />
                   </ListItemIcon>
                   <ListItemText
                     primary="Use React.memo for components that re-render frequently"
@@ -449,7 +458,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                 </ListItem>
                 <ListItem>
                   <ListItemIcon>
-                    <CheckCircle color="success" />
+                    <CheckCircleIcon color="success" />
                   </ListItemIcon>
                   <ListItemText
                     primary="Implement lazy loading for heavy components"
@@ -458,7 +467,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                 </ListItem>
                 <ListItem>
                   <ListItemIcon>
-                    <CheckCircle color="success" />
+                    <CheckCircleIcon color="success" />
                   </ListItemIcon>
                   <ListItemText
                     primary="Use useMemo and useCallback for expensive calculations"
@@ -467,7 +476,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
                 </ListItem>
                 <ListItem>
                   <ListItemIcon>
-                    <CheckCircle color="success" />
+                    <CheckCircleIcon color="success" />
                   </ListItemIcon>
                   <ListItemText
                     primary="Optimize images with lazy loading and compression"
@@ -488,7 +497,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ open, onClo
           onClick={runOptimization}
           variant="contained"
           disabled={isOptimizing}
-          startIcon={isOptimizing ? <Pause /> : <PlayArrow />}
+          startIcon={isOptimizing ? <PauseIcon /> : <PlayIcon />}
           sx={{
             background: 'linear-gradient(45deg, #FF6B9D 30%, #4ECDC4 90%)',
             '&:hover': {

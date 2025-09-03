@@ -20,12 +20,6 @@ import {
   Tooltip,
   Tabs,
   Tab,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
-  Avatar,
-  Divider,
   Switch,
   FormControlLabel,
 } from '@mui/material';
@@ -33,12 +27,10 @@ import {
   Add as AddIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
-  Class as ClassIcon,
   People as PeopleIcon,
   Schedule as ScheduleIcon,
   LocationOn as LocationIcon,
   FitnessCenter as CoachIcon,
-  Star as StarIcon,
 } from '@mui/icons-material';
 
 interface ClassType {

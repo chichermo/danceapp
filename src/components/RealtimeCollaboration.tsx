@@ -30,12 +30,10 @@ import {
   Wifi,
   WifiOff,
   Sync,
-  SyncProblem,
   Chat,
   PersonAdd,
   Settings,
   PlayArrow,
-  Pause,
   Stop,
   Refresh
 } from '@mui/icons-material';

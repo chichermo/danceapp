@@ -18,8 +18,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Switch,
-  FormControlLabel,
   Tabs,
   Tab
 } from '@mui/material';
@@ -31,11 +29,8 @@ import {
   SkipPrevious,
   ZoomIn,
   ZoomOut,
-  Brush,
-  Undo,
   Videocam,
   VideocamOff,
-  Timeline,
   Edit,
   Delete,
   Add,
@@ -60,11 +55,7 @@ interface AnalysisMarker {
   drawing?: string; // SVG path data
 }
 
-interface DrawingTool {
-  type: 'brush' | 'arrow' | 'circle' | 'rectangle' | 'line';
-  color: string;
-  size: number;
-}
+
 
 const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
   choreographyId,
@@ -76,27 +67,14 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [currentTab, setCurrentTab] = useState(0);
-  const [showDrawingTools, setShowDrawingTools] = useState(false);
-  const [selectedTool, setSelectedTool] = useState<DrawingTool>({
-    type: 'brush',
-    color: '#FF6B9D',
-    size: 3
-  });
   const [markers, setMarkers] = useState<AnalysisMarker[]>([]);
   const [showMarkerDialog, setShowMarkerDialog] = useState(false);
   const [editingMarker, setEditingMarker] = useState<AnalysisMarker | null>(null);
-  const [showGrid, setShowGrid] = useState(true);
+
   const [zoom, setZoom] = useState(1);
   
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const drawingRef = useRef<HTMLCanvasElement>(null);
-  
-  const [drawingHistory, setDrawingHistory] = useState<string[]>([]);
-  const [currentDrawing, setCurrentDrawing] = useState<string>('');
-
-  // Simulación de video (en una implementación real sería un archivo real)
-  const realVideoUrl = 'https://heliopsis.be/videos/analysis/contemporary-performance.mp4';
 
   const handlePlayPause = () => {
     if (videoRef.current) {
@@ -147,58 +125,9 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
     setMarkers(prev => prev.filter(m => m.id !== id));
   };
 
-  const handleDrawingStart = (e: React.MouseEvent) => {
-    if (!drawingRef.current || !showDrawingTools) return;
-    
-    const canvas = drawingRef.current;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
 
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
 
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    ctx.strokeStyle = selectedTool.color;
-    ctx.lineWidth = selectedTool.size;
-    ctx.lineCap = 'round';
-    
-    const handleMouseMove = (moveEvent: MouseEvent) => {
-      const moveX = moveEvent.clientX - rect.left;
-      const moveY = moveEvent.clientY - rect.top;
-      ctx.lineTo(moveX, moveY);
-      ctx.stroke();
-    };
 
-    const handleMouseUp = () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      
-      // Guardar el dibujo actual
-      const currentPath = canvas.toDataURL();
-      setDrawingHistory(prev => [...prev, currentPath]);
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-  };
-
-  const undoDrawing = () => {
-    if (drawingHistory.length > 0) {
-      setDrawingHistory(prev => prev.slice(0, -1));
-    }
-  };
-
-  const clearDrawing = () => {
-    setDrawingHistory([]);
-    if (drawingRef.current) {
-      const ctx = drawingRef.current.getContext('2d');
-      if (ctx) {
-        ctx.clearRect(0, 0, drawingRef.current.width, drawingRef.current.height);
-      }
-    }
-  };
 
   const getMarkerIcon = (type: string) => {
     switch (type) {
@@ -222,7 +151,7 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
 
   return (
     <Box sx={{ width: '100%' }}>
-      {/* Header con Controles Principales */}
+              {/* Header with Main Controls */}
       <Paper sx={{ 
         p: 2, 
         mb: 2,
@@ -247,7 +176,7 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
           </Box>
         </Box>
 
-        {/* Controles de Grabación y Reproducción */}
+        {/* Recording and Playback Controls */}
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, mb: 2 }}>
           <Button
             variant={isRecording ? 'contained' : 'outlined'}
@@ -276,7 +205,7 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
           </IconButton>
         </Box>
 
-        {/* Controles de Velocidad y Zoom */}
+        {/* Speed and Zoom Controls */}
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <Typography variant="body2">Speed:</Typography>
@@ -401,100 +330,7 @@ const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
          </Box>
        )}
 
-      {currentTab === 1 && (
-        <Box>
-          <Typography variant="h6" sx={{ mb: 2 }}>Telestracion Tools</Typography>
-          
-          {/* Controles de Dibujo */}
-          <Paper sx={{ p: 2, mb: 2 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-              <Typography variant="subtitle2">Tools:</Typography>
-              {['brush', 'arrow', 'circle', 'rectangle', 'line'].map((tool) => (
-                <IconButton
-                  key={tool}
-                  onClick={() => setSelectedTool(prev => ({ ...prev, type: tool as any }))}
-                  color={selectedTool.type === tool ? 'primary' : 'default'}
-                  size="small"
-                >
-                  {tool === 'brush' && <Brush />}
-                  {tool === 'arrow' && <Edit />}
-                  {tool === 'circle' && <Add />}
-                  {tool === 'rectangle' && <Add />}
-                  {tool === 'line' && <Timeline />}
-                </IconButton>
-              ))}
-              
-              <TextField
-                type="color"
-                value={selectedTool.color}
-                onChange={(e) => setSelectedTool(prev => ({ ...prev, color: e.target.value }))}
-                size="small"
-                sx={{ width: 60 }}
-              />
-              
-              <TextField
-                type="number"
-                label="Size"
-                value={selectedTool.size}
-                onChange={(e) => setSelectedTool(prev => ({ ...prev, size: parseInt(e.target.value) }))}
-                size="small"
-                sx={{ width: 80 }}
-                inputProps={{ min: 1, max: 20 }}
-              />
-            </Box>
 
-            <Box sx={{ display: 'flex', gap: 1 }}>
-              <Button
-                startIcon={<Undo />}
-                onClick={undoDrawing}
-                disabled={drawingHistory.length === 0}
-                size="small"
-              >
-                Undo
-              </Button>
-              <Button
-                startIcon={<Delete />}
-                onClick={clearDrawing}
-                color="error"
-                size="small"
-              >
-                Clear
-              </Button>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={showGrid}
-                    onChange={(e) => setShowGrid(e.target.checked)}
-                  />
-                }
-                label="Show Grid"
-              />
-            </Box>
-          </Paper>
-
-          {/* Canvas de Dibujo */}
-          <Paper sx={{ p: 2, textAlign: 'center' }}>
-            <canvas
-              ref={drawingRef}
-              width={800}
-              height={600}
-              onMouseDown={handleDrawingStart}
-              style={{
-                border: '2px solid #e0e0e0',
-                borderRadius: '8px',
-                cursor: 'crosshair',
-                background: showGrid ? 
-                  'linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)' : 
-                  'white',
-                backgroundSize: '20px 20px'
-              }}
-            />
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-              Click and drag to draw on the video
-            </Typography>
-          </Paper>
-        </Box>
-      )}
 
       {currentTab === 2 && (
         <Box>

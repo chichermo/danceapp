@@ -16,7 +16,6 @@ import {
   DialogActions
 } from '@mui/material';
 import {
-  Comment,
   Send,
   Edit,
   Delete,
@@ -99,7 +98,7 @@ const CollaborationPanel: React.FC<CollaborationPanelProps> = ({
   const [priority, setPriority] = useState<'low' | 'medium' | 'high' | 'urgent'>('medium');
   const [isRecording, setIsRecording] = useState(false);
   const [isVideoCall, setIsVideoCall] = useState(false);
-  const [showCommentDialog, setShowCommentDialog] = useState(false);
+
   const [editingComment, setEditingComment] = useState<Comment | null>(null);
   const [notifications, setNotifications] = useState(true);
   

@@ -1,220 +1,166 @@
-# 📚 Guía de Importación de Estudiantes - Heliopsis Dance Academy
+# 📚 Student Import Guide - Heliopsis Dance Academy
 
-## 🎯 **Descripción General**
+## 🎯 **General Description**
 
-Esta guía te ayudará a importar la lista completa de estudiantes desde tu archivo `.ods` a la aplicación de Heliopsis Dance Academy. El sistema está diseñado para manejar todos los datos de estudiantes, apoderados, grupos y niveles de danza.
+This guide will help you import the complete student list from your `.ods` file to the Heliopsis Dance Academy application. The system is designed to handle all student data, guardians, groups and dance levels.
 
-## 📋 **Formato de Archivo Soportado**
+## 📋 **Supported File Format**
 
-### **Formatos Aceptados:**
-- ✅ **CSV (.csv)** - Recomendado para importación masiva
-- ✅ **JSON (.json)** - Para datos estructurados
-- ⚠️ **Excel (.xlsx, .xls)** - En desarrollo (exporta como CSV)
+### **Accepted Formats:**
+- ✅ **CSV (.csv)** - Recommended for bulk import
+- ✅ **JSON (.json)** - For structured data
+- ⚠️ **Excel (.xlsx, .xls)** - In development (export as CSV)
 
-### **Tamaño Máximo:**
-- **10 MB** por archivo
+### **Maximum Size:**
+- **10 MB** per file
 
-## 🔄 **Proceso de Importación**
+## 🔄 **Import Process**
 
-### **Paso 1: Preparar el Archivo**
+### **Step 1: Prepare the File**
 
-#### **Opción A: Exportar desde LibreOffice/OpenOffice**
-1. Abre tu archivo `.ods` en **LibreOffice Calc**
-2. Ve a **Archivo → Exportar como → CSV**
-3. Selecciona **UTF-8** como codificación
-4. Guarda como `estudiantes.csv`
+#### **Option A: Export from LibreOffice/OpenOffice**
+1. Open your `.ods` file in **LibreOffice Calc**
+2. Go to **File → Export as → CSV**
+3. Select **UTF-8** as encoding
+4. Save as `students.csv`
 
-#### **Opción B: Exportar desde Google Sheets**
-1. Sube tu archivo `.ods` a **Google Sheets**
-2. **Archivo → Descargar → CSV**
-3. Se descargará automáticamente
+#### **Option B: Export from Google Sheets**
+1. Upload your `.ods` file to **Google Sheets**
+2. **File → Download → CSV**
+3. It will download automatically
 
-#### **Opción C: Convertir Online**
-1. Ve a [convertio.co/ods-csv](https://convertio.co/ods-csv/)
-2. Sube tu archivo `.ods`
-3. Selecciona formato **CSV**
-4. Descarga el archivo convertido
+#### **Option C: Convert Online**
+1. Go to [convertio.co/ods-csv](https://convertio.co/ods-csv/)
+2. Upload your `.ods` file
+3. Select **CSV** format
+4. Download the converted file
 
-### **Paso 2: Estructura del Archivo CSV**
+### **Step 2: CSV File Structure**
 
-#### **Columnas Requeridas:**
+#### **Required Columns:**
 ```csv
-Nombre,Apellido,FechaNacimiento,Genero,Email,Telefono,Direccion,Grupo,Nivel
-Ana,García,2010-05-15,Femenino,ana@email.com,+56912345678,Av. Providencia 1234,Mini Ballet,Principiante
-Carlos,Rodríguez,2009-08-22,Masculino,carlos@email.com,+56923456789,Calle Las Condes 567,Teen Hip Hop,Intermedio
+Name,LastName,BirthDate,Gender,Email,Phone,Address,Group,Level
+Ana,Garcia,2010-05-15,Female,ana@email.com,+56912345678,Av. Providencia 1234,Mini Ballet,Beginner
+Carlos,Rodriguez,2009-08-22,Male,carlos@email.com,+56923456789,Calle Las Condes 567,Teen Hip Hop,Intermediate
 ```
 
-#### **Columnas Opcionales:**
+#### **Optional Columns:**
 ```csv
-Nombre,Apellido,FechaNacimiento,Genero,Email,Telefono,Direccion,Grupo,Nivel,Apoderado,TelefonoApoderado,EmailApoderado,Notas
+Name,LastName,BirthDate,Gender,Email,Phone,Address,Group,Level,Guardian,GuardianPhone,GuardianEmail,Notes
 ```
 
-### **Paso 3: Importar en la Aplicación**
+### **Step 3: Import in the Application**
 
-1. **Abre la aplicación** Heliopsis Dance Academy
-2. Ve a **Estudiantes** en el menú lateral
-3. Haz clic en **"Importar"** (botón azul)
-4. **Arrastra y suelta** tu archivo CSV o haz clic para seleccionar
-5. **Revisa los resultados** de la importación
-6. **Confirma** la importación
+1. **Open the** Heliopsis Dance Academy application
+2. Go to **Students** in the side menu
+3. Click **"Import"** (blue button)
+4. **Drag and drop** your CSV file or click to select
+5. **Review the results** of the import
+6. **Confirm** the import
 
-## 📊 **Mapeo de Datos**
+## 📊 **Data Mapping**
 
-### **Datos Personales:**
-| Campo CSV | Campo Aplicación | Descripción |
+### **Personal Data:**
+| CSV Field | Application Field | Description |
 |-----------|------------------|-------------|
-| `Nombre` | Nombre | Primer nombre del estudiante |
-| `Apellido` | Apellido | Apellido del estudiante |
-| `FechaNacimiento` | Fecha de Nacimiento | Formato: YYYY-MM-DD |
-| `Genero` | Género | Femenino/Masculino/No binario |
+| `Name` | Name | Student's first name |
+| `LastName` | Last Name | Student's last name |
+| `BirthDate` | Birth Date | Format: YYYY-MM-DD |
+| `Gender` | Gender | Female/Male/Non-binary |
 
-### **Información de Contacto:**
-| Campo CSV | Campo Aplicación | Descripción |
+### **Contact Information:**
+| CSV Field | Application Field | Description |
 |-----------|------------------|-------------|
-| `Email` | Email | Correo electrónico del estudiante |
-| `Telefono` | Teléfono | Número de teléfono con código país |
+| `Email` | Email | Student's email address |
+| `Phone` | Phone | Phone number with country code |
 
-### **Dirección:**
-| Campo CSV | Campo Aplicación | Descripción |
+### **Address:**
+| CSV Field | Application Field | Description |
 |-----------|------------------|-------------|
-| `Direccion` | Dirección | Calle y número |
-| `Ciudad` | Ciudad | Ciudad de residencia |
-| `Region` | Región | Región o estado |
-| `CodigoPostal` | Código Postal | Código postal |
+| `Address` | Address | Street and number |
+| `City` | City | City of residence |
+| `Region` | Region | Region or state |
+| `PostalCode` | Postal Code | Postal code |
 
-### **Información Académica:**
-| Campo CSV | Campo Aplicación | Descripción |
+### **Academic Information:**
+| CSV Field | Application Field | Description |
 |-----------|------------------|-------------|
-| `Grupo` | Grupos de Danza | Nombre del grupo de danza |
-| `Nivel` | Nivel | Principiante/Intermedio/Avanzado/Experto |
-| `Estilo` | Estilo de Danza | Ballet/Hip Hop/Contemporáneo/Jazz |
+| `Group` | Dance Groups | Dance group name |
+| `Level` | Level | Beginner/Intermediate/Advanced/Expert |
+| `Style` | Dance Style | Ballet/Hip Hop/Contemporary/Jazz |
 
-### **Información de Apoderados:**
-| Campo CSV | Campo Aplicación | Descripción |
+### **Guardian Information:**
+| CSV Field | Application Field | Description |
 |-----------|------------------|-------------|
-| `Apoderado` | Nombre del Apoderado | Nombre completo del apoderado |
-| `TelefonoApoderado` | Teléfono del Apoderado | Número de contacto |
-| `EmailApoderado` | Email del Apoderado | Correo del apoderado |
-| `Relacion` | Relación | Padre/Madre/Tutor/Apoderado |
+| `Guardian` | Guardian Name | Guardian's full name |
+| `GuardianPhone` | Guardian Phone | Contact number |
+| `GuardianEmail` | Guardian Email | Guardian's email |
+| `Relationship` | Relationship | Father/Mother/Tutor/Guardian |
 
-## ⚠️ **Validaciones y Errores Comunes**
+## ⚠️ **Validations and Common Errors**
 
-### **Errores Frecuentes:**
-1. **Formato de fecha incorrecto**
+### **Frequent Errors:**
+1. **Incorrect date format**
    - ❌ `15/05/2010`
    - ✅ `2010-05-15`
 
-2. **Números de teléfono sin código país**
+2. **Phone numbers without country code**
    - ❌ `12345678`
    - ✅ `+56912345678`
 
-3. **Emails sin formato válido**
+3. **Invalid email format**
    - ❌ `ana.email`
    - ✅ `ana@email.com`
 
-4. **Niveles no reconocidos**
+4. **Unrecognized levels**
    - ❌ `Principante`
-   - ✅ `Principiante`
+   - ✅ `Beginner`
 
-### **Advertencias Comunes:**
-- Campos vacíos (se completarán con valores por defecto)
-- Nombres duplicados (se agregará sufijo numérico)
-- Grupos no existentes (se crearán automáticamente)
+### **Common Warnings:**
+- Empty fields (will be filled with default values)
+- Duplicate names (numeric suffix will be added)
+- Non-existent groups (will be created automatically)
 
-## 🎭 **Integración con Coreografías**
+## 🎭 **Choreography Integration**
 
-Una vez importados los estudiantes, podrás:
+Once students are imported, you can:
 
-### **Selección Automática:**
-- ✅ **Filtrar por grupo** de danza
-- ✅ **Filtrar por nivel** de experiencia
-- ✅ **Filtrar por edad** del estudiante
-- ✅ **Búsqueda por nombre** en tiempo real
+### **Automatic Selection:**
+- ✅ **Filter by dance group**
+- ✅ **Filter by experience level**
+- ✅ **Filter by student age**
+- ✅ **Search by name** in real time
 
-### **Asignación en Coreografías:**
-- ✅ **Seleccionar estudiantes** específicos
-- ✅ **Crear formaciones** con nombres reales
-- ✅ **Sincronizar música** con movimientos
-- ✅ **Compartir** con estudiantes reales
+### **Assignment in Choreographies:**
+- ✅ **Select specific students**
+- ✅ **Create formations** with real names
+- ✅ **Synchronize music** with movements
+- ✅ **Share** with real students
 
-## 🔧 **Solución de Problemas**
+## 🔧 **Troubleshooting**
 
-### **El archivo no se importa:**
-1. Verifica el formato (debe ser CSV)
-2. Revisa el tamaño (máximo 10MB)
-3. Asegúrate de que tenga encabezados
-4. Verifica la codificación (UTF-8)
+### **File doesn't import:**
+1. Check the format (must be CSV)
+2. Review the size (maximum 10MB)
+3. Make sure it has headers
+4. Verify the encoding (UTF-8)
 
-### **Datos faltantes:**
-1. Revisa los nombres de las columnas
-2. Verifica que no haya espacios extra
-3. Asegúrate de que las fechas estén en formato correcto
-4. Revisa que los niveles sean válidos
+### **Missing data:**
+1. Check column names
+2. Verify there are no extra spaces
+3. Make sure dates are in correct format
+4. Check that levels are valid
 
-### **Errores de validación:**
-1. Revisa el formato de emails
-2. Verifica los números de teléfono
-3. Asegúrate de que las fechas sean válidas
-4. Revisa que los géneros sean correctos
+### **Validation errors:**
+1. Review email format
+2. Verify phone numbers
+3. Make sure dates are valid
+4. Check that genders are correct
 
-## 📱 **Funcionalidades Post-Importación**
+## 📱 **Post-Import Features**
 
-### **Gestión de Estudiantes:**
-- ✅ **Editar información** personal
-- ✅ **Agregar/remover** apoderados
-- ✅ **Cambiar grupos** de danza
-- ✅ **Actualizar niveles** de experiencia
-
-### **Reportes y Estadísticas:**
-- ✅ **Dashboard** con métricas
-- ✅ **Asistencia** por estudiante
-- ✅ **Progreso** en grupos
-- ✅ **Exportación** de datos
-
-### **Comunicación:**
-- ✅ **Mensajes** a apoderados
-- ✅ **Notificaciones** de clases
-- ✅ **Recordatorios** de eventos
-- ✅ **Reportes** de progreso
-
-## 🚀 **Próximas Funcionalidades**
-
-### **En Desarrollo:**
-- 🔄 **Importación desde Excel** (.xlsx, .xls)
-- 🔄 **Sincronización con Google Sheets**
-- 🔄 **API para integración externa**
-- 🔄 **Backup automático** de datos
-
-### **Planeado:**
-- 📅 **Calendario individual** por estudiante
-- 📊 **Análisis de progreso** avanzado
-- 🎥 **Videos de práctica** personalizados
-- 💰 **Gestión de pagos** y cuotas
-
-## 📞 **Soporte Técnico**
-
-### **Si tienes problemas:**
-1. **Revisa esta guía** paso a paso
-2. **Verifica el formato** de tu archivo
-3. **Contacta al equipo** de desarrollo
-4. **Proporciona detalles** del error
-
-### **Información útil para reportar:**
-- Tipo de archivo original
-- Formato de exportación usado
-- Mensajes de error específicos
-- Capturas de pantalla del problema
-
----
-
-## 🎯 **Resumen Rápido**
-
-1. **Convierte** tu archivo `.ods` a `.csv`
-2. **Verifica** que tenga las columnas correctas
-3. **Importa** desde la sección Estudiantes
-4. **Revisa** los resultados y corrige errores
-5. **¡Disfruta** de tu aplicación con datos reales! 🎭✨
-
----
-
-*Esta guía se actualiza regularmente. Última actualización: Enero 2024*
+### **Student Management:**
+- ✅ **Edit personal information**
+- ✅ **Add/remove guardians**
+- ✅ **Change dance groups**
+- ✅ **Update experience levels**

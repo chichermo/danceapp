@@ -21,45 +21,28 @@ import {
   Avatar,
   Tabs,
   Tab,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
-  Divider,
   Paper,
   InputAdornment,
   Slider,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Badge,
   Switch,
   FormControlLabel,
   Alert,
-  Snackbar
+  Snackbar,
+  Divider
 } from '@mui/material';
 import {
   Add as AddIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
-  Person as PersonIcon,
-  School as SchoolIcon,
-  FitnessCenter as DanceIcon,
   CalendarToday as CalendarIcon,
   Search as SearchIcon,
   FilterList as FilterIcon,
   CloudUpload as UploadIcon,
   Download as DownloadIcon,
-  ExpandMore,
   Phone,
   Email,
   LocationOn,
   Group,
-  TrendingUp,
-  Visibility,
-  VisibilityOff,
-  Star,
-  StarBorder
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Student, StudentFormData, StudentFilters, DanceGroup } from '../types/Student';
@@ -218,7 +201,7 @@ const Students: React.FC = () => {
       }
     } else {
       // Crear nuevo estudiante
-      const newStudent = studentService.createStudent(formData);
+      studentService.createStudent(formData);
       setSnackbar({
         open: true,
         message: 'Student created successfully',
@@ -257,7 +240,7 @@ const Students: React.FC = () => {
         severity: result.errors.length > 0 ? 'info' : 'success'
       });
       
-      // Recargar la lista de estudiantes
+      // Reload the student list
       loadStudents();
     } else {
       setSnackbar({

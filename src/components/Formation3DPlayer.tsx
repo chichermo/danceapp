@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   Typography,
-  Button,
   Slider,
   Grid,
   Chip,
@@ -53,7 +52,7 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // Seleccionar música y video por defecto
+    // Select default music and video
     if (musicTracks.length > 0 && !selectedMusic) {
       setSelectedMusic(musicTracks[0]);
     }
@@ -93,7 +92,7 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
     setIsPlaying(true);
     setDuration(Math.max(selectedMusic.duration, selectedVideo.duration));
 
-    // Simular reproducción de música
+    // Simulate music playback
     if (selectedMusic) {
       musicService.playTrack(selectedMusic.id, (progress) => {
         if (autoSync) {
@@ -282,7 +281,7 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
                 Content Selection
               </Typography>
 
-              {/* Selección de música */}
+              {/* Music Selection */}
               <FormControl fullWidth sx={{ mb: 2 }}>
                 <InputLabel>Music</InputLabel>
                 <Select
@@ -353,7 +352,7 @@ const Formation3DPlayer: React.FC<Formation3DPlayerProps> = ({ onFormationUpdate
                 />
               </Box>
 
-              {/* Información de la selección */}
+              {/* Selection Information */}
               {selectedMusic && (
                 <Card variant="outlined" sx={{ mb: 2 }}>
                   <CardContent>

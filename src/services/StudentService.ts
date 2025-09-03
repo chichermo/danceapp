@@ -1,4 +1,4 @@
-import { Student, StudentFormData, StudentFilters, StudentStats, DanceGroup, Guardian, Address } from '../types/Student';
+import { Student, StudentFormData, StudentFilters, StudentStats, DanceGroup } from '../types/Student';
 
 // Real Heliopsis Dance Academy groups
 const realDanceGroups: DanceGroup[] = [

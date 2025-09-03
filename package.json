@@ -1,7 +1,7 @@
 {
   "name": "heliopsis-dance-academy",
   "version": "1.0.0",
-  "description": "Aplicación profesional para la escuela de danza Heliopsis",
+  "description": "Professional application for Heliopsis Dance Academy",
   "private": true,
   "dependencies": {
     "@types/node": "^18.15.0",

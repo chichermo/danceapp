@@ -11,12 +11,9 @@ import {
   DialogActions,
   Grid,
   IconButton,
-  Tooltip,
   Switch,
   FormControlLabel,
-  Divider,
-  Chip,
-  Avatar
+  Chip
 } from '@mui/material';
 import {
   Palette,

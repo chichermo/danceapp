@@ -87,7 +87,7 @@ class MetricsService {
 
     return {
       studentId,
-      studentName: `Estudiante ${studentId}`, // Esto se puede mejorar con un servicio de estudiantes
+      studentName: `Student ${studentId}`, // This can be improved with a student service
       totalPracticeTime,
       choreographiesCompleted,
       averageAccuracy,

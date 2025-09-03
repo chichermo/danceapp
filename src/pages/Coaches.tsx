@@ -11,29 +11,21 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Chip,
   IconButton,
   Tooltip,
   Avatar,
   Rating,
-  LinearProgress,
   Divider,
 } from '@mui/material';
 import {
   Add as AddIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
-  Person as PersonIcon,
   Email as EmailIcon,
   Phone as PhoneIcon,
   School as SchoolIcon,
   FitnessCenter as DanceIcon,
-  Star as StarIcon,
-  Schedule as ScheduleIcon,
   FitnessCenter,
 } from '@mui/icons-material';
 import persistenceService from '../services/PersistenceService';
@@ -308,14 +300,7 @@ const Coaches: React.FC = () => {
     }));
   };
 
-  const getStatusColor = (status: string) => {
-    const colors: { [key: string]: string } = {
-      'active': 'success',
-      'inactive': 'warning',
-      'on_leave': 'info',
-    };
-    return colors[status] || 'default';
-  };
+
 
   const getStatusText = (status: string) => {
     const texts: { [key: string]: string } = {

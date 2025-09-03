@@ -297,7 +297,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ open, onClose, onLogout }) =>
                     <TextField
                       select
                       fullWidth
-                      label="Idioma"
+                      label="Language"
                       value={editData.preferences.language}
                       onChange={(e) => setEditData(prev => ({
                         ...prev,

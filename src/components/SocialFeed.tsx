@@ -50,12 +50,7 @@ const SocialFeed: React.FC<SocialFeedProps> = ({ open, onClose }) => {
   const [newPostContent, setNewPostContent] = useState('');
   const [newPostType, setNewPostType] = useState<Post['type']>('choreography');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedTag, setSelectedTag] = useState<string>('');
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(false);
-
-  const currentUser = socialService.getCurrentUser();
 
   useEffect(() => {
     if (open) {
@@ -128,10 +123,7 @@ const SocialFeed: React.FC<SocialFeedProps> = ({ open, onClose }) => {
     }
   };
 
-  const handleFollow = (userId: string) => {
-    const followed = socialService.followUser(userId);
-    // Actualizar UI según sea necesario
-  };
+
 
   const formatTimeAgo = (date: Date) => {
     const now = new Date();
@@ -205,7 +197,7 @@ const SocialFeed: React.FC<SocialFeedProps> = ({ open, onClose }) => {
                   key={index}
                   label={`#${trend.tag} (${trend.count})`}
                   size="small"
-                  onClick={() => setSelectedTag(trend.tag)}
+
                   sx={{ 
                     m: 0.5,
                     cursor: 'pointer',

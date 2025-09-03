@@ -66,7 +66,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ open, onClose }
     setLoading(true);
     
     setTimeout(() => {
-      const usageAnalytics = analyticsService.getUsageAnalytics();
+
       const performanceMetrics = analyticsService.getPerformanceMetrics();
       const recentEvents = analyticsService.getRecentEvents(20);
       const report = analyticsService.generateReport();

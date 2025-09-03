@@ -181,14 +181,12 @@ const Choreography: React.FC = () => {
   const [selectedChoreography, setSelectedChoreography] = useState<Choreography | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [editingChoreography, setEditingChoreography] = useState<Choreography | null>(null);
-  const [selectedTab, setSelectedTab] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [currentFormation, setCurrentFormation] = useState<Formation | null>(null);
   const [showFormationEditor, setShowFormationEditor] = useState(false);
   const [editingFormation, setEditingFormation] = useState<Formation | null>(null);
   const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
-  const [canvasSize, setCanvasSize] = useState({ width: 800, height: 600 });
   const [timelineMarkers, setTimelineMarkers] = useState<Array<{
     id: string;
     time: number;
@@ -198,8 +196,6 @@ const Choreography: React.FC = () => {
     description?: string;
   }>>([]);
   const [activeTab, setActiveTab] = useState(0);
-  const [dancers, setDancers] = useState<Dancer[]>([]);
-  const [currentFormationFrame, setCurrentFormationFrame] = useState<any>(null);
   const [selectedDancer, setSelectedDancer] = useState<string | undefined>(undefined);
   const [showTutorial, setShowTutorial] = useState(false);
   const [showMetrics, setShowMetrics] = useState(false);
@@ -230,8 +226,6 @@ const Choreography: React.FC = () => {
   const students = allStudents.filter((student, index, self) => 
     index === self.findIndex(s => s.fullName === student.fullName)
   );
-  const categories = ['Mini', 'Teens', 'Adults', 'High Level'];
-  const difficulties = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
   const coaches = ['Liesbeth Kreps', 'Giulia', 'Miet', 'Aline', 'Erien', 'Britt', 'Anaïs', 'Naëlle', 'Eline', 'Marc'];
 
   const dancerColors = [
@@ -471,14 +465,7 @@ const Choreography: React.FC = () => {
     }
   };
 
-  const getFormationAtTime = (time: number) => {
-    if (!selectedChoreography) return null;
-    return selectedChoreography.formations.find(f => 
-      f.timestamp <= time && 
-      (!selectedChoreography.formations.find(next => next.timestamp > f.timestamp) || 
-       selectedChoreography.formations.find(next => next.timestamp > f.timestamp)!.timestamp > time)
-    );
-  };
+
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -863,20 +850,10 @@ const Choreography: React.FC = () => {
           // Tab: 3D Player
           <Formation3DPlayer 
             onFormationUpdate={(frame) => {
-              setCurrentFormationFrame(frame);
               // Update the 3D stage with the current formation
               if (frame && frame.dancers) {
-                const updatedDancers = frame.dancers.map(dancer => ({
-                  id: dancer.id,
-                  name: dancer.name,
-                  x: dancer.x,
-                  y: dancer.y,
-                  z: dancer.z,
-                  color: dancer.color,
-                  isVisible: dancer.isVisible
-                }));
-                // Update dancers in local state
-                setDancers(updatedDancers);
+                // Handle formation update if needed
+                console.log('Formation updated:', frame);
               }
             }}
           />

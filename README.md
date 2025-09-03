@@ -1,213 +1,177 @@
-# 🎭 Heliopsis Dance Academy - App Profesional de Danza
+# 🎭 Heliopsis Dance Academy - Professional Dance App
 
-[![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
-[![Material-UI](https://img.shields.io/badge/Material--UI-5.14-blue.svg)](https://mui.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+## 🎯 **Overview**
 
-> **Aplicación web profesional para la escuela de danza Heliopsis** - Una plataforma completa para crear, editar y sincronizar coreografías con herramientas avanzadas de análisis de video y colaboración en tiempo real.
+> **Professional web application for Heliopsis Dance Academy** - A complete platform for creating, editing and synchronizing choreographies with advanced video analysis tools and real-time collaboration.
 
-## ✨ Características Principales
+## ✨ **Key Features**
 
-### 🎭 **Gestión de Coreografías**
-- ✅ Crear y editar coreografías completas
-- ✅ Subir archivos de música (MP3, WAV, AAC, OGG)
-- ✅ Subir videos de referencia (MP4, MOV, AVI, MKV)
-- ✅ Gestión de estudiantes y participantes
-- ✅ Categorización por nivel y tipo de danza
+### **Core Functionality:**
+- ✅ **Choreography Management** - Create, edit and organize dance routines
+- ✅ **Student and participant management**
+- ✅ **Categorization by level and dance type**
+- ✅ **Music synchronization** with precise timing
+- ✅ **3D stage view** for dance choreography
+- ✅ **Real-time collaboration** with comments and annotations
+- ✅ **Video analysis** with frame-by-frame review
+- ✅ **Formation templates** for different dance styles
 
-### 🌟 **Escenario 3D Interactivo**
-- ✅ Vista tridimensional del escenario de danza
-- ✅ Posicionamiento drag & drop de bailarines
-- ✅ Múltiples formaciones con timestamps
-- ✅ Controles de vista: superior, frontal, lateral, 3D
-- ✅ Zoom, rotación y cuadrícula de referencia
+### **Advanced Tools:**
+- ✅ **AI-powered suggestions** for choreography optimization
+- ✅ **Performance analytics** and progress tracking
+- ✅ **Social feed** for sharing achievements
+- ✅ **Custom dance theme**
+- ✅ **Responsive design** for all devices
 
-### 🎵 **Timeline Musical Avanzado**
-- ✅ Sincronización perfecta música ↔ coreografía
-- ✅ Controles de velocidad (0.25x - 2x)
-- ✅ Marcadores de tiempo para formaciones
-- ✅ Reproducción con controles profesionales
-- ✅ Transiciones automáticas entre formaciones
+## 🚀 **Getting Started**
 
-### 🎥 **Análisis de Video Profesional**
-- ✅ Herramientas estilo Coach's Eye
-- ✅ Telestración: dibujar sobre videos
-- ✅ Marcadores de análisis técnico
-- ✅ Reproducción en cámara lenta
-- ✅ Herramientas de dibujo: líneas, círculos, flechas
-
-### 💬 **Colaboración en Tiempo Real**
-- ✅ Sistema de comentarios por tipo
-- ✅ Marcadores posicionales en el escenario
-- ✅ Comunicación estudiante-profesor
-- ✅ Historial de comentarios y respuestas
-
-### 📱 **Diseño Responsivo**
-- ✅ Funciona en PC, tablet y móvil
-- ✅ Interfaz moderna y profesional
-- ✅ Tema personalizado para danza
-- ✅ Animaciones fluidas con Framer Motion
-
-## 🚀 Tecnologías Utilizadas
-
-- **Frontend:** React 18 + TypeScript
-- **UI Framework:** Material-UI (MUI) v5
-- **Animaciones:** Framer Motion
-- **Routing:** React Router v6
-- **Estado:** React Hooks
-- **Estilos:** CSS-in-JS con MUI System
-- **Build Tool:** Create React App
-
-## 📦 Instalación
-
-### Prerrequisitos
+### **Prerequisites:**
 - Node.js 16+ 
-- npm o yarn
+- npm or yarn
+- Modern web browser
 
-### Pasos de Instalación
-
+### **Installation:**
 ```bash
-# Clonar el repositorio
-git clone https://github.com/chichermo/danceapp.git
-cd danceapp
+# Clone the repository
+git clone https://github.com/your-username/heliopsis-dance-app.git
 
-# Instalar dependencias
+# Navigate to the project directory
+cd heliopsis-dance-app
+
+# Install dependencies
 npm install
 
-# Iniciar en modo desarrollo
+# Start the development server
 npm start
-
-# Construir para producción
-npm run build
 ```
 
-## 🎯 Cómo Usar
-
-### 1. **Crear Nueva Coreografía**
-- Haz clic en "📚 Tutorial" para guía completa
-- Haz clic en "Nueva Coreografía"
-- Sube archivo de música (OBLIGATORIO)
-- Selecciona estudiantes participantes
-- Guarda la coreografía
-
-### 2. **Diseñar Escenario 3D**
-- Ve a la pestaña "🎭 Escenario 3D"
-- Haz clic en "Nueva Formación"
-- Arrastra bailarines en el canvas
-- Define nombre y timestamp
-- Guarda la formación
-
-### 3. **Sincronizar con Música**
-- Ve a "🎵 Timeline Musical"
-- Reproduce la música
-- Agrega marcadores importantes
-- Las formaciones cambian automáticamente
-
-### 4. **Analizar Videos**
-- Ve a "🎥 Análisis de Video"
-- Sube video de práctica
-- Usa herramientas de telestración
-- Marca correcciones técnicas
-
-### 5. **Colaborar**
-- Ve a "💬 Colaboración"
-- Agrega comentarios por tipo
-- Marca posiciones específicas
-- Comparte con estudiantes
-
-## 🏗️ Estructura del Proyecto
-
-```
-danceapp/
-├── public/                 # Archivos públicos
-│   ├── index.html         # HTML principal
-│   ├── manifest.json      # PWA manifest
-│   └── favicon.ico        # Icono de la app
-├── src/                   # Código fuente
-│   ├── components/        # Componentes reutilizables
-│   │   ├── Stage3D.tsx           # Escenario 3D
-│   │   ├── MusicTimeline.tsx     # Timeline musical
-│   │   ├── VideoAnalysis.tsx     # Análisis de video
-│   │   ├── CollaborationPanel.tsx # Panel de colaboración
-│   │   └── TutorialGuide.tsx     # Guía interactiva
-│   ├── pages/            # Páginas principales
-│   │   ├── Dashboard.tsx         # Dashboard principal
-│   │   ├── Choreography.tsx      # Gestión de coreografías
-│   │   ├── Classes.tsx           # Gestión de clases
-│   │   ├── Students.tsx          # Gestión de estudiantes
-│   │   ├── Coaches.tsx           # Gestión de coaches
-│   │   └── Calendar.tsx          # Calendario de clases
-│   ├── App.tsx           # Componente principal
-│   ├── index.tsx         # Punto de entrada
-│   └── Layout.tsx        # Layout de la aplicación
-├── package.json          # Dependencias y scripts
-├── tsconfig.json         # Configuración de TypeScript
-└── README.md             # Este archivo
+### **Environment Variables:**
+Create a `.env` file in the root directory:
+```env
+REACT_APP_API_URL=http://localhost:3001
+REACT_APP_ENVIRONMENT=development
 ```
 
-## 🎨 Temas y Personalización
+## 🎭 **Usage Guide**
 
-La aplicación utiliza un tema personalizado de Material-UI con colores inspirados en la danza:
+### **Creating Choreographies:**
+1. Navigate to the **Choreography** section
+2. Click **"New Choreography"**
+3. **Select participating students**
+4. **Set music track** and timing
+5. **Create formations** and movements
+6. **Save and share** with students
 
-- **Primario:** #FF6B9D (Rosa vibrante)
-- **Secundario:** #4ECDC4 (Turquesa)
-- **Fondo:** Gradientes profesionales
-- **Tipografía:** Poppins + Roboto
+### **Student Management:**
+1. Go to **Students** section
+2. **Import student list** from CSV
+3. **Organize by groups** and levels
+4. **Track progress** and attendance
+5. **Share with students**
 
-## 🔧 Scripts Disponibles
+## 🏗️ **Project Structure**
 
+```
+src/
+├── components/           # Reusable UI components
+│   ├── AIAssistant.tsx      # AI-powered suggestions
+│   ├── AnalyticsDashboard.tsx   # Analytics and metrics
+│   ├── CollaborationPanel.tsx   # Real-time collaboration
+│   ├── FileImporter.tsx        # File import functionality
+│   ├── Formation3DPlayer.tsx   # 3D formation player
+│   ├── MusicTimeline.tsx       # Music synchronization
+│   ├── PerformanceOptimizer.tsx # Performance optimization
+│   ├── SocialFeed.tsx          # Social interactions
+│   └── UserProfile.tsx         # User profile management
+├── pages/               # Main application pages
+│   ├── Calendar.tsx           # Class and event calendar
+│   ├── Choreography.tsx       # Choreography management
+│   ├── Classes.tsx            # Class management
+│   ├── Coaches.tsx            # Coach profiles
+│   ├── Dashboard.tsx          # Main dashboard
+│   └── Students.tsx           # Student management
+├── services/            # Business logic and API calls
+│   ├── AIService.ts           # AI and optimization
+│   ├── AuthService.ts         # Authentication
+│   ├── MetricsService.ts      # Analytics and metrics
+│   ├── MusicService.ts        # Music management
+│   ├── PersistenceService.ts  # Data persistence
+│   ├── RealtimeService.ts     # Real-time features
+│   ├── SocialService.ts       # Social interactions
+│   ├── StudentService.ts      # Student data
+│   └── VideoService.ts        # Video analysis
+├── theme/               # Custom theme and styling
+│   └── customTheme.ts         # Application theme
+└── Layout.tsx           # Application layout
+```
+
+## 🎨 **Customization**
+
+The application uses a custom Material-UI theme with dance-inspired colors:
+
+### **Color Palette:**
+- **Primary:** Dance Pink (#FF6B9D)
+- **Secondary:** Stage Blue (#4ECDC4)
+- **Accent:** Performance Gold (#FFE66D)
+- **Neutral:** Professional Grays
+
+### **Typography:**
+- **Headings:** Inter (Bold, Modern)
+- **Body:** Roboto (Readable, Clean)
+- **Special:** Poppins (Creative, Dance-inspired)
+
+## 🔧 **Development**
+
+### **Available Scripts:**
 ```bash
-npm start          # Inicia en modo desarrollo
-npm run build      # Construye para producción
-npm run test       # Ejecuta tests
-npm run eject      # Expone configuración de CRA
+npm start          # Start development server
+npm run build      # Build for production
+npm run test       # Run tests
+npm run eject      # Eject from Create React App
 ```
 
-## 📱 Características PWA
+### **Code Style:**
+- **ESLint** for code quality
+- **Prettier** for formatting
+- **TypeScript** for type safety
+- **Material-UI** for components
 
-- ✅ Instalable como app nativa
-- ✅ Funciona offline
-- ✅ Manifest personalizado
-- ✅ Iconos adaptativos
+## 🌟 **Inspiration**
 
-## 🌟 Inspiración
+This application is inspired by professional tools like:
 
-Esta aplicación está inspirada en herramientas profesionales como:
-- **FORMI Studio** - Para funcionalidades 3D y colaboración
-- **Coach's Eye** - Para análisis de video y telestración
-- **Spotify** - Para timeline musical y sincronización
+- **Dance Studio Pro** - Professional choreography management
+- **Coach's Eye** - Video analysis and feedback
+- **Final Cut Pro** - Timeline and synchronization
+- **Spotify** - Music management and playlists
 
-## 🤝 Contribuir
+## 🤝 **Contributing**
 
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+We welcome contributions! Please read our contributing guidelines:
 
-## 📄 Licencia
+1. **Fork** the repository
+2. **Create** a feature branch
+3. **Make** your changes
+4. **Test** thoroughly
+5. **Submit** a pull request
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para detalles.
+### **Community:**
+- **Dance community** developers
+- **Open source** enthusiasts
+- **Educational** technology experts
+- **School:** Heliopsis Dance Academy
 
-## 👥 Autores
+## 📄 **License**
 
-- **Heliopsis Dance Academy** - *Desarrollo inicial*
-- **Contribuidores** - *Mejoras y funcionalidades*
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Agradecimientos
+## 🙏 **Acknowledgments**
 
-- Material-UI por el framework de componentes
-- Framer Motion por las animaciones fluidas
-- React Team por la biblioteca principal
-- Comunidad de desarrolladores de danza
-
-## 📞 Contacto
-
-- **Escuela:** Heliopsis Dance Academy
-- **GitHub:** [@chichermo](https://github.com/chichermo)
-- **Proyecto:** [danceapp](https://github.com/chichermo/danceapp)
+- **Heliopsis Dance Academy** for inspiration and support
+- **Material-UI** team for the excellent component library
+- **React** community for the amazing framework
+- **Open source** contributors worldwide
 
 ---
 
-⭐ **Si este proyecto te ayuda, ¡dale una estrella en GitHub!** ⭐
+**Made with ❤️ for the dance community**

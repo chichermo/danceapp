@@ -243,7 +243,7 @@ const FileImporter: React.FC<FileImporterProps> = ({
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'template-estudiantes.csv';
+    a.download = 'template-students.csv';
     a.click();
     window.URL.revokeObjectURL(url);
   };

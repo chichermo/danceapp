@@ -30,7 +30,7 @@ import {
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { es } from 'date-fns/locale';
+import { enUS } from 'date-fns/locale';
 
 interface Class {
   id: string;
@@ -513,7 +513,7 @@ const Calendar: React.FC = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={es}>
+              <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enUS}>
                 <DatePicker
                   label="Date"
                   value={formData.date}

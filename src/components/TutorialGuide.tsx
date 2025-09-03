@@ -9,7 +9,6 @@ import {
   StepLabel,
   StepContent,
   Alert,
-  Chip,
   List,
   ListItem,
   ListItemIcon,
@@ -17,7 +16,6 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
   IconButton
 } from '@mui/material';
 import {

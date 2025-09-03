@@ -1,365 +1,313 @@
 import React, { useState } from 'react';
 import {
   Box,
+  Drawer,
   AppBar,
   Toolbar,
-  Typography,
-  IconButton,
-  Drawer,
   List,
+  Typography,
+  Divider,
+  IconButton,
   ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
-  useTheme,
-  useMediaQuery,
   Avatar,
+  Badge,
   Menu,
   MenuItem,
-  Divider,
-  Badge,
+  Container,
+  Chip,
+  Tooltip
 } from '@mui/material';
 import {
   Menu as MenuIcon,
-  Dashboard as DashboardIcon,
-  CalendarToday as CalendarIcon,
-  MusicNote as ChoreographyIcon,
-  People as StudentsIcon,
-  FitnessCenter as CoachesIcon,
-  Class as ClassesIcon,
-  AccountCircle as AccountIcon,
+  Home as HomeIcon,
+  People as PeopleIcon,
+  School as SchoolIcon,
+  Event as EventIcon,
+  MusicNote as MusicNoteIcon,
   Notifications as NotificationsIcon,
   Settings as SettingsIcon,
-  Logout as LogoutIcon,
-  Home as HomeIcon,
+  AccountCircle as AccountCircleIcon,
+  Dashboard as DashboardIcon,
+  CalendarToday as CalendarIcon,
+  Videocam as VideocamIcon,
+  Analytics as AnalyticsIcon,
+  Group as GroupIcon,
+  EmojiEvents as EmojiEventsIcon,
+  TrendingUp as TrendingUpIcon,
+  Star as StarIcon,
+  Logout as LogoutIcon
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const drawerWidth = 280;
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const location = useLocation();
 
-  const navigationItems = [
-    { path: '/', label: 'Dashboard', icon: <DashboardIcon />, badge: null },
-    { path: '/calendar', label: 'Calendar', icon: <CalendarIcon />, badge: 3 },
-    { path: '/choreography', label: 'Choreographies', icon: <ChoreographyIcon />, badge: 5 },
-    { path: '/students', label: 'Students', icon: <StudentsIcon />, badge: 12 },
-    { path: '/coaches', label: 'Coaches', icon: <CoachesIcon />, badge: null },
-    { path: '/classes', label: 'Classes', icon: <ClassesIcon />, badge: 8 },
+  const menuItems = [
+    { text: 'Dashboard', icon: DashboardIcon, path: '/', color: '#667eea' },
+    { text: 'Students', icon: PeopleIcon, path: '/students', color: '#f093fb' },
+    { text: 'Coaches', icon: SchoolIcon, path: '/coaches', color: '#4facfe' },
+    { text: 'Classes', icon: EventIcon, path: '/classes', color: '#43e97b' },
+    { text: 'Calendar', icon: CalendarIcon, path: '/calendar', color: '#fa709a' },
+    { text: 'Choreography', icon: MusicNoteIcon, path: '/choreography', color: '#6c5ce7' },
+    { text: 'Analytics', icon: AnalyticsIcon, path: '/analytics', color: '#fd79a8' },
+    { text: 'Social Feed', icon: GroupIcon, path: '/social', color: '#00b894' },
+    { text: 'Performance', icon: EmojiEventsIcon, path: '/performance', color: '#fdcb6e' }
   ];
 
   const handleDrawerToggle = () => {
-    setDrawerOpen(!drawerOpen);
+    setMobileOpen(!mobileOpen);
   };
 
-  const handleNavigation = (path: string) => {
-    navigate(path);
-    if (isMobile) {
-      setDrawerOpen(false);
-    }
-  };
-
-  const handleAccountMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-    setAccountMenuOpen(true);
   };
 
-  const handleAccountMenuClose = () => {
+  const handleMenuClose = () => {
     setAnchorEl(null);
-    setAccountMenuOpen(false);
   };
 
   const getPageTitle = () => {
-    const currentItem = navigationItems.find(item => item.path === location.pathname);
-    return currentItem ? currentItem.label : 'Heliopsis Dance Academy';
+    const currentItem = menuItems.find(item => item.path === location.pathname);
+    return currentItem ? currentItem.text : 'Heliopsis Dance Academy';
   };
-
-  const drawerWidth = 220;
 
   const drawer = (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      {/* Drawer header */}
-      <Box sx={{
-        background: 'linear-gradient(135deg, #FF6B9D 0%, #4ECDC4 100%)',
-        color: 'white',
-        p: 2,
-        textAlign: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
-        {/* Decorative elements */}
-        <Box sx={{
-          position: 'absolute',
-          top: -15,
-          right: -15,
-          width: 60,
-          height: 60,
-          borderRadius: '50%',
-          background: 'rgba(255,255,255,0.1)',
-        }} />
-        <Box sx={{
-          position: 'absolute',
-          bottom: -20,
-          left: -20,
-          width: 80,
-          height: 80,
-          borderRadius: '50%',
-          background: 'rgba(255,255,255,0.08)',
-        }} />
-        
+      {/* Header */}
+      <Box
+        sx={{
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          color: 'white',
+          p: 3,
+          textAlign: 'center',
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: -50,
+            right: -50,
+            width: 100,
+            height: 100,
+            background: 'rgba(255, 255, 255, 0.1)',
+            borderRadius: '50%',
+            backdropFilter: 'blur(10px)'
+          }}
+        />
         <Avatar
           sx={{
-            width: 60,
-            height: 60,
+            width: 80,
+            height: 80,
             mx: 'auto',
-            mb: 1.5,
-            background: 'rgba(255,255,255,0.2)',
-            border: '2px solid rgba(255,255,255,0.3)',
-            fontSize: '1.5rem',
-            fontWeight: 'bold',
+            mb: 2,
+            background: 'rgba(255, 255, 255, 0.2)',
+            backdropFilter: 'blur(10px)',
+            border: '2px solid rgba(255, 255, 255, 0.3)'
           }}
         >
-          🎭
+          <StarIcon sx={{ fontSize: 40 }} />
         </Avatar>
-        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 0.5, fontSize: '1.1rem' }}>
+        <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
           Heliopsis
         </Typography>
-        <Typography variant="body2" sx={{ opacity: 0.9, fontSize: '0.8rem' }}>
-          Dance Academy
+        <Typography variant="body2" sx={{ opacity: 0.9 }}>
+          Dance Academy Management
         </Typography>
+        <Chip
+          label="Professional"
+          size="small"
+          sx={{
+            mt: 1,
+            background: 'rgba(255, 255, 255, 0.2)',
+            color: 'white',
+            fontWeight: 600
+          }}
+        />
       </Box>
 
       {/* Navigation */}
-      <Box sx={{ flex: 1, p: 1.5, overflow: 'auto' }}>
-        <List>
-          {navigationItems.map((item) => {
+      <Box sx={{ flexGrow: 1, overflow: 'auto' }}>
+        <List sx={{ p: 2 }}>
+          {menuItems.map((item) => {
             const isActive = location.pathname === item.path;
             return (
-              <ListItem
-                key={item.path}
-                button
-                onClick={() => handleNavigation(item.path)}
-                sx={{
-                  borderRadius: 2,
-                  mb: 0.5,
-                  py: 1,
-                  px: 1.5,
-                  background: isActive ? 'rgba(255, 107, 157, 0.2)' : 'transparent',
-                  border: isActive ? '2px solid #FF6B9D' : '1px solid rgba(255,255,255,0.1)',
-                  '&:hover': {
-                    background: isActive ? 'rgba(255, 107, 157, 0.25)' : 'rgba(255, 255, 255, 0.1)',
-                    border: '1px solid rgba(255,255,255,0.2)',
-                  },
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer',
-                }}
-              >
-                <ListItemIcon sx={{ 
-                  color: isActive ? '#FF6B9D' : 'rgba(255,255,255,0.8)',
-                  minWidth: 35,
-                }}>
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText 
-                  primary={item.label}
+              <ListItem key={item.text} disablePadding sx={{ mb: 1 }}>
+                <ListItemButton
+                  onClick={() => navigate(item.path)}
                   sx={{
-                    '& .MuiTypography-root': {
-                      fontWeight: isActive ? 600 : 500,
-                      color: isActive ? '#FF6B9D' : 'white',
-                      fontSize: '0.9rem',
+                    borderRadius: 2,
+                    background: isActive ? `${item.color}20` : 'transparent',
+                    border: isActive ? `1px solid ${item.color}40` : '1px solid transparent',
+                    '&:hover': {
+                      background: isActive ? `${item.color}30` : 'rgba(0, 0, 0, 0.04)',
+                      transform: 'translateX(4px)',
+                      transition: 'all 0.2s ease-in-out'
+                    },
+                    '&.Mui-selected': {
+                      background: `${item.color}20`,
+                      '&:hover': {
+                        background: `${item.color}30`
+                      }
                     }
                   }}
-                />
-                {item.badge && (
-                  <Badge
-                    badgeContent={item.badge}
-                    color="error"
+                >
+                  <ListItemIcon
                     sx={{
-                      '& .MuiBadge-badge': {
-                        background: '#FF6B9D',
-                        color: 'white',
-                        fontWeight: 'bold',
-                        fontSize: '0.75rem',
+                      color: isActive ? item.color : 'text.secondary',
+                      minWidth: 40
+                    }}
+                  >
+                    <item.icon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.text}
+                    sx={{
+                      '& .MuiListItemText-primary': {
+                        fontWeight: isActive ? 600 : 500,
+                        color: isActive ? 'text.primary' : 'text.secondary'
                       }
                     }}
                   />
-                )}
+                  {isActive && (
+                    <Box
+                      sx={{
+                        width: 4,
+                        height: 20,
+                        background: item.color,
+                        borderRadius: 2,
+                        ml: 1
+                      }}
+                    />
+                  )}
+                </ListItemButton>
               </ListItem>
             );
           })}
         </List>
       </Box>
 
-      {/* Drawer footer */}
-      <Box sx={{ p: 1.5, borderTop: '1px solid rgba(255,255,255,0.2)' }}>
-        <ListItem 
-          button 
-          onClick={handleAccountMenuOpen}
-          sx={{
-            borderRadius: 2,
-            py: 1,
-            px: 1.5,
-            '&:hover': {
-              background: 'rgba(255, 255, 255, 0.1)',
-            },
-            transition: 'all 0.3s ease',
-            cursor: 'pointer',
-          }}
-        >
-          <ListItemIcon sx={{ color: 'rgba(255,255,255,0.8)', minWidth: 35 }}>
-            <AccountIcon />
-          </ListItemIcon>
-          <ListItemText 
-            primary="My Account"
-            sx={{ 
-              '& .MuiTypography-root': { 
-                color: 'white',
-                fontWeight: 500,
-                fontSize: '0.9rem',
-              } 
+      {/* Footer */}
+      <Box sx={{ p: 2, borderTop: '1px solid', borderColor: 'divider' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+          <Avatar
+            sx={{
+              width: 40,
+              height: 40,
+              mr: 2,
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+            }}
+          >
+            <AccountCircleIcon />
+          </Avatar>
+          <Box>
+            <Typography variant="body2" sx={{ fontWeight: 600 }}>
+              Admin User
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              Administrator
+            </Typography>
+          </Box>
+        </Box>
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <Chip
+            label="Online"
+            size="small"
+            sx={{
+              background: 'rgba(16, 185, 129, 0.1)',
+              color: '#10B981',
+              fontWeight: 600
             }}
           />
-        </ListItem>
+          <Chip
+            label="v2.1.0"
+            size="small"
+            variant="outlined"
+            sx={{ fontWeight: 500 }}
+          />
+        </Box>
       </Box>
     </Box>
   );
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-      {/* Enhanced AppBar */}
+    <Box sx={{ display: 'flex' }}>
+      {/* App Bar */}
       <AppBar
         position="fixed"
         sx={{
-          width: { md: `calc(100% - ${drawerWidth}px)` },
-          ml: { md: `${drawerWidth}px` },
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
           background: 'rgba(255, 255, 255, 0.95)',
           backdropFilter: 'blur(20px)',
           borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
-          zIndex: theme.zIndex.drawer + 1,
+          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)',
+          color: 'text.primary'
         }}
       >
-        <Toolbar sx={{ justifyContent: 'space-between', minHeight: '72px !important', px: 3 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 0, flex: 1 }}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ 
-                mr: 2, 
-                display: { md: 'none' },
-                color: 'rgba(0,0,0,0.7)',
-                '&:hover': {
-                  background: 'rgba(102, 126, 234, 0.08)',
-                },
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
-              <Box
-                sx={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 2,
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  mr: 2,
-                  boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)',
-                }}
-              >
-                <HomeIcon sx={{ fontSize: 20, color: 'white' }} />
-              </Box>
-              <Typography 
-                variant="h5" 
-                sx={{ 
-                  fontWeight: 800,
-                  fontSize: { xs: '1.1rem', sm: '1.4rem' },
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                {getPageTitle()}
-              </Typography>
-            </Box>
+        <Toolbar sx={{ minHeight: '70px !important', px: 3 }}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          
+          <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+            <HomeIcon sx={{ mr: 2, color: 'primary.main' }} />
+            <Typography variant="h6" sx={{ fontWeight: 600 }}>
+              {getPageTitle()}
+            </Typography>
           </Box>
 
-          <Box sx={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: { xs: 0.5, sm: 1.5 },
-            flexShrink: 0,
-          }}>
-            <IconButton 
-              color="inherit" 
-              sx={{ 
-                position: 'relative',
-                color: 'rgba(0,0,0,0.7)',
-                '&:hover': {
-                  background: 'rgba(102, 126, 234, 0.08)',
-                  transform: 'scale(1.1)',
-                },
-                transition: 'all 0.2s ease-in-out',
-              }}
-            >
-              <Badge 
-                badgeContent={4} 
-                color="error"
-                sx={{
-                  '& .MuiBadge-badge': {
-                    background: 'linear-gradient(135deg, #ff6b9d 0%, #ff8fb1 100%)',
-                    color: 'white',
-                    fontWeight: 600,
-                  }
-                }}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Tooltip title="Notifications">
+              <IconButton color="inherit">
+                <Badge badgeContent={4} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+            </Tooltip>
+            
+            <Tooltip title="Settings">
+              <IconButton color="inherit">
+                <SettingsIcon />
+              </IconButton>
+            </Tooltip>
+            
+            <Tooltip title="Account">
+              <IconButton
+                color="inherit"
+                onClick={handleMenuOpen}
+                sx={{ ml: 1 }}
               >
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton 
-              color="inherit" 
-              sx={{ 
-                display: { xs: 'none', sm: 'flex' },
-                color: 'rgba(0,0,0,0.7)',
-                '&:hover': {
-                  background: 'rgba(102, 126, 234, 0.08)',
-                  transform: 'scale(1.1)',
-                },
-                transition: 'all 0.2s ease-in-out',
-              }}
-            >
-              <SettingsIcon />
-            </IconButton>
-            <IconButton
-              color="inherit"
-              onClick={handleAccountMenuOpen}
-              sx={{
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                color: 'white',
-                width: 40,
-                height: 40,
-                '&:hover': { 
-                  background: 'linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%)',
-                  transform: 'scale(1.05)',
-                  boxShadow: '0 6px 20px rgba(102, 126, 234, 0.4)',
-                },
-                transition: 'all 0.2s ease-in-out',
-              }}
-            >
-              <AccountIcon />
-            </IconButton>
+                <Avatar
+                  sx={{
+                    width: 36,
+                    height: 36,
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                  }}
+                >
+                  <AccountCircleIcon />
+                </Avatar>
+              </IconButton>
+            </Tooltip>
           </Box>
         </Toolbar>
       </AppBar>
@@ -367,79 +315,86 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       {/* Drawer */}
       <Box
         component="nav"
-        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
       >
         <Drawer
-          variant={isMobile ? 'temporary' : 'permanent'}
-          open={isMobile ? drawerOpen : true}
+          variant="temporary"
+          open={mobileOpen}
           onClose={handleDrawerToggle}
-          ModalProps={{ keepMounted: true }}
+          ModalProps={{
+            keepMounted: true
+          }}
           sx={{
+            display: { xs: 'block', sm: 'none' },
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
-              border: 'none',
-              background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
-              color: 'white',
-              zIndex: theme.zIndex.drawer,
-              overflow: 'hidden',
-            },
+              background: 'linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%)',
+              borderRight: '1px solid rgba(0, 0, 0, 0.06)'
+            }
           }}
+        >
+          {drawer}
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: 'none', sm: 'block' },
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: drawerWidth,
+              background: 'linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%)',
+              borderRight: '1px solid rgba(0, 0, 0, 0.06)'
+            }
+          }}
+          open
         >
           {drawer}
         </Drawer>
       </Box>
 
-      {/* Main content */}
+      {/* Main Content */}
       <Box
         component="main"
         sx={{
           flexGrow: 1,
-          width: { md: `calc(100% - ${drawerWidth}px)` },
-          mt: '64px',
-          background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-          minHeight: 'calc(100vh - 64px)',
-          overflow: 'auto',
-          position: 'relative',
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          mt: '70px',
+          background: '#f8fafc',
+          minHeight: 'calc(100vh - 70px)'
         }}
       >
-        <Box sx={{ 
-          p: { xs: 1, sm: 2, md: 3 },
-          maxWidth: '100%',
-          overflow: 'hidden',
-        }}>
-          {children}
-        </Box>
+        {children}
       </Box>
 
-      {/* Account menu */}
+      {/* Account Menu */}
       <Menu
         anchorEl={anchorEl}
-        open={accountMenuOpen}
-        onClose={handleAccountMenuClose}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
         PaperProps={{
           sx: {
-            borderRadius: 3,
-            mt: 1,
-            minWidth: 200,
-            boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+            borderRadius: 2,
+            boxShadow: '0px 20px 60px rgba(0, 0, 0, 0.15)',
+            minWidth: 200
           }
         }}
       >
-        <MenuItem onClick={handleAccountMenuClose}>
+        <MenuItem onClick={handleMenuClose}>
           <ListItemIcon>
-            <AccountIcon fontSize="small" />
+            <AccountCircleIcon fontSize="small" />
           </ListItemIcon>
           Profile
         </MenuItem>
-        <MenuItem onClick={handleAccountMenuClose}>
+        <MenuItem onClick={handleMenuClose}>
           <ListItemIcon>
             <SettingsIcon fontSize="small" />
           </ListItemIcon>
           Settings
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleAccountMenuClose}>
+        <MenuItem onClick={handleMenuClose}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" />
           </ListItemIcon>

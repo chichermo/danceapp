@@ -27,9 +27,8 @@ import {
   Edit,
   Delete,
   Add,
-  MusicNote
 } from '@mui/icons-material';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 interface TimelineMarker {
   id: string;
@@ -145,15 +144,7 @@ const MusicTimeline: React.FC<MusicTimelineProps> = ({
     }
   };
 
-  const getMarkerColor = (type: string) => {
-    switch (type) {
-      case 'formation': return '#FF6B9D';
-      case 'cue': return '#4ECDC4';
-      case 'highlight': return '#FFD700';
-      case 'note': return '#9C27B0';
-      default: return '#757575';
-    }
-  };
+
 
   const currentProgress = (currentTime / duration) * 100;
 

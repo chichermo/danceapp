@@ -8,7 +8,6 @@ import {
   RotateRight,
   Layers,
   Visibility,
-  VisibilityOff
 } from '@mui/icons-material';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import useTouchGestures from '../hooks/useTouchGestures';
