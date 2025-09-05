@@ -30,13 +30,8 @@ import {
   ArrowForward as ArrowForwardIcon,
   AccessTime as AccessTimeIcon,
   LocationOn as LocationIcon,
-  Star as StarIcon,
-  CheckCircle as CheckCircleIcon,
-  Schedule as ScheduleIcon,
-  Group as GroupIcon,
-  EmojiEvents as EmojiEventsIcon,
   MusicNote as MusicNoteIcon,
-  Videocam as VideocamIcon
+  EmojiEvents as EmojiEventsIcon
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 

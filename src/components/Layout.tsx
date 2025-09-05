@@ -32,11 +32,9 @@ import {
   AccountCircle as AccountCircleIcon,
   Dashboard as DashboardIcon,
   CalendarToday as CalendarIcon,
-  Videocam as VideocamIcon,
   Analytics as AnalyticsIcon,
   Group as GroupIcon,
   EmojiEvents as EmojiEventsIcon,
-  TrendingUp as TrendingUpIcon,
   Star as StarIcon,
   Logout as LogoutIcon
 } from '@mui/icons-material';

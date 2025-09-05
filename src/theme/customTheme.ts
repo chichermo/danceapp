@@ -142,6 +142,7 @@ const customTheme = createTheme({
     '0px 0px 0px rgba(0, 0, 0, 0)',
     '0px 0px 0px rgba(0, 0, 0, 0)',
     '0px 0px 0px rgba(0, 0, 0, 0)',
+    '0px 0px 0px rgba(0, 0, 0, 0)',
   ],
   components: {
     MuiButton: {
@@ -454,5 +455,114 @@ const customTheme = createTheme({
     },
   },
 });
+
+// Tema oscuro
+export const darkTheme = createTheme({
+  ...customTheme,
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#818CF8',
+      light: '#A5B4FC',
+      dark: '#6366F1',
+      contrastText: '#FFFFFF',
+    },
+    secondary: {
+      main: '#F472B6',
+      light: '#F9A8D4',
+      dark: '#EC4899',
+      contrastText: '#FFFFFF',
+    },
+    background: {
+      default: '#0F172A',
+      paper: '#1E293B',
+    },
+    text: {
+      primary: '#F8FAFC',
+      secondary: '#CBD5E1',
+    },
+  },
+});
+
+// Colores específicos para tipos de baile
+export const danceColors = {
+  hiphop: {
+    main: '#FF6B9D',
+    light: '#FF8FB3',
+    dark: '#E91E63',
+  },
+  contemporary: {
+    main: '#4ECDC4',
+    light: '#7DD3D0',
+    dark: '#26A69A',
+  },
+  ballet: {
+    main: '#45B7D1',
+    light: '#6BC5D8',
+    dark: '#1976D2',
+  },
+  jazz: {
+    main: '#96CEB4',
+    light: '#B8DCC6',
+    dark: '#388E3C',
+  },
+  urban: {
+    main: '#FECA57',
+    light: '#FED976',
+    dark: '#F57C00',
+  },
+  latin: {
+    main: '#FF9FF3',
+    light: '#FFB3F0',
+    dark: '#C2185B',
+  },
+};
+
+// Gradientes personalizados
+export const gradients = {
+  primary: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)',
+  secondary: 'linear-gradient(135deg, #EC4899 0%, #F472B6 100%)',
+  success: 'linear-gradient(135deg, #10B981 0%, #34D399 100%)',
+  warning: 'linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%)',
+  dance: 'linear-gradient(135deg, #FF6B9D 0%, #4ECDC4 100%)',
+  sunset: 'linear-gradient(135deg, #FA709A 0%, #FEE140 100%)',
+  ocean: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
+  forest: 'linear-gradient(135deg, #134E5E 0%, #71B280 100%)',
+};
+
+// Sombras personalizadas
+export const shadows = {
+  light: '0px 2px 8px rgba(0, 0, 0, 0.1)',
+  medium: '0px 4px 16px rgba(0, 0, 0, 0.15)',
+  heavy: '0px 8px 32px rgba(0, 0, 0, 0.2)',
+  glow: '0px 0px 20px rgba(99, 102, 241, 0.3)',
+  dance: '0px 4px 20px rgba(255, 107, 157, 0.3)',
+};
+
+// Animaciones personalizadas
+export const animations = {
+  fadeIn: {
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+  },
+  slideUp: {
+    from: { transform: 'translateY(20px)', opacity: 0 },
+    to: { transform: 'translateY(0)', opacity: 1 },
+  },
+  slideDown: {
+    from: { transform: 'translateY(-20px)', opacity: 0 },
+    to: { transform: 'translateY(0)', opacity: 1 },
+  },
+  scaleIn: {
+    from: { transform: 'scale(0.9)', opacity: 0 },
+    to: { transform: 'scale(1)', opacity: 1 },
+  },
+  bounce: {
+    '0%, 20%, 53%, 80%, 100%': { transform: 'translate3d(0,0,0)' },
+    '40%, 43%': { transform: 'translate3d(0, -8px, 0)' },
+    '70%': { transform: 'translate3d(0, -4px, 0)' },
+    '90%': { transform: 'translate3d(0, -2px, 0)' },
+  },
+};
 
 export default customTheme;
