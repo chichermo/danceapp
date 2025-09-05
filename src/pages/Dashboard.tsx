@@ -10,7 +10,6 @@ import {
   Avatar,
   List,
   ListItem,
-  ListItemText,
   ListItemAvatar,
   LinearProgress,
   Container,
@@ -324,61 +323,57 @@ const Dashboard: React.FC<DashboardProps> = () => {
                               <MusicNoteIcon />
                             </Avatar>
                           </ListItemAvatar>
-                          <ListItemText
-                            primary={
+                          <Box sx={{ flexGrow: 1 }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                              <Typography variant="subtitle1" sx={{ fontWeight: 600, flexGrow: 1 }}>
+                                {classItem.name}
+                              </Typography>
+                              <Chip
+                                label={classItem.type}
+                                size="small"
+                                sx={{
+                                  background: `${classItem.color}20`,
+                                  color: classItem.color,
+                                  fontWeight: 600,
+                                  mr: 1
+                                }}
+                              />
+                            </Box>
+                            <Box>
                               <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                                <Typography variant="subtitle1" sx={{ fontWeight: 600, flexGrow: 1 }}>
-                                  {classItem.name}
+                                <AccessTimeIcon sx={{ fontSize: 16, mr: 0.5, color: 'text.secondary' }} />
+                                <Typography variant="body2" color="text.secondary" sx={{ mr: 2 }}>
+                                  {classItem.time}
                                 </Typography>
-                                <Chip
-                                  label={classItem.type}
-                                  size="small"
-                                  sx={{
-                                    background: `${classItem.color}20`,
-                                    color: classItem.color,
-                                    fontWeight: 600,
-                                    mr: 1
-                                  }}
-                                />
+                                <LocationIcon sx={{ fontSize: 16, mr: 0.5, color: 'text.secondary' }} />
+                                <Typography variant="body2" color="text.secondary">
+                                  {classItem.location}
+                                </Typography>
                               </Box>
-                            }
-                            secondary={
-                              <Box>
-                                <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                                  <AccessTimeIcon sx={{ fontSize: 16, mr: 0.5, color: 'text.secondary' }} />
-                                  <Typography variant="body2" color="text.secondary" sx={{ mr: 2 }}>
-                                    {classItem.time}
+                              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <Typography variant="body2" color="text.secondary">
+                                  Coach: {classItem.coach}
+                                </Typography>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                  <Typography variant="body2" color="text.secondary" sx={{ mr: 1 }}>
+                                    {classItem.students}/{classItem.maxStudents} students
                                   </Typography>
-                                  <LocationIcon sx={{ fontSize: 16, mr: 0.5, color: 'text.secondary' }} />
-                                  <Typography variant="body2" color="text.secondary">
-                                    {classItem.location}
-                                  </Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                  <Typography variant="body2" color="text.secondary">
-                                    Coach: {classItem.coach}
-                                  </Typography>
-                                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <Typography variant="body2" color="text.secondary" sx={{ mr: 1 }}>
-                                      {classItem.students}/{classItem.maxStudents} students
-                                    </Typography>
-                                    <LinearProgress
-                                      variant="determinate"
-                                      value={(classItem.students / classItem.maxStudents) * 100}
-                                      sx={{
-                                        width: 60,
-                                        height: 6,
-                                        borderRadius: 3,
-                                        '& .MuiLinearProgress-bar': {
-                                          background: classItem.color
-                                        }
-                                      }}
-                                    />
-                                  </Box>
+                                  <LinearProgress
+                                    variant="determinate"
+                                    value={(classItem.students / classItem.maxStudents) * 100}
+                                    sx={{
+                                      width: 60,
+                                      height: 6,
+                                      borderRadius: 3,
+                                      '& .MuiLinearProgress-bar': {
+                                        background: classItem.color
+                                      }
+                                    }}
+                                  />
                                 </Box>
                               </Box>
-                            }
-                          />
+                            </Box>
+                          </Box>
                         </ListItem>
                         {index < upcomingClasses.length - 1 && (
                           <Divider sx={{ my: 1 }} />
@@ -420,18 +415,14 @@ const Dashboard: React.FC<DashboardProps> = () => {
                               {activity.avatar}
                             </Avatar>
                           </ListItemAvatar>
-                          <ListItemText
-                            primary={
-                              <Typography variant="body2" sx={{ fontWeight: 500, mb: 0.5 }}>
-                                {activity.message}
-                              </Typography>
-                            }
-                            secondary={
-                              <Typography variant="caption" color="text.secondary">
-                                {activity.time}
-                              </Typography>
-                            }
-                          />
+                          <Box sx={{ flexGrow: 1 }}>
+                            <Typography variant="body2" sx={{ fontWeight: 500, mb: 0.5 }}>
+                              {activity.message}
+                            </Typography>
+                            <Typography variant="caption" color="text.secondary">
+                              {activity.time}
+                            </Typography>
+                          </Box>
                         </ListItem>
                         {index < recentActivity.length - 1 && (
                           <Divider sx={{ my: 1 }} />
