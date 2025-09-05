@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Typography,
@@ -13,12 +13,9 @@ import {
   ListItemText,
   ListItemAvatar,
   LinearProgress,
-  IconButton,
   Container,
-  Paper,
   Divider,
-  Badge,
-  Tooltip
+  Badge
 } from '@mui/material';
 import {
   TrendingUp as TrendingUpIcon,
@@ -147,21 +144,31 @@ const Dashboard: React.FC<DashboardProps> = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { 
+      y: 30, 
+      opacity: 0,
+      scale: 0.9,
+    },
     visible: {
       y: 0,
       opacity: 1,
+      scale: 1,
       transition: {
-        duration: 0.5
-      }
-    }
+        type: "spring",
+        stiffness: 120,
+        damping: 20,
+        duration: 0.6,
+      },
+    },
   };
+
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
@@ -191,7 +198,21 @@ const Dashboard: React.FC<DashboardProps> = () => {
         <Grid container spacing={3} sx={{ mb: 4 }}>
           {stats.map((stat, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
-              <motion.div variants={itemVariants}>
+              <motion.div 
+                variants={itemVariants}
+                whileHover={{
+                  y: -12,
+                  scale: 1.03,
+                  transition: {
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 25,
+                  },
+                }}
+                whileTap={{
+                  scale: 0.98,
+                }}
+              >
                 <Card sx={{ 
                   height: '100%',
                   background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%)',

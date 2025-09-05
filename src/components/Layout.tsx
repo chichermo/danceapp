@@ -16,7 +16,6 @@ import {
   Badge,
   Menu,
   MenuItem,
-  Container,
   Chip,
   Tooltip
 } from '@mui/material';
@@ -249,11 +248,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-          background: 'rgba(255, 255, 255, 0.95)',
-          backdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
-          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)',
-          color: 'text.primary'
+          background: 'rgba(255, 255, 255, 0.85)',
+          backdropFilter: 'blur(30px)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: '0px 8px 32px rgba(0, 0, 0, 0.12)',
+          color: 'text.primary',
+          transition: 'all 0.3s ease-in-out',
+          '&:hover': {
+            background: 'rgba(255, 255, 255, 0.95)',
+            boxShadow: '0px 12px 40px rgba(0, 0, 0, 0.15)',
+          },
         }}
       >
         <Toolbar sx={{ minHeight: '70px !important', px: 3 }}>
@@ -327,8 +331,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
-              background: 'linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%)',
-              borderRight: '1px solid rgba(0, 0, 0, 0.06)'
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.9) 100%)',
+              backdropFilter: 'blur(20px)',
+              border: 'none',
+              borderRight: '1px solid rgba(255,255,255,0.2)',
+              boxShadow: '0px 8px 32px rgba(0,0,0,0.1)',
             }
           }}
         >
@@ -341,8 +348,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
-              background: 'linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%)',
-              borderRight: '1px solid rgba(0, 0, 0, 0.06)'
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.9) 100%)',
+              backdropFilter: 'blur(20px)',
+              border: 'none',
+              borderRight: '1px solid rgba(255,255,255,0.2)',
+              boxShadow: '0px 8px 32px rgba(0,0,0,0.1)',
             }
           }}
           open

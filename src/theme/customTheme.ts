@@ -148,34 +148,56 @@ const customTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
-          padding: '10px 24px',
+          borderRadius: 12,
+          padding: '12px 28px',
           fontSize: '0.875rem',
           fontWeight: 600,
           textTransform: 'none',
           boxShadow: 'none',
-          transition: 'all 0.2s ease-in-out',
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          position: 'relative',
+          overflow: 'hidden',
           '&:hover': {
-            transform: 'translateY(-1px)',
-            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
+            transform: 'translateY(-2px)',
+            boxShadow: '0px 8px 25px rgba(0, 0, 0, 0.15)',
+          },
+          '&:active': {
+            transform: 'translateY(0px)',
+            transition: 'all 0.1s ease',
+          },
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: '-100%',
+            width: '100%',
+            height: '100%',
+            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+            transition: 'left 0.5s',
+          },
+          '&:hover::before': {
+            left: '100%',
           },
         },
         contained: {
           background: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)',
           '&:hover': {
             background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)',
+            boxShadow: '0px 12px 30px rgba(99, 102, 241, 0.4)',
           },
         },
         outlined: {
           borderWidth: '2px',
           '&:hover': {
             borderWidth: '2px',
-            transform: 'translateY(-1px)',
+            transform: 'translateY(-2px)',
+            background: 'rgba(99, 102, 241, 0.08)',
           },
         },
         text: {
           '&:hover': {
             background: 'rgba(99, 102, 241, 0.08)',
+            transform: 'translateY(-1px)',
           },
         },
       },
@@ -183,13 +205,33 @@ const customTheme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 16,
-          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)',
-          border: '1px solid rgba(0, 0, 0, 0.04)',
-          transition: 'all 0.3s ease-in-out',
+          borderRadius: 20,
+          boxShadow: '0px 8px 32px rgba(0, 0, 0, 0.08)',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.8) 100%)',
+          backdropFilter: 'blur(20px)',
+          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          position: 'relative',
+          overflow: 'hidden',
           '&:hover': {
-            transform: 'translateY(-2px)',
-            boxShadow: '0px 8px 30px rgba(0, 0, 0, 0.12)',
+            transform: 'translateY(-8px) scale(1.02)',
+            boxShadow: '0px 20px 60px rgba(0, 0, 0, 0.15)',
+            background: 'linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(248,250,252,0.95) 100%)',
+            '&::before': {
+              opacity: 1,
+            },
+          },
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'linear-gradient(135deg, rgba(99,102,241,0.05) 0%, rgba(139,92,246,0.05) 100%)',
+            opacity: 0,
+            transition: 'opacity 0.3s ease',
+            zIndex: 0,
           },
         },
       },
@@ -309,11 +351,34 @@ const customTheme = createTheme({
     MuiIconButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
-          transition: 'all 0.2s ease-in-out',
+          borderRadius: 12,
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          position: 'relative',
+          overflow: 'hidden',
           '&:hover': {
-            transform: 'scale(1.05)',
-            background: 'rgba(99, 102, 241, 0.08)',
+            transform: 'scale(1.1)',
+            background: 'rgba(99, 102, 241, 0.12)',
+            boxShadow: '0px 8px 25px rgba(99, 102, 241, 0.3)',
+          },
+          '&:active': {
+            transform: 'scale(0.95)',
+            transition: 'all 0.1s ease',
+          },
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: 0,
+            height: 0,
+            borderRadius: '50%',
+            background: 'rgba(99, 102, 241, 0.2)',
+            transition: 'all 0.3s ease',
+            transform: 'translate(-50%, -50%)',
+          },
+          '&:hover::before': {
+            width: '100%',
+            height: '100%',
           },
         },
       },

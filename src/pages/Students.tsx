@@ -484,13 +484,34 @@ const Students: React.FC = () => {
                 <Card sx={{ 
                   height: '100%',
                   borderRadius: 3,
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  border: '1px solid rgba(0, 0, 0, 0.06)',
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.9) 100%)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255,255,255,0.3)',
+                  boxShadow: '0px 8px 32px rgba(0,0,0,0.1)',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  position: 'relative',
+                  overflow: 'hidden',
                   '&:hover': {
-                    transform: 'translateY(-8px)',
-                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
-                    border: '1px solid rgba(102, 126, 234, 0.2)',
-                  }
+                    transform: 'translateY(-12px) scale(1.02)',
+                    boxShadow: '0px 24px 60px rgba(0,0,0,0.15)',
+                    background: 'linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(248,250,252,0.95) 100%)',
+                    border: '1px solid rgba(99,102,241,0.3)',
+                    '&::before': {
+                      opacity: 1,
+                    },
+                  },
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(139,92,246,0.08) 100%)',
+                    opacity: 0,
+                    transition: 'opacity 0.3s ease',
+                    zIndex: 0,
+                  },
                 }}>
                   <CardContent sx={{ p: 3 }}>
                     {/* Header with Avatar and Name */}
