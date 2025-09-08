@@ -9,6 +9,7 @@ import Choreography from './pages/Choreography';
 import Students from './pages/Students';
 import Coaches from './pages/Coaches';
 import Classes from './pages/Classes';
+import DanceNotebook from './pages/DanceNotebook';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/students" element={<Students />} />
             <Route path="/coaches" element={<Coaches />} />
             <Route path="/classes" element={<Classes />} />
+            <Route path="/notebook" element={<DanceNotebook />} />
           </Routes>
         </Layout>
       </Box>

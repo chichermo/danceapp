@@ -5,6 +5,7 @@ export interface PersistenceData {
   coaches: any[];
   settings: any;
   lastSaved: string;
+  notes: any[];
 }
 
 class PersistenceService {
@@ -58,7 +59,8 @@ class PersistenceService {
       formations: [],
       coaches: [],
       settings: {},
-      lastSaved: new Date().toISOString()
+      lastSaved: new Date().toISOString(),
+      notes: []
     };
   }
 
@@ -104,6 +106,17 @@ class PersistenceService {
   loadCoaches(): any[] {
     const data = this.loadData();
     return data.coaches || [];
+  }
+
+  // Save notes
+  saveNotes(notes: any[]): void {
+    this.saveData({ notes });
+  }
+
+  // Load notes
+  loadNotes(): any[] {
+    const data = this.loadData();
+    return data.notes || [];
   }
 
   // Save settings

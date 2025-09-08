@@ -35,7 +35,8 @@ import {
   Group as GroupIcon,
   EmojiEvents as EmojiEventsIcon,
   Star as StarIcon,
-  Logout as LogoutIcon
+  Logout as LogoutIcon,
+  Note as NoteIcon
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -58,6 +59,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { text: 'Classes', icon: EventIcon, path: '/classes', color: '#43e97b' },
     { text: 'Calendar', icon: CalendarIcon, path: '/calendar', color: '#fa709a' },
     { text: 'Choreography', icon: MusicNoteIcon, path: '/choreography', color: '#6c5ce7' },
+    { text: 'Dance Notebook', icon: NoteIcon, path: '/notebook', color: '#a29bfe' },
     { text: 'Analytics', icon: AnalyticsIcon, path: '/analytics', color: '#fd79a8' },
     { text: 'Social Feed', icon: GroupIcon, path: '/social', color: '#00b894' },
     { text: 'Performance', icon: EmojiEventsIcon, path: '/performance', color: '#fdcb6e' }
