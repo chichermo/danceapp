@@ -487,7 +487,7 @@ const DanceNotebook: React.FC = () => {
           }}>
             Dance Studio Notebook
           </Typography>
-          <Typography variant="h6" color="text.secondary" sx={{ fontWeight: 400 }}>
+          <Typography variant="h6" color="text.secondary" sx={{ fontWeight: 400 }} component="div">
             Your personal dance documentation and creation workspace
           </Typography>
         </Box>
@@ -574,7 +574,7 @@ const DanceNotebook: React.FC = () => {
           <Grid item xs={12} md={4}>
             <Card sx={{ height: '70vh', overflow: 'auto' }}>
               <CardContent>
-                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }} component="div">
                   Your Notes ({sortedNotes.length})
                 </Typography>
                 <List>
@@ -669,7 +669,7 @@ const DanceNotebook: React.FC = () => {
                   {/* Note Header */}
                   <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                      <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                      <Typography variant="h5" sx={{ fontWeight: 600 }} component="div">
                         {selectedNote.title}
                       </Typography>
                       <Chip
@@ -709,7 +709,7 @@ const DanceNotebook: React.FC = () => {
                     <TabPanel value={selectedTab} index={0}>
                       <Grid container spacing={3}>
                         <Grid item xs={12} md={6}>
-                          <Typography variant="h6" sx={{ mb: 2 }}>Basic Information</Typography>
+                          <Typography variant="h6" sx={{ mb: 2 }} component="div">Basic Information</Typography>
                           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                             <TextField
                               label="Title"
@@ -733,7 +733,7 @@ const DanceNotebook: React.FC = () => {
                           </Box>
                         </Grid>
                         <Grid item xs={12} md={6}>
-                          <Typography variant="h6" sx={{ mb: 2 }}>Statistics</Typography>
+                          <Typography variant="h6" sx={{ mb: 2 }} component="div">Statistics</Typography>
                           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                               <Typography>Practice Count:</Typography>
@@ -768,7 +768,7 @@ const DanceNotebook: React.FC = () => {
 
                     <TabPanel value={selectedTab} index={1}>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                        <Typography variant="h6">Formations ({selectedNote.formations.length})</Typography>
+                        <Typography variant="h6" component="div">Formations ({selectedNote.formations.length})</Typography>
                         <Button
                           variant="contained"
                           startIcon={<AddIcon />}
@@ -796,7 +796,7 @@ const DanceNotebook: React.FC = () => {
                               }
                             }}>
                               <CardContent>
-                                <Typography variant="h6" sx={{ mb: 1 }}>
+                                <Typography variant="h6" sx={{ mb: 1 }} component="div">
                                   {formation.name}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }} component="div">
@@ -814,7 +814,7 @@ const DanceNotebook: React.FC = () => {
 
                     <TabPanel value={selectedTab} index={2}>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                        <Typography variant="h6">Timeline ({selectedNote.timeline.length})</Typography>
+                        <Typography variant="h6" component="div">Timeline ({selectedNote.timeline.length})</Typography>
                         <Button
                           variant="contained"
                           startIcon={<AddIcon />}
@@ -905,7 +905,7 @@ const DanceNotebook: React.FC = () => {
                     </TabPanel>
 
                     <TabPanel value={selectedTab} index={3}>
-                      <Typography variant="h6" sx={{ mb: 2 }}>Notes & Objectives</Typography>
+                      <Typography variant="h6" sx={{ mb: 2 }} component="div">Notes & Objectives</Typography>
                       <TextField
                         fullWidth
                         multiline
@@ -916,7 +916,7 @@ const DanceNotebook: React.FC = () => {
                         disabled={!isEditing}
                         sx={{ mb: 3 }}
                       />
-                      <Typography variant="h6" sx={{ mb: 2 }}>Objectives</Typography>
+                      <Typography variant="h6" sx={{ mb: 2 }} component="div">Objectives</Typography>
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                         {selectedNote.objectives.map((objective, index) => (
                           <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -928,7 +928,7 @@ const DanceNotebook: React.FC = () => {
                     </TabPanel>
 
                     <TabPanel value={selectedTab} index={4}>
-                      <Typography variant="h6" sx={{ mb: 2 }}>Attachments ({selectedNote.attachments.length})</Typography>
+                      <Typography variant="h6" sx={{ mb: 2 }} component="div">Attachments ({selectedNote.attachments.length})</Typography>
                       <Button
                         variant="outlined"
                         startIcon={<UploadIcon />}
@@ -1003,7 +1003,7 @@ const DanceNotebook: React.FC = () => {
               <Card sx={{ height: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <CardContent sx={{ textAlign: 'center' }}>
                   <NoteIcon sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
-                  <Typography variant="h6" color="text.secondary" sx={{ mb: 1 }}>
+                  <Typography variant="h6" color="text.secondary" sx={{ mb: 1 }} component="div">
                     No note selected
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }} component="div">
