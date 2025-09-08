@@ -616,7 +616,7 @@ const DanceNotebook: React.FC = () => {
                         <ListItemText
                           primary={
                             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                              <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                              <Typography variant="subtitle1" sx={{ fontWeight: 600 }} component="div">
                                 {note.title}
                               </Typography>
                               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -631,11 +631,11 @@ const DanceNotebook: React.FC = () => {
                           }
                           secondary={
                             <Box>
-                              <Typography variant="body2" color="text.secondary">
+                              <Typography variant="body2" color="text.secondary" component="div">
                                 {note.instructor && `Instructor: ${note.instructor}`}
                               </Typography>
                               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }}>
-                                <Typography variant="caption" color="text.secondary">
+                                <Typography variant="caption" color="text.secondary" component="div">
                                   {note.practiceCount} practices
                                 </Typography>
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -799,10 +799,10 @@ const DanceNotebook: React.FC = () => {
                                 <Typography variant="h6" sx={{ mb: 1 }}>
                                   {formation.name}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }} component="div">
                                   {formation.timestamp}s - {formation.dancers.length} dancers
                                 </Typography>
-                                <Typography variant="body2">
+                                <Typography variant="body2" component="div">
                                   {formation.notes}
                                 </Typography>
                               </CardContent>
@@ -837,7 +837,7 @@ const DanceNotebook: React.FC = () => {
                             <IconButton onClick={handlePlayPause}>
                               {isPlaying ? <PauseIcon /> : <PlayIcon />}
                             </IconButton>
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" color="text.secondary" component="div">
                               {Math.floor(timelinePosition / 60)}:{(timelinePosition % 60).toString().padStart(2, '0')}
                             </Typography>
                             <Box sx={{ flexGrow: 1 }}>
@@ -855,7 +855,7 @@ const DanceNotebook: React.FC = () => {
                                 }}
                               />
                             </Box>
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" color="text.secondary" component="div">
                               {Math.floor(selectedNote.duration / 60)}:{(selectedNote.duration % 60).toString().padStart(2, '0')}
                             </Typography>
                           </Box>
@@ -883,7 +883,7 @@ const DanceNotebook: React.FC = () => {
                             <ListItemText
                               primary={
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                  <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                                  <Typography variant="subtitle2" sx={{ fontWeight: 600 }} component="div">
                                     {event.content}
                                   </Typography>
                                   <Chip
@@ -894,7 +894,7 @@ const DanceNotebook: React.FC = () => {
                                 </Box>
                               }
                               secondary={
-                                <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'capitalize' }}>
+                                <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'capitalize' }} component="div">
                                   {event.type} event
                                 </Typography>
                               }
@@ -959,8 +959,8 @@ const DanceNotebook: React.FC = () => {
                                      attachment.type === 'audio' ? <MicIcon /> : <AttachIcon />}
                                   </Avatar>
                                   <Box sx={{ flexGrow: 1 }}>
-                                    <Typography variant="subtitle2">{attachment.name}</Typography>
-                                    <Typography variant="caption" color="text.secondary">
+                                    <Typography variant="subtitle2" component="div">{attachment.name}</Typography>
+                                    <Typography variant="caption" color="text.secondary" component="div">
                                       {attachment.type} • {(attachment.size / 1024).toFixed(1)} KB
                                     </Typography>
                                   </Box>
@@ -1006,7 +1006,7 @@ const DanceNotebook: React.FC = () => {
                   <Typography variant="h6" color="text.secondary" sx={{ mb: 1 }}>
                     No note selected
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }} component="div">
                     Choose a note from the list or create a new one to get started
                   </Typography>
                   <Button
